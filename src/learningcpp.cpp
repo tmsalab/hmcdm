@@ -1,5 +1,5 @@
 #include <RcppArmadillo.h>
-// [[Rcpp::depends(RcppArmadillo)]]
+#include <RProgress.h>
 
 using namespace Rcpp;
 
@@ -20,6 +20,7 @@ arma::vec bijectionvector(unsigned int K) {
   return vv;
 }
 
+//' @export
 // [[Rcpp::export]]
 arma::vec inv_bijectionvector(unsigned int K,double CL){
   arma::vec alpha(K);
@@ -70,6 +71,7 @@ arma::mat rwishart(unsigned int df, const arma::mat& S) {
 //' @examples 
 //' #Call with the following data:
 //' riwishart(3, diag(2))
+//' @export
 // [[Rcpp::export]]
 arma::mat rinvwish(unsigned int df, const arma::mat& Sig) {
   return rwishart(df,Sig.i()).i();
@@ -138,6 +140,7 @@ arma::vec rmvnrm(arma::vec mu, arma::mat sigma) {
 //' @return A dichotomous \code{matrix} for Q.
 //' @examples 
 //' random_Q(15,4)
+//' @export
 // [[Rcpp::export]]
 arma::mat random_Q(unsigned int J,unsigned int K) {
   unsigned int nClass = pow(2,K);
@@ -167,6 +170,7 @@ arma::mat random_Q(unsigned int J,unsigned int K) {
 //' @examples 
 //' Q = random_Q(15,4)
 //' ETA = ETAmat(4,15,Q)
+//' @export
 // [[Rcpp::export]]
 arma::mat ETAmat(unsigned int K,unsigned int J,const arma::mat& Q) {
   double nClass = pow(2,K);
@@ -191,6 +195,7 @@ arma::mat ETAmat(unsigned int K,unsigned int J,const arma::mat& Q) {
 //' @return A 2^K-by-2^K dichotomous \code{matrix} of whether it is possible to transition between two patterns 
 //' @examples
 //' TP = TPmat(4)
+//' @export
 // [[Rcpp::export]]
 arma::mat TPmat(unsigned int K){
   double nClass = pow(2,K);
@@ -262,6 +267,7 @@ arma::cube resp_miss(const arma::cube& Responses, const arma::mat& test_order,
 //' @return A J-by-J upper-triangular \code{matrix} of the item pairwise odds ratios
 //' @examples 
 //' OddsRatio(N,J,Y_sim)
+//' @export
 // [[Rcpp::export]]
 arma::mat OddsRatio(unsigned int N,unsigned int J,const arma::mat& Yt){
   arma::mat M2_temp=arma::zeros<arma::mat>(J,J);
@@ -325,6 +331,7 @@ int getMode(arma::vec sorted_vec, int size){
 //' g = runif(J,.1,.2)
 //' alpha_i = c(1,0,0,1)
 //' Y_i = sim_resp_DINA(J,K,ETA,s,g,alpha_i)
+//' @export
 // [[Rcpp::export]]
 arma::vec sim_resp_DINA(unsigned int J, unsigned int K, const arma::mat& ETA,
                         arma::vec& Svec, arma::vec& Gvec,
@@ -360,6 +367,7 @@ arma::vec sim_resp_DINA(unsigned int J, unsigned int K, const arma::mat& ETA,
 //' }
 //' 
 //' Y_sim <- simDINA(Alphas,itempars_true,ETAs,test_order,Test_versions)
+//' @export
 // [[Rcpp::export]]
 arma::cube simDINA(const arma::cube& alphas, const arma::cube& itempars, const arma::cube& ETA,
                    const arma::mat& test_order, const arma::vec& Test_versions){
@@ -431,6 +439,7 @@ double pYit_DINA(const arma::vec& ETA_it,const arma::vec& Y_it, const arma::mat&
 //' }
 //' alpha_i = c(1,0,0,1)
 //' Y_i = sim_resp_rRUM(J,K,Q,r_stars,pi_stars,alpha_i)
+//' @export
 // [[Rcpp::export]]
 arma::vec sim_resp_rRUM(unsigned int J, unsigned int K, const arma::mat& Q,
                         const arma::mat& rstar, const arma::vec& pistar,
@@ -480,6 +489,7 @@ arma::vec sim_resp_rRUM(unsigned int J, unsigned int K, const arma::mat& Q,
 //' Test_versions_sim <- sample(1:5,N,replace = T)
 //' 
 //' Y_sim = simrRUM(Alphas,r_stars,pi_stars,Qs,test_order,Test_versions_sim)
+//' @export
 // [[Rcpp::export]]
 arma::cube simrRUM(const arma::cube& alphas, const arma::cube& r_stars, const arma::mat& pi_stars, 
                    const arma::cube Qs, const arma::mat& test_order, const arma::vec& Test_versions){
@@ -541,6 +551,7 @@ double pYit_rRUM(const arma::vec& alpha_it, const arma::vec& Y_it, const arma::v
 //' Gvec <- runif(K,.1,.3)
 //' alpha_i = c(1,0,0,1)
 //' Y_i = sim_resp_NIDA(J,K,Q,Svec,Gvec,alpha_i)
+//' @export
 // [[Rcpp::export]]
 arma::vec sim_resp_NIDA(const unsigned int J, const unsigned int K, const arma::mat& Q,
                         const arma::vec& Svec, const arma::vec& Gvec,
@@ -582,6 +593,7 @@ arma::vec sim_resp_NIDA(const unsigned int J, const unsigned int K, const arma::
 //' Gvec <- runif(K,.1,.3)
 //' Test_versions_sim <- sample(1:5,N,replace = T)
 //' Y_sim = simNIDA(Alphas,Svec,Gvec,Qs,test_order,Test_versions_sim)
+//' @export
 // [[Rcpp::export]]
 arma::cube simNIDA(const arma::cube& alphas, const arma::vec& Svec, const arma::vec& Gvec, 
                    const arma::cube Qs, const arma::mat& test_order, const arma::vec& Test_versions){
@@ -720,7 +732,9 @@ arma::vec G2vec_efficient(const arma::cube& ETA, const arma::cube& J_incidence, 
 //' RT_itempars_true <- array(NA, dim = c(Jt,2,T))
 //' RT_itempars_true[,2,] <- rnorm(Jt*T,3.45,.5)
 //' RT_itempars_true[,1,] <- runif(Jt*T,1.5,2)
-//' L_sim <- sim_RT(Alphas,RT_itempars_true,Qs,taus_true,phi_true,ETAs,G_version,test_order,Test_versions)
+//' L_sim <- sim_RT(Alphas,RT_itempars_true,Qs,taus_true,phi_true,ETAs,
+//' G_version,test_order,Test_versions)
+//' @export
 // [[Rcpp::export]]
 arma::cube sim_RT(const arma::cube& alphas, const arma::cube& RT_itempars, const arma::cube& Qs,
                   const arma::vec& taus, double phi, const arma::cube ETA, int G_version,
@@ -815,6 +829,7 @@ double dLit(const arma::vec& G_it, const arma::vec& L_it, const arma::mat& RT_it
 //' }
 //' lambdas_true = c(-1, 1.8, .277, .055)
 //' Alphas <- simulate_alphas_HO_sep(lambdas_true,thetas_true,Alphas_0,Q_examinee,T,Jt)
+//' @export
 // [[Rcpp::export]]
 arma::cube simulate_alphas_HO_sep(const arma::vec& lambdas, const arma::vec& thetas, const arma::mat& alpha0s,
                                   const Rcpp::List& Q_examinee, const unsigned int T, const unsigned int Jt){
@@ -912,6 +927,7 @@ double pTran_HO_sep(const arma::vec& alpha_prev, const arma::vec& alpha_post, co
 //' }
 //' lambdas_true <- c(-2, .4, .055)     
 //' Alphas <- simulate_alphas_HO_joint(lambdas_true,thetas_true,Alphas_0,Q_examinee,T,Jt)
+//' @export
 // [[Rcpp::export]]
 arma::cube simulate_alphas_HO_joint(const arma::vec& lambdas, const arma::vec& thetas, const arma::mat& alpha0s,
                                     const Rcpp::List& Q_examinee, const unsigned int T, const unsigned int Jt){
@@ -1015,6 +1031,7 @@ double pTran_HO_joint(const arma::vec& alpha_prev, const arma::vec& alpha_post, 
 //'   }
 //' }
 //' Alphas <- simulate_alphas_indept(tau,Alphas_0,T,R) 
+//' @export
 // [[Rcpp::export]]
 arma::cube simulate_alphas_indept(const arma::vec taus, const arma::mat& alpha0s, const unsigned int T, const arma::mat& R){
   unsigned int K = alpha0s.n_cols;
@@ -1087,6 +1104,7 @@ double pTran_indept(const arma::vec& alpha_prev, const arma::vec& alpha_post, co
 //'   Alphas_0[i,] <- inv_bijectionvector(K,(class_0[i]-1))
 //' }
 //' Alphas <- simulate_alphas_FOHM(Omega_true, Alphas_0,T)
+//' @export
 // [[Rcpp::export]]
 arma::cube simulate_alphas_FOHM(const arma::mat& Omega,const arma::mat& alpha0s,unsigned int T){
   //unsigned int C = Omega.n_cols;
@@ -1147,6 +1165,7 @@ arma::mat rAlpha(const arma::mat& Omega,unsigned int N,unsigned int T,
 //' @examples
 //' TP = TPmat(K)
 //' Omega_sim = rOmega(TP)
+//' @export
 // [[Rcpp::export]]
 arma::mat rOmega(const arma::mat& TP){
   unsigned int C = TP.n_cols;
@@ -1457,7 +1476,7 @@ Rcpp::List Gibbs_DINA_HO(const arma::cube& Response,
       
     }
     if (tt % 100 == 0) {
-      std::cout << tt << std::endl;
+      Rcpp::Rcout << tt << std::endl;
     }
     
   }
@@ -2066,7 +2085,7 @@ Rcpp::List Gibbs_DINA_HO_RT_sep(const arma::cube& Response, const arma::cube& La
       
     }
     if (tt % 100 == 0) {
-      std::cout << tt << std::endl;
+      Rcpp::Rcout << tt << std::endl;
     }
     
   }
@@ -2667,7 +2686,7 @@ Rcpp::List Gibbs_DINA_HO_RT_joint(const arma::cube& Response, const arma::cube& 
       
     }
     if(tt%100==0){
-      std::cout<<tt<<std::endl;
+      Rcpp::Rcout<<tt<<std::endl;
     }
   }
   
@@ -2747,8 +2766,8 @@ void parm_update_rRUM(const unsigned int N, const unsigned int Jt, const unsigne
         }
         X_ijk.tube(i,j_star) = Xij;
       }
-      // std::cout<<aik_nmrtr<<std::endl;
-      // std::cout<<aik_dnmntr<<std::endl;
+      // Rcpp::Rcout<<aik_nmrtr<<std::endl;
+      // Rcpp::Rcout<<aik_dnmntr<<std::endl;
       
       //Update alpha_ikt
       for(unsigned int k=0;k<K;k++){
@@ -2758,18 +2777,18 @@ void parm_update_rRUM(const unsigned int N, const unsigned int Jt, const unsigne
         arma::vec alpha_i_0 = alpha_i;
         alpha_i_0(k) = 0.0;
         c_aik_0 = (arma::conv_to< double >::from( alpha_i_0.t()*bijectionvector(K) ));
-        // std::cout<<alpha_i_1<<std::endl;
-        // std::cout<<alpha_i_0<<std::endl;
+        // Rcpp::Rcout<<alpha_i_1<<std::endl;
+        // Rcpp::Rcout<<alpha_i_0<<std::endl;
         
         // initial time point
         if(t == 0){
           arma::vec alpha_post = alphas.slice(t+1).row(i).t();
           ptranspost_1 = pTran_indept(alpha_i_1,alpha_post,taus,R);
           ptranspost_0 = pTran_indept(alpha_i_0,alpha_post,taus,R);
-          // std::cout<<alpha_post<<std::endl;
+          // Rcpp::Rcout<<alpha_post<<std::endl;
           // 
-          // std::cout<<ptranspost_1<<std::endl;
-          // std::cout<<ptranspost_0<<std::endl;
+          // Rcpp::Rcout<<ptranspost_1<<std::endl;
+          // Rcpp::Rcout<<ptranspost_0<<std::endl;
           aik_nmrtr_k = aik_nmrtr(k)*pi(c_aik_1)*ptranspost_1;
           aik_dnmntr_k = aik_dnmntr(k)*pi(c_aik_0)*ptranspost_0;
           
@@ -2975,7 +2994,7 @@ Rcpp::List Gibbs_rRUM_indept(const arma::cube& Response, const arma::cube& Qs, c
       taus.col(tmburn) = taus_init;
     }
     if(tt%100==0){
-      std::cout<<tt<<std::endl;
+      Rcpp::Rcout<<tt<<std::endl;
     }
   }
   
@@ -3044,8 +3063,8 @@ void parm_update_NIDA_indept(const unsigned int N, const unsigned int Jt, const 
         arma::vec alpha_i_0 = alpha_i;
         alpha_i_0(k) = 0.0;
         c_aik_0 = (arma::conv_to< double >::from( alpha_i_0.t()*bijectionvector(K) ));
-        // std::cout<<alpha_i_1<<std::endl;
-        // std::cout<<alpha_i_0<<std::endl;
+        // Rcpp::Rcout<<alpha_i_1<<std::endl;
+        // Rcpp::Rcout<<alpha_i_0<<std::endl;
         
         // initial time point
         if(t == 0){
@@ -3244,7 +3263,7 @@ Rcpp::List Gibbs_NIDA_indept(const arma::cube& Response, const arma::cube& Qs, c
       taus.col(tmburn) = taus_init;
     }
     if(tt%100==0){
-      std::cout<<tt<<std::endl;
+      Rcpp::Rcout<<tt<<std::endl;
     }
   }
   
@@ -3462,7 +3481,7 @@ Rcpp::List Gibbs_DINA_FOHM(const arma::cube& Y,const arma::mat& Q,
     }
     
     if(t%100==0){
-      std::cout<<t<<std::endl;
+      Rcpp::Rcout<<t<<std::endl;
     }
     
     
@@ -3506,6 +3525,7 @@ Rcpp::List Gibbs_DINA_FOHM(const arma::cube& Y,const arma::mat& Q,
 //' @author Susu Zhang
 //' @examples
 //' output_FOHM = MCMC_learning(Y_sim_list,Q_list,"DINA_FOHM",test_order,Test_versions,10000,5000)
+//' @export
 // [[Rcpp::export]]
 Rcpp::List MCMC_learning(const Rcpp::List Response_list, const Rcpp::List Q_list, 
                           const String model, const arma::mat& test_order, const arma::vec& Test_versions,
@@ -3596,6 +3616,7 @@ Rcpp::List MCMC_learning(const Rcpp::List Response_list, const Rcpp::List Q_list
 //' @author Susu Zhang
 //' @examples
 //' point_estimates = point_estimates_learning(output_FOHM,"DINA_FOHM",N,Jt,K,T,alpha_EAP = T)
+//' @export
 // [[Rcpp::export]]
 Rcpp::List point_estimates_learning(const Rcpp::List output, const String model, const unsigned int N,
                                     const unsigned int Jt, const unsigned int K, const unsigned int T,
@@ -3832,6 +3853,7 @@ Rcpp::List point_estimates_learning(const Rcpp::List output, const String model,
 //' empirical data.
 //' @examples
 //' FOHM_fit <- Learning_fit(output_FOHM,"DINA_FOHM",Y_sim_list,Q_list,test_order,Test_versions)
+//' @export
 // [[Rcpp::export]]
 Rcpp::List Learning_fit(const Rcpp::List output, const String model,
                         const Rcpp::List Response_list, const Rcpp::List Q_list,
@@ -3960,7 +3982,7 @@ Rcpp::List Learning_fit(const Rcpp::List output, const String model,
       item_OR_PP.slice(tt) = OddsRatio(N,Jt*T,Y_sim_collapsed);
       
       if(tt % 1000 == 0){
-        std::cout << tt << std::endl;
+        Rcpp::Rcout << tt << std::endl;
       }
     }
     DIC(0,0) = -2. * arma::mean(d_tran);
@@ -4108,7 +4130,7 @@ Rcpp::List Learning_fit(const Rcpp::List output, const String model,
       RT_mean_PP.col(tt) = arma::mean(L_sim_collapsed,0).t();
       
       if(tt % 1000 == 0){
-        std::cout << tt << std::endl;
+        Rcpp::Rcout << tt << std::endl;
       }
     }
     DIC(0,0) = -2. * arma::mean(d_tran);
@@ -4271,7 +4293,7 @@ Rcpp::List Learning_fit(const Rcpp::List output, const String model,
       
       
       if(tt % 1000 == 0){
-        std::cout << tt << std::endl;
+        Rcpp::Rcout << tt << std::endl;
       }
     }
     DIC(0,0) = -2. * arma::mean(d_tran);
@@ -4391,7 +4413,7 @@ Rcpp::List Learning_fit(const Rcpp::List output, const String model,
       
       
       if(tt % 1000 == 0){
-        std::cout << tt << std::endl;
+        Rcpp::Rcout << tt << std::endl;
       }
     }
     DIC(0,0) = -2. * arma::mean(d_tran);
@@ -4506,7 +4528,7 @@ Rcpp::List Learning_fit(const Rcpp::List output, const String model,
       
       
       if(tt % 1000 == 0){
-        std::cout << tt << std::endl;
+        Rcpp::Rcout << tt << std::endl;
       }
     }
     DIC(0,0) = -2. * arma::mean(d_tran);
