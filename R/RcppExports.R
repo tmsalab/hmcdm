@@ -2,15 +2,16 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 bijectionvector <- function(K) {
-    .Call('_CDMLearning_bijectionvector', PACKAGE = 'CDMLearning', K)
+    .Call(`_CDMLearning_bijectionvector`, K)
 }
 
+#' @export
 inv_bijectionvector <- function(K, CL) {
-    .Call('_CDMLearning_inv_bijectionvector', PACKAGE = 'CDMLearning', K, CL)
+    .Call(`_CDMLearning_inv_bijectionvector`, K, CL)
 }
 
 rwishart <- function(df, S) {
-    .Call('_CDMLearning_rwishart', PACKAGE = 'CDMLearning', df, S)
+    .Call(`_CDMLearning_rwishart`, df, S)
 }
 
 #' @title Generate Random Inverse Wishart Distribution
@@ -22,24 +23,25 @@ rwishart <- function(df, S) {
 #' @examples 
 #' #Call with the following data:
 #' riwishart(3, diag(2))
+#' @export
 rinvwish <- function(df, Sig) {
-    .Call('_CDMLearning_rinvwish', PACKAGE = 'CDMLearning', df, Sig)
+    .Call(`_CDMLearning_rinvwish`, df, Sig)
 }
 
 rmultinomial <- function(ps) {
-    .Call('_CDMLearning_rmultinomial', PACKAGE = 'CDMLearning', ps)
+    .Call(`_CDMLearning_rmultinomial`, ps)
 }
 
 rDirichlet <- function(deltas) {
-    .Call('_CDMLearning_rDirichlet', PACKAGE = 'CDMLearning', deltas)
+    .Call(`_CDMLearning_rDirichlet`, deltas)
 }
 
 dmvnrm <- function(x, mean, sigma, logd = FALSE) {
-    .Call('_CDMLearning_dmvnrm', PACKAGE = 'CDMLearning', x, mean, sigma, logd)
+    .Call(`_CDMLearning_dmvnrm`, x, mean, sigma, logd)
 }
 
 rmvnrm <- function(mu, sigma) {
-    .Call('_CDMLearning_rmvnrm', PACKAGE = 'CDMLearning', mu, sigma)
+    .Call(`_CDMLearning_rmvnrm`, mu, sigma)
 }
 
 #' @title Generate random Q matrix
@@ -49,8 +51,9 @@ rmvnrm <- function(mu, sigma) {
 #' @return A dichotomous \code{matrix} for Q.
 #' @examples 
 #' random_Q(15,4)
+#' @export
 random_Q <- function(J, K) {
-    .Call('_CDMLearning_random_Q', PACKAGE = 'CDMLearning', J, K)
+    .Call(`_CDMLearning_random_Q`, J, K)
 }
 
 #' @title Generate ideal response matrix
@@ -62,8 +65,9 @@ random_Q <- function(J, K) {
 #' @examples 
 #' Q = random_Q(15,4)
 #' ETA = ETAmat(4,15,Q)
+#' @export
 ETAmat <- function(K, J, Q) {
-    .Call('_CDMLearning_ETAmat', PACKAGE = 'CDMLearning', K, J, Q)
+    .Call(`_CDMLearning_ETAmat`, K, J, Q)
 }
 
 #' @title Generate monotonicity matrix
@@ -73,16 +77,17 @@ ETAmat <- function(K, J, Q) {
 #' @return A 2^K-by-2^K dichotomous \code{matrix} of whether it is possible to transition between two patterns 
 #' @examples
 #' TP = TPmat(4)
+#' @export
 TPmat <- function(K) {
-    .Call('_CDMLearning_TPmat', PACKAGE = 'CDMLearning', K)
+    .Call(`_CDMLearning_TPmat`, K)
 }
 
 crosstab <- function(V1, V2, TP, nClass, col_dim) {
-    .Call('_CDMLearning_crosstab', PACKAGE = 'CDMLearning', V1, V2, TP, nClass, col_dim)
+    .Call(`_CDMLearning_crosstab`, V1, V2, TP, nClass, col_dim)
 }
 
 resp_miss <- function(Responses, test_order, Test_versions) {
-    .Call('_CDMLearning_resp_miss', PACKAGE = 'CDMLearning', Responses, test_order, Test_versions)
+    .Call(`_CDMLearning_resp_miss`, Responses, test_order, Test_versions)
 }
 
 #' @title Compute item pairwise odds ratio
@@ -94,12 +99,13 @@ resp_miss <- function(Responses, test_order, Test_versions) {
 #' @return A J-by-J upper-triangular \code{matrix} of the item pairwise odds ratios
 #' @examples 
 #' OddsRatio(N,J,Y_sim)
+#' @export
 OddsRatio <- function(N, J, Yt) {
-    .Call('_CDMLearning_OddsRatio', PACKAGE = 'CDMLearning', N, J, Yt)
+    .Call(`_CDMLearning_OddsRatio`, N, J, Yt)
 }
 
 getMode <- function(sorted_vec, size) {
-    .Call('_CDMLearning_getMode', PACKAGE = 'CDMLearning', sorted_vec, size)
+    .Call(`_CDMLearning_getMode`, sorted_vec, size)
 }
 
 #' @title Simulate DINA model responses (single vector)
@@ -120,8 +126,9 @@ getMode <- function(sorted_vec, size) {
 #' g = runif(J,.1,.2)
 #' alpha_i = c(1,0,0,1)
 #' Y_i = sim_resp_DINA(J,K,ETA,s,g,alpha_i)
+#' @export
 sim_resp_DINA <- function(J, K, ETA, Svec, Gvec, alpha) {
-    .Call('_CDMLearning_sim_resp_DINA', PACKAGE = 'CDMLearning', J, K, ETA, Svec, Gvec, alpha)
+    .Call(`_CDMLearning_sim_resp_DINA`, J, K, ETA, Svec, Gvec, alpha)
 }
 
 #' @title Simulate DINA model responses (entire cube)
@@ -141,12 +148,13 @@ sim_resp_DINA <- function(J, K, ETA, Svec, Gvec, alpha) {
 #' }
 #' 
 #' Y_sim <- simDINA(Alphas,itempars_true,ETAs,test_order,Test_versions)
+#' @export
 simDINA <- function(alphas, itempars, ETA, test_order, Test_versions) {
-    .Call('_CDMLearning_simDINA', PACKAGE = 'CDMLearning', alphas, itempars, ETA, test_order, Test_versions)
+    .Call(`_CDMLearning_simDINA`, alphas, itempars, ETA, test_order, Test_versions)
 }
 
 pYit_DINA <- function(ETA_it, Y_it, itempars) {
-    .Call('_CDMLearning_pYit_DINA', PACKAGE = 'CDMLearning', ETA_it, Y_it, itempars)
+    .Call(`_CDMLearning_pYit_DINA`, ETA_it, Y_it, itempars)
 }
 
 #' @title Simulate rRUM model responses (single vector)
@@ -172,8 +180,9 @@ pYit_DINA <- function(ETA_it, Y_it, itempars) {
 #' }
 #' alpha_i = c(1,0,0,1)
 #' Y_i = sim_resp_rRUM(J,K,Q,r_stars,pi_stars,alpha_i)
+#' @export
 sim_resp_rRUM <- function(J, K, Q, rstar, pistar, alpha) {
-    .Call('_CDMLearning_sim_resp_rRUM', PACKAGE = 'CDMLearning', J, K, Q, rstar, pistar, alpha)
+    .Call(`_CDMLearning_sim_resp_rRUM`, J, K, Q, rstar, pistar, alpha)
 }
 
 #' @title Simulate rRUM model responses (entire cube)
@@ -198,12 +207,13 @@ sim_resp_rRUM <- function(J, K, Q, rstar, pistar, alpha) {
 #' Test_versions_sim <- sample(1:5,N,replace = T)
 #' 
 #' Y_sim = simrRUM(Alphas,r_stars,pi_stars,Qs,test_order,Test_versions_sim)
+#' @export
 simrRUM <- function(alphas, r_stars, pi_stars, Qs, test_order, Test_versions) {
-    .Call('_CDMLearning_simrRUM', PACKAGE = 'CDMLearning', alphas, r_stars, pi_stars, Qs, test_order, Test_versions)
+    .Call(`_CDMLearning_simrRUM`, alphas, r_stars, pi_stars, Qs, test_order, Test_versions)
 }
 
 pYit_rRUM <- function(alpha_it, Y_it, pi_star_it, r_star_it, Q_it) {
-    .Call('_CDMLearning_pYit_rRUM', PACKAGE = 'CDMLearning', alpha_it, Y_it, pi_star_it, r_star_it, Q_it)
+    .Call(`_CDMLearning_pYit_rRUM`, alpha_it, Y_it, pi_star_it, r_star_it, Q_it)
 }
 
 #' @title Simulate NIDA model responses (single vector)
@@ -223,8 +233,9 @@ pYit_rRUM <- function(alpha_it, Y_it, pi_star_it, r_star_it, Q_it) {
 #' Gvec <- runif(K,.1,.3)
 #' alpha_i = c(1,0,0,1)
 #' Y_i = sim_resp_NIDA(J,K,Q,Svec,Gvec,alpha_i)
+#' @export
 sim_resp_NIDA <- function(J, K, Q, Svec, Gvec, alpha) {
-    .Call('_CDMLearning_sim_resp_NIDA', PACKAGE = 'CDMLearning', J, K, Q, Svec, Gvec, alpha)
+    .Call(`_CDMLearning_sim_resp_NIDA`, J, K, Q, Svec, Gvec, alpha)
 }
 
 #' @title Simulate NIDA model responses (entire cube)
@@ -242,20 +253,21 @@ sim_resp_NIDA <- function(J, K, Q, Svec, Gvec, alpha) {
 #' Gvec <- runif(K,.1,.3)
 #' Test_versions_sim <- sample(1:5,N,replace = T)
 #' Y_sim = simNIDA(Alphas,Svec,Gvec,Qs,test_order,Test_versions_sim)
+#' @export
 simNIDA <- function(alphas, Svec, Gvec, Qs, test_order, Test_versions) {
-    .Call('_CDMLearning_simNIDA', PACKAGE = 'CDMLearning', alphas, Svec, Gvec, Qs, test_order, Test_versions)
+    .Call(`_CDMLearning_simNIDA`, alphas, Svec, Gvec, Qs, test_order, Test_versions)
 }
 
 pYit_NIDA <- function(alpha_it, Y_it, Svec, Gvec, Q_it) {
-    .Call('_CDMLearning_pYit_NIDA', PACKAGE = 'CDMLearning', alpha_it, Y_it, Svec, Gvec, Q_it)
+    .Call(`_CDMLearning_pYit_NIDA`, alpha_it, Y_it, Svec, Gvec, Q_it)
 }
 
 J_incidence_cube <- function(test_order, Qs) {
-    .Call('_CDMLearning_J_incidence_cube', PACKAGE = 'CDMLearning', test_order, Qs)
+    .Call(`_CDMLearning_J_incidence_cube`, test_order, Qs)
 }
 
 G2vec_efficient <- function(ETA, J_incidence, alphas_i, test_version_i, test_order, t) {
-    .Call('_CDMLearning_G2vec_efficient', PACKAGE = 'CDMLearning', ETA, J_incidence, alphas_i, test_version_i, test_order, t)
+    .Call(`_CDMLearning_G2vec_efficient`, ETA, J_incidence, alphas_i, test_version_i, test_order, t)
 }
 
 #' @title Simulate item response times based on Wang et al.'s (2018) joint model of response times and accuracy in learning
@@ -291,13 +303,15 @@ G2vec_efficient <- function(ETA, J_incidence, alphas_i, test_version_i, test_ord
 #' RT_itempars_true <- array(NA, dim = c(Jt,2,T))
 #' RT_itempars_true[,2,] <- rnorm(Jt*T,3.45,.5)
 #' RT_itempars_true[,1,] <- runif(Jt*T,1.5,2)
-#' L_sim <- sim_RT(Alphas,RT_itempars_true,Qs,taus_true,phi_true,ETAs,G_version,test_order,Test_versions)
+#' L_sim <- sim_RT(Alphas,RT_itempars_true,Qs,taus_true,phi_true,ETAs,
+#' G_version,test_order,Test_versions)
+#' @export
 sim_RT <- function(alphas, RT_itempars, Qs, taus, phi, ETA, G_version, test_order, Test_versions) {
-    .Call('_CDMLearning_sim_RT', PACKAGE = 'CDMLearning', alphas, RT_itempars, Qs, taus, phi, ETA, G_version, test_order, Test_versions)
+    .Call(`_CDMLearning_sim_RT`, alphas, RT_itempars, Qs, taus, phi, ETA, G_version, test_order, Test_versions)
 }
 
 dLit <- function(G_it, L_it, RT_itempars_it, tau_i, phi) {
-    .Call('_CDMLearning_dLit', PACKAGE = 'CDMLearning', G_it, L_it, RT_itempars_it, tau_i, phi)
+    .Call(`_CDMLearning_dLit`, G_it, L_it, RT_itempars_it, tau_i, phi)
 }
 
 #' @title Generate attribute trajectories under the Higher-Order Hidden Markov DCM
@@ -323,12 +337,13 @@ dLit <- function(G_it, L_it, RT_itempars_it, tau_i, phi) {
 #' }
 #' lambdas_true = c(-1, 1.8, .277, .055)
 #' Alphas <- simulate_alphas_HO_sep(lambdas_true,thetas_true,Alphas_0,Q_examinee,T,Jt)
+#' @export
 simulate_alphas_HO_sep <- function(lambdas, thetas, alpha0s, Q_examinee, T, Jt) {
-    .Call('_CDMLearning_simulate_alphas_HO_sep', PACKAGE = 'CDMLearning', lambdas, thetas, alpha0s, Q_examinee, T, Jt)
+    .Call(`_CDMLearning_simulate_alphas_HO_sep`, lambdas, thetas, alpha0s, Q_examinee, T, Jt)
 }
 
 pTran_HO_sep <- function(alpha_prev, alpha_post, lambdas, theta_i, Q_i, Jt, t) {
-    .Call('_CDMLearning_pTran_HO_sep', PACKAGE = 'CDMLearning', alpha_prev, alpha_post, lambdas, theta_i, Q_i, Jt, t)
+    .Call(`_CDMLearning_pTran_HO_sep`, alpha_prev, alpha_post, lambdas, theta_i, Q_i, Jt, t)
 }
 
 #' @title Generate attribute trajectories under the Higher-Order Hidden Markov DCM with latent learning ability as a random effect
@@ -357,12 +372,13 @@ pTran_HO_sep <- function(alpha_prev, alpha_post, lambdas, theta_i, Q_i, Jt, t) {
 #' }
 #' lambdas_true <- c(-2, .4, .055)     
 #' Alphas <- simulate_alphas_HO_joint(lambdas_true,thetas_true,Alphas_0,Q_examinee,T,Jt)
+#' @export
 simulate_alphas_HO_joint <- function(lambdas, thetas, alpha0s, Q_examinee, T, Jt) {
-    .Call('_CDMLearning_simulate_alphas_HO_joint', PACKAGE = 'CDMLearning', lambdas, thetas, alpha0s, Q_examinee, T, Jt)
+    .Call(`_CDMLearning_simulate_alphas_HO_joint`, lambdas, thetas, alpha0s, Q_examinee, T, Jt)
 }
 
 pTran_HO_joint <- function(alpha_prev, alpha_post, lambdas, theta_i, Q_i, Jt, t) {
-    .Call('_CDMLearning_pTran_HO_joint', PACKAGE = 'CDMLearning', alpha_prev, alpha_post, lambdas, theta_i, Q_i, Jt, t)
+    .Call(`_CDMLearning_pTran_HO_joint`, alpha_prev, alpha_post, lambdas, theta_i, Q_i, Jt, t)
 }
 
 #' @title Generate attribute trajectories under the simple independent-attribute learning model
@@ -395,12 +411,13 @@ pTran_HO_joint <- function(alpha_prev, alpha_post, lambdas, theta_i, Q_i, Jt, t)
 #'   }
 #' }
 #' Alphas <- simulate_alphas_indept(tau,Alphas_0,T,R) 
+#' @export
 simulate_alphas_indept <- function(taus, alpha0s, T, R) {
-    .Call('_CDMLearning_simulate_alphas_indept', PACKAGE = 'CDMLearning', taus, alpha0s, T, R)
+    .Call(`_CDMLearning_simulate_alphas_indept`, taus, alpha0s, T, R)
 }
 
 pTran_indept <- function(alpha_prev, alpha_post, taus, R) {
-    .Call('_CDMLearning_pTran_indept', PACKAGE = 'CDMLearning', alpha_prev, alpha_post, taus, R)
+    .Call(`_CDMLearning_pTran_indept`, alpha_prev, alpha_post, taus, R)
 }
 
 #' @title Generate attribute trajectories under the first order hidden Markov model
@@ -419,12 +436,13 @@ pTran_indept <- function(alpha_prev, alpha_post, taus, R) {
 #'   Alphas_0[i,] <- inv_bijectionvector(K,(class_0[i]-1))
 #' }
 #' Alphas <- simulate_alphas_FOHM(Omega_true, Alphas_0,T)
+#' @export
 simulate_alphas_FOHM <- function(Omega, alpha0s, T) {
-    .Call('_CDMLearning_simulate_alphas_FOHM', PACKAGE = 'CDMLearning', Omega, alpha0s, T)
+    .Call(`_CDMLearning_simulate_alphas_FOHM`, Omega, alpha0s, T)
 }
 
 rAlpha <- function(Omega, N, T, alpha1) {
-    .Call('_CDMLearning_rAlpha', PACKAGE = 'CDMLearning', Omega, N, T, alpha1)
+    .Call(`_CDMLearning_rAlpha`, Omega, N, T, alpha1)
 }
 
 #' @title Generate a random transition matrix for the first order hidden Markov model
@@ -434,56 +452,57 @@ rAlpha <- function(Omega, N, T, alpha1) {
 #' @examples
 #' TP = TPmat(K)
 #' Omega_sim = rOmega(TP)
+#' @export
 rOmega <- function(TP) {
-    .Call('_CDMLearning_rOmega', PACKAGE = 'CDMLearning', TP)
+    .Call(`_CDMLearning_rOmega`, TP)
 }
 
 parm_update_HO <- function(N, Jt, K, T, alphas, pi, lambdas, thetas, response, itempars, Qs, Q_examinee, test_order, Test_versions, theta_propose, deltas_propose) {
-    .Call('_CDMLearning_parm_update_HO', PACKAGE = 'CDMLearning', N, Jt, K, T, alphas, pi, lambdas, thetas, response, itempars, Qs, Q_examinee, test_order, Test_versions, theta_propose, deltas_propose)
+    .Call(`_CDMLearning_parm_update_HO`, N, Jt, K, T, alphas, pi, lambdas, thetas, response, itempars, Qs, Q_examinee, test_order, Test_versions, theta_propose, deltas_propose)
 }
 
 Gibbs_DINA_HO <- function(Response, Qs, Q_examinee, test_order, Test_versions, theta_propose, deltas_propose, chain_length, burn_in) {
-    .Call('_CDMLearning_Gibbs_DINA_HO', PACKAGE = 'CDMLearning', Response, Qs, Q_examinee, test_order, Test_versions, theta_propose, deltas_propose, chain_length, burn_in)
+    .Call(`_CDMLearning_Gibbs_DINA_HO`, Response, Qs, Q_examinee, test_order, Test_versions, theta_propose, deltas_propose, chain_length, burn_in)
 }
 
 parm_update_HO_RT_sep <- function(N, Jt, K, T, alphas, pi, lambdas, thetas, latency, RT_itempars, taus, phi_vec, tauvar, response, itempars, Qs, Q_examinee, test_order, Test_versions, G_version, theta_propose, a_sigma_tau0, rate_sigma_tau0, deltas_propose, a_alpha0, rate_alpha0) {
-    .Call('_CDMLearning_parm_update_HO_RT_sep', PACKAGE = 'CDMLearning', N, Jt, K, T, alphas, pi, lambdas, thetas, latency, RT_itempars, taus, phi_vec, tauvar, response, itempars, Qs, Q_examinee, test_order, Test_versions, G_version, theta_propose, a_sigma_tau0, rate_sigma_tau0, deltas_propose, a_alpha0, rate_alpha0)
+    .Call(`_CDMLearning_parm_update_HO_RT_sep`, N, Jt, K, T, alphas, pi, lambdas, thetas, latency, RT_itempars, taus, phi_vec, tauvar, response, itempars, Qs, Q_examinee, test_order, Test_versions, G_version, theta_propose, a_sigma_tau0, rate_sigma_tau0, deltas_propose, a_alpha0, rate_alpha0)
 }
 
 Gibbs_DINA_HO_RT_sep <- function(Response, Latency, Qs, Q_examinee, test_order, Test_versions, G_version, theta_propose, deltas_propose, chain_length, burn_in) {
-    .Call('_CDMLearning_Gibbs_DINA_HO_RT_sep', PACKAGE = 'CDMLearning', Response, Latency, Qs, Q_examinee, test_order, Test_versions, G_version, theta_propose, deltas_propose, chain_length, burn_in)
+    .Call(`_CDMLearning_Gibbs_DINA_HO_RT_sep`, Response, Latency, Qs, Q_examinee, test_order, Test_versions, G_version, theta_propose, deltas_propose, chain_length, burn_in)
 }
 
 parm_update_HO_RT_joint <- function(N, Jt, K, T, alphas, pi, lambdas, thetas, latency, RT_itempars, taus, phi_vec, Sig, response, itempars, Qs, Q_examinee, test_order, Test_versions, G_version, sig_theta_propose, S, p, deltas_propose, a_alpha0, rate_alpha0) {
-    .Call('_CDMLearning_parm_update_HO_RT_joint', PACKAGE = 'CDMLearning', N, Jt, K, T, alphas, pi, lambdas, thetas, latency, RT_itempars, taus, phi_vec, Sig, response, itempars, Qs, Q_examinee, test_order, Test_versions, G_version, sig_theta_propose, S, p, deltas_propose, a_alpha0, rate_alpha0)
+    .Call(`_CDMLearning_parm_update_HO_RT_joint`, N, Jt, K, T, alphas, pi, lambdas, thetas, latency, RT_itempars, taus, phi_vec, Sig, response, itempars, Qs, Q_examinee, test_order, Test_versions, G_version, sig_theta_propose, S, p, deltas_propose, a_alpha0, rate_alpha0)
 }
 
 Gibbs_DINA_HO_RT_joint <- function(Response, Latency, Qs, Q_examinee, test_order, Test_versions, G_version, sig_theta_propose, deltas_propose, chain_length, burn_in) {
-    .Call('_CDMLearning_Gibbs_DINA_HO_RT_joint', PACKAGE = 'CDMLearning', Response, Latency, Qs, Q_examinee, test_order, Test_versions, G_version, sig_theta_propose, deltas_propose, chain_length, burn_in)
+    .Call(`_CDMLearning_Gibbs_DINA_HO_RT_joint`, Response, Latency, Qs, Q_examinee, test_order, Test_versions, G_version, sig_theta_propose, deltas_propose, chain_length, burn_in)
 }
 
 parm_update_rRUM <- function(N, Jt, K, T, alphas, pi, taus, R, r_stars, pi_stars, Qs, responses, X_ijk, Smats, Gmats, test_order, Test_versions, dirich_prior) {
-    invisible(.Call('_CDMLearning_parm_update_rRUM', PACKAGE = 'CDMLearning', N, Jt, K, T, alphas, pi, taus, R, r_stars, pi_stars, Qs, responses, X_ijk, Smats, Gmats, test_order, Test_versions, dirich_prior))
+    invisible(.Call(`_CDMLearning_parm_update_rRUM`, N, Jt, K, T, alphas, pi, taus, R, r_stars, pi_stars, Qs, responses, X_ijk, Smats, Gmats, test_order, Test_versions, dirich_prior))
 }
 
 Gibbs_rRUM_indept <- function(Response, Qs, R, test_order, Test_versions, chain_length, burn_in) {
-    .Call('_CDMLearning_Gibbs_rRUM_indept', PACKAGE = 'CDMLearning', Response, Qs, R, test_order, Test_versions, chain_length, burn_in)
+    .Call(`_CDMLearning_Gibbs_rRUM_indept`, Response, Qs, R, test_order, Test_versions, chain_length, burn_in)
 }
 
 parm_update_NIDA_indept <- function(N, Jt, K, T, alphas, pi, taus, R, Qs, responses, X_ijk, Smats, Gmats, test_order, Test_versions, dirich_prior) {
-    invisible(.Call('_CDMLearning_parm_update_NIDA_indept', PACKAGE = 'CDMLearning', N, Jt, K, T, alphas, pi, taus, R, Qs, responses, X_ijk, Smats, Gmats, test_order, Test_versions, dirich_prior))
+    invisible(.Call(`_CDMLearning_parm_update_NIDA_indept`, N, Jt, K, T, alphas, pi, taus, R, Qs, responses, X_ijk, Smats, Gmats, test_order, Test_versions, dirich_prior))
 }
 
 Gibbs_NIDA_indept <- function(Response, Qs, R, test_order, Test_versions, chain_length, burn_in) {
-    .Call('_CDMLearning_Gibbs_NIDA_indept', PACKAGE = 'CDMLearning', Response, Qs, R, test_order, Test_versions, chain_length, burn_in)
+    .Call(`_CDMLearning_Gibbs_NIDA_indept`, Response, Qs, R, test_order, Test_versions, chain_length, burn_in)
 }
 
 parm_update_DINA_FOHM <- function(N, J, K, nClass, nT, Y, TP, ETA, ss, gs, CLASS, pi, Omega) {
-    invisible(.Call('_CDMLearning_parm_update_DINA_FOHM', PACKAGE = 'CDMLearning', N, J, K, nClass, nT, Y, TP, ETA, ss, gs, CLASS, pi, Omega))
+    invisible(.Call(`_CDMLearning_parm_update_DINA_FOHM`, N, J, K, nClass, nT, Y, TP, ETA, ss, gs, CLASS, pi, Omega))
 }
 
 Gibbs_DINA_FOHM <- function(Y, Q, burnin, chain_length) {
-    .Call('_CDMLearning_Gibbs_DINA_FOHM', PACKAGE = 'CDMLearning', Y, Q, burnin, chain_length)
+    .Call(`_CDMLearning_Gibbs_DINA_FOHM`, Y, Q, burnin, chain_length)
 }
 
 #' @title Gibbs sampler for learning models
@@ -515,8 +534,9 @@ Gibbs_DINA_FOHM <- function(Y, Q, burnin, chain_length) {
 #' @author Susu Zhang
 #' @examples
 #' output_FOHM = MCMC_learning(Y_sim_list,Q_list,"DINA_FOHM",test_order,Test_versions,10000,5000)
+#' @export
 MCMC_learning <- function(Response_list, Q_list, model, test_order, Test_versions, chain_length, burn_in, Q_examinee = NULL, Latency_list = NULL, G_version = NA_integer_, theta_propose = 0., deltas_propose = NULL, R = NULL) {
-    .Call('_CDMLearning_MCMC_learning', PACKAGE = 'CDMLearning', Response_list, Q_list, model, test_order, Test_versions, chain_length, burn_in, Q_examinee, Latency_list, G_version, theta_propose, deltas_propose, R)
+    .Call(`_CDMLearning_MCMC_learning`, Response_list, Q_list, model, test_order, Test_versions, chain_length, burn_in, Q_examinee, Latency_list, G_version, theta_propose, deltas_propose, R)
 }
 
 #' @title Obtain learning model point estimates
@@ -541,8 +561,9 @@ MCMC_learning <- function(Response_list, Q_list, model, test_order, Test_version
 #' @author Susu Zhang
 #' @examples
 #' point_estimates = point_estimates_learning(output_FOHM,"DINA_FOHM",N,Jt,K,T,alpha_EAP = T)
+#' @export
 point_estimates_learning <- function(output, model, N, Jt, K, T, alpha_EAP = TRUE) {
-    .Call('_CDMLearning_point_estimates_learning', PACKAGE = 'CDMLearning', output, model, N, Jt, K, T, alpha_EAP)
+    .Call(`_CDMLearning_point_estimates_learning`, output, model, N, Jt, K, T, alpha_EAP)
 }
 
 #' @title Model fit statistics of learning models
@@ -574,7 +595,8 @@ point_estimates_learning <- function(output, model, N, Jt, K, T, alpha_EAP = TRU
 #' empirical data.
 #' @examples
 #' FOHM_fit <- Learning_fit(output_FOHM,"DINA_FOHM",Y_sim_list,Q_list,test_order,Test_versions)
+#' @export
 Learning_fit <- function(output, model, Response_list, Q_list, test_order, Test_versions, Q_examinee = NULL, Latency_list = NULL, G_version = NA_integer_, R = NULL) {
-    .Call('_CDMLearning_Learning_fit', PACKAGE = 'CDMLearning', output, model, Response_list, Q_list, test_order, Test_versions, Q_examinee, Latency_list, G_version, R)
+    .Call(`_CDMLearning_Learning_fit`, output, model, Response_list, Q_list, test_order, Test_versions, Q_examinee, Latency_list, G_version, R)
 }
 
