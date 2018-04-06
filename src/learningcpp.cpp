@@ -11,6 +11,8 @@ using namespace Rcpp;
 // Functions for generating random numbers or generic functions for CDM (e.g., Q matrix, ETA, bijection, etc.)
 // ---------------------------------------------------------------------------------------------------------------
 
+
+
 // [[Rcpp::export]]
 arma::vec bijectionvector(unsigned int K) {
   arma::vec vv(K);
@@ -1475,10 +1477,10 @@ Rcpp::List Gibbs_DINA_HO(const arma::cube& Response,
       
       
     }
-    if (tt % 100 == 0) {
+    
+    if (tt % 1000 == 0) {
       Rcpp::Rcout << tt << std::endl;
     }
-    
   }
   return Rcpp::List::create(Rcpp::Named("trajectories",Trajectories),
                             Rcpp::Named("ss",ss),
@@ -2084,7 +2086,7 @@ Rcpp::List Gibbs_DINA_HO_RT_sep(const arma::cube& Response, const arma::cube& La
       
       
     }
-    if (tt % 100 == 0) {
+    if (tt % 1000 == 0) {
       Rcpp::Rcout << tt << std::endl;
     }
     
@@ -2685,7 +2687,7 @@ Rcpp::List Gibbs_DINA_HO_RT_joint(const arma::cube& Response, const arma::cube& 
       
       
     }
-    if(tt%100==0){
+    if(tt%1000==0){
       Rcpp::Rcout<<tt<<std::endl;
     }
   }
@@ -2993,7 +2995,7 @@ Rcpp::List Gibbs_rRUM_indept(const arma::cube& Response, const arma::cube& Qs, c
       pis.col(tmburn) = pi_init;
       taus.col(tmburn) = taus_init;
     }
-    if(tt%100==0){
+    if(tt%1000==0){
       Rcpp::Rcout<<tt<<std::endl;
     }
   }
@@ -3262,7 +3264,7 @@ Rcpp::List Gibbs_NIDA_indept(const arma::cube& Response, const arma::cube& Qs, c
       pis.col(tmburn) = pi_init;
       taus.col(tmburn) = taus_init;
     }
-    if(tt%100==0){
+    if(tt%1000==0){
       Rcpp::Rcout<<tt<<std::endl;
     }
   }
@@ -3480,7 +3482,7 @@ Rcpp::List Gibbs_DINA_FOHM(const arma::cube& Y,const arma::mat& Q,
       Trajectories.col(tmburn) = Trajectories_mat * vvp;
     }
     
-    if(t%100==0){
+    if(t%1000==0){
       Rcpp::Rcout<<t<<std::endl;
     }
     
@@ -3980,10 +3982,6 @@ Rcpp::List Learning_fit(const Rcpp::List output, const String model,
       // Posterior predictive
       item_mean_PP.col(tt) = arma::mean(Y_sim_collapsed,0).t();
       item_OR_PP.slice(tt) = OddsRatio(N,Jt*T,Y_sim_collapsed);
-      
-      if(tt % 1000 == 0){
-        Rcpp::Rcout << tt << std::endl;
-      }
     }
     DIC(0,0) = -2. * arma::mean(d_tran);
     DIC(0,1) = -2. * arma::mean(d_time);
@@ -4129,9 +4127,7 @@ Rcpp::List Learning_fit(const Rcpp::List output, const String model,
       item_OR_PP.slice(tt) = OddsRatio(N,Jt*T,Y_sim_collapsed);
       RT_mean_PP.col(tt) = arma::mean(L_sim_collapsed,0).t();
       
-      if(tt % 1000 == 0){
-        Rcpp::Rcout << tt << std::endl;
-      }
+
     }
     DIC(0,0) = -2. * arma::mean(d_tran);
     DIC(0,1) = -2. * arma::mean(d_time);
@@ -4291,10 +4287,7 @@ Rcpp::List Learning_fit(const Rcpp::List output, const String model,
       item_OR_PP.slice(tt) = OddsRatio(N,Jt*T,Y_sim_collapsed);
       RT_mean_PP.col(tt) = arma::mean(L_sim_collapsed,0).t();
       
-      
-      if(tt % 1000 == 0){
-        Rcpp::Rcout << tt << std::endl;
-      }
+
     }
     DIC(0,0) = -2. * arma::mean(d_tran);
     DIC(0,1) = -2. * arma::mean(d_time);
@@ -4411,10 +4404,6 @@ Rcpp::List Learning_fit(const Rcpp::List output, const String model,
       item_mean_PP.col(tt) = arma::mean(Y_sim_collapsed,0).t();
       item_OR_PP.slice(tt) = OddsRatio(N,Jt*T,Y_sim_collapsed);
       
-      
-      if(tt % 1000 == 0){
-        Rcpp::Rcout << tt << std::endl;
-      }
     }
     DIC(0,0) = -2. * arma::mean(d_tran);
     DIC(0,1) = -2. * arma::mean(d_time);
@@ -4525,11 +4514,7 @@ Rcpp::List Learning_fit(const Rcpp::List output, const String model,
       // Posterior predictive
       item_mean_PP.col(tt) = arma::mean(Y_sim_collapsed,0).t();
       item_OR_PP.slice(tt) = OddsRatio(N,Jt*T,Y_sim_collapsed);
-      
-      
-      if(tt % 1000 == 0){
-        Rcpp::Rcout << tt << std::endl;
-      }
+
     }
     DIC(0,0) = -2. * arma::mean(d_tran);
     DIC(0,1) = -2. * arma::mean(d_time);
