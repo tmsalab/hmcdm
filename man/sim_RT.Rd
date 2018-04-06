@@ -53,5 +53,6 @@ Alphas <- simulate_alphas_HO_joint(lambdas_true,thetas_true,Alphas_0,Q_examinee,
 RT_itempars_true <- array(NA, dim = c(Jt,2,T))
 RT_itempars_true[,2,] <- rnorm(Jt*T,3.45,.5)
 RT_itempars_true[,1,] <- runif(Jt*T,1.5,2)
-L_sim <- sim_RT(Alphas,RT_itempars_true,Qs,taus_true,phi_true,ETAs,G_version,test_order,Test_versions)
+L_sim <- sim_RT(Alphas,RT_itempars_true,Qs,taus_true,phi_true,ETAs,
+G_version,test_order,Test_versions)
 }
