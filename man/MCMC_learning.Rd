@@ -53,7 +53,9 @@ A \code{list} of parameter samples and Metropolis-Hastings acceptance rates (if 
 Runs MCMC to estimate parameters of any of the listed learning models.
 }
 \examples{
-output_FOHM = MCMC_learning(Y_sim_list,Q_list,"DINA_FOHM",test_order,Test_versions,10000,5000)
+\donttest{
+output_FOHM = MCMC_learning(Y_real_list,Q_list,"DINA_FOHM",test_order,Test_versions,10000,5000)
+}
 }
 \author{
 Susu Zhang

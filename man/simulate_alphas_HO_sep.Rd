@@ -30,7 +30,6 @@ Based on the initial attribute patterns and learning model parameters, create cu
 of all subjects across time. General learning ability is regarded as a fixed effect and has a slope.
 }
 \examples{
-data("Spatial_Rotation")
 class_0 <- sample(1:2^K, N, replace = T)
 Alphas_0 <- matrix(0,N,K)
 thetas_true = rnorm(N)

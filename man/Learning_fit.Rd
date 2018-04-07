@@ -50,5 +50,8 @@ Obtain joint model's deviance information criteria (DIC) and posterior predictiv
 item odds ratios, subject total scores at each time point, and subject total response times at each time point.
 }
 \examples{
-FOHM_fit <- Learning_fit(output_FOHM,"DINA_FOHM",Y_sim_list,Q_list,test_order,Test_versions)
+\donttest{
+output_FOHM = MCMC_learning(Y_real_list,Q_list,"DINA_FOHM",test_order,Test_versions,10000,5000)
+FOHM_fit <- Learning_fit(output_FOHM,"DINA_FOHM",Y_real_list,Q_list,test_order,Test_versions)
+}
 }

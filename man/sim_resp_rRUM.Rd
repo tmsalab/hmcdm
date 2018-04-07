@@ -26,13 +26,13 @@ A length J \code{vector} of item responses
 Simulate a single vector of rRUM responses for a person on a set of items
 }
 \examples{
-J = 10
+J = 15
 K = 4
 Q = random_Q(J,K)
-Smats <- matrix(runif(Jt*K,.1,.3),Jt,K)
-Gmats <- matrix(runif(Jt*K,.1,.3),Jt,K)
-r_stars <- matrix(NA,Jt,K)
-pi_stars <- numeric(Jt)
+Smats <- matrix(runif(J*K,.1,.3),J,K)
+Gmats <- matrix(runif(J*K,.1,.3),J,K)
+r_stars <- matrix(NA,J,K)
+pi_stars <- numeric(J)
 for(t in 1:T){
   pi_stars <- apply(((1-Smats)^Q),1,prod)
   r_stars <- Gmats/(1-Smats)

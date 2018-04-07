@@ -30,6 +30,20 @@ ETAs <- array(NA,dim = c(Jt,2^K,T))
 for(t in 1:T){
   ETAs[,,t] <- ETAmat(K,Jt,Q_list[[t]])
 }
-
+class_0 <- sample(1:2^K, N, replace = T)
+Alphas_0 <- matrix(0,N,K)
+mu_thetatau = c(0,0)
+Sig_thetatau = rbind(c(1.8^2,.4*.5*1.8),c(.4*.5*1.8,.25))
+Z = matrix(rnorm(N*2),N,2)
+thetatau_true = Z\%*\%chol(Sig_thetatau)
+thetas_true = thetatau_true[,1]
+taus_true = thetatau_true[,2]
+G_version = 3
+phi_true = 0.8
+for(i in 1:N){
+  Alphas_0[i,] <- inv_bijectionvector(K,(class_0[i]-1))
+}
+lambdas_true <- c(-2, .4, .055)     
+Alphas <- simulate_alphas_HO_joint(lambdas_true,thetas_true,Alphas_0,Q_examinee,T,Jt)
 Y_sim <- simDINA(Alphas,itempars_true,ETAs,test_order,Test_versions)
 }

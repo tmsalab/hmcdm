@@ -26,7 +26,7 @@ A length J \code{vector} of item responses
 Simulate a single vector of NIDA responses for a person on a set of items
 }
 \examples{
-J = 10
+J = 15
 K = 4
 Q = random_Q(J,K)
 Svec <- runif(K,.1,.3)

@@ -26,9 +26,28 @@ An \code{array} of NIDA item responses of examinees across all time points
 Simulate a cube of NIDA responses for all persons on items across all time points
 }
 \examples{
-data("Spatial_Rotation")
 Svec <- runif(K,.1,.3)
 Gvec <- runif(K,.1,.3)
 Test_versions_sim <- sample(1:5,N,replace = T)
+tau <- numeric(K)
+  for(k in 1:K){
+    tau[k] <- runif(1,.2,.6)
+  }
+  R = matrix(0,K,K)
+# Initial alphas
+    p_mastery <- c(.5,.5,.4,.4)
+    Alphas_0 <- matrix(0,N,K)
+    for(i in 1:N){
+      for(k in 1:K){
+        prereqs <- which(R[k,]==1)
+        if(length(prereqs)==0){
+          Alphas_0[i,k] <- rbinom(1,1,p_mastery[k])
+        }
+        if(length(prereqs)>0){
+          Alphas_0[i,k] <- prod(Alphas_0[i,prereqs])*rbinom(1,1,p_mastery)
+        }
+      }
+    }
+   Alphas <- simulate_alphas_indept(tau,Alphas_0,T,R) 
 Y_sim = simNIDA(Alphas,Svec,Gvec,Qs,test_order,Test_versions_sim)
 }

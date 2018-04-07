@@ -19,7 +19,7 @@ Creates a random inverse wishart distribution when given degrees of freedom and 
 }
 \examples{
 #Call with the following data:
-riwishart(3, diag(2))
+rinvwish(3, diag(2))
 }
 \author{
 James J Balamuta

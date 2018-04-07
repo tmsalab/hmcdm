@@ -37,7 +37,10 @@ Obtain EAPs of continuous parameters and EAP or MAP of the attribute trajectory 
 the CDM learning models based on the MCMC output
 }
 \examples{
+\donttest{
+output_FOHM = MCMC_learning(Y_real_list,Q_list,"DINA_FOHM",test_order,Test_versions,10000,5000)
 point_estimates = point_estimates_learning(output_FOHM,"DINA_FOHM",N,Jt,K,T,alpha_EAP = T)
+}
 }
 \author{
 Susu Zhang

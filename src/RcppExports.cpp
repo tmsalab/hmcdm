@@ -8,7 +8,7 @@ using namespace Rcpp;
 
 // bijectionvector
 arma::vec bijectionvector(unsigned int K);
-RcppExport SEXP _CDMLearning_bijectionvector(SEXP KSEXP) {
+RcppExport SEXP _hmcdm_bijectionvector(SEXP KSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -19,7 +19,7 @@ END_RCPP
 }
 // inv_bijectionvector
 arma::vec inv_bijectionvector(unsigned int K, double CL);
-RcppExport SEXP _CDMLearning_inv_bijectionvector(SEXP KSEXP, SEXP CLSEXP) {
+RcppExport SEXP _hmcdm_inv_bijectionvector(SEXP KSEXP, SEXP CLSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -31,7 +31,7 @@ END_RCPP
 }
 // rwishart
 arma::mat rwishart(unsigned int df, const arma::mat& S);
-RcppExport SEXP _CDMLearning_rwishart(SEXP dfSEXP, SEXP SSEXP) {
+RcppExport SEXP _hmcdm_rwishart(SEXP dfSEXP, SEXP SSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -43,7 +43,7 @@ END_RCPP
 }
 // rinvwish
 arma::mat rinvwish(unsigned int df, const arma::mat& Sig);
-RcppExport SEXP _CDMLearning_rinvwish(SEXP dfSEXP, SEXP SigSEXP) {
+RcppExport SEXP _hmcdm_rinvwish(SEXP dfSEXP, SEXP SigSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -55,7 +55,7 @@ END_RCPP
 }
 // rmultinomial
 double rmultinomial(const arma::vec& ps);
-RcppExport SEXP _CDMLearning_rmultinomial(SEXP psSEXP) {
+RcppExport SEXP _hmcdm_rmultinomial(SEXP psSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -66,7 +66,7 @@ END_RCPP
 }
 // rDirichlet
 arma::vec rDirichlet(const arma::vec& deltas);
-RcppExport SEXP _CDMLearning_rDirichlet(SEXP deltasSEXP) {
+RcppExport SEXP _hmcdm_rDirichlet(SEXP deltasSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -77,7 +77,7 @@ END_RCPP
 }
 // dmvnrm
 double dmvnrm(arma::vec x, arma::vec mean, arma::mat sigma, bool logd);
-RcppExport SEXP _CDMLearning_dmvnrm(SEXP xSEXP, SEXP meanSEXP, SEXP sigmaSEXP, SEXP logdSEXP) {
+RcppExport SEXP _hmcdm_dmvnrm(SEXP xSEXP, SEXP meanSEXP, SEXP sigmaSEXP, SEXP logdSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -91,7 +91,7 @@ END_RCPP
 }
 // rmvnrm
 arma::vec rmvnrm(arma::vec mu, arma::mat sigma);
-RcppExport SEXP _CDMLearning_rmvnrm(SEXP muSEXP, SEXP sigmaSEXP) {
+RcppExport SEXP _hmcdm_rmvnrm(SEXP muSEXP, SEXP sigmaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -103,7 +103,7 @@ END_RCPP
 }
 // random_Q
 arma::mat random_Q(unsigned int J, unsigned int K);
-RcppExport SEXP _CDMLearning_random_Q(SEXP JSEXP, SEXP KSEXP) {
+RcppExport SEXP _hmcdm_random_Q(SEXP JSEXP, SEXP KSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -115,7 +115,7 @@ END_RCPP
 }
 // ETAmat
 arma::mat ETAmat(unsigned int K, unsigned int J, const arma::mat& Q);
-RcppExport SEXP _CDMLearning_ETAmat(SEXP KSEXP, SEXP JSEXP, SEXP QSEXP) {
+RcppExport SEXP _hmcdm_ETAmat(SEXP KSEXP, SEXP JSEXP, SEXP QSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -128,7 +128,7 @@ END_RCPP
 }
 // TPmat
 arma::mat TPmat(unsigned int K);
-RcppExport SEXP _CDMLearning_TPmat(SEXP KSEXP) {
+RcppExport SEXP _hmcdm_TPmat(SEXP KSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -139,7 +139,7 @@ END_RCPP
 }
 // crosstab
 arma::mat crosstab(const arma::vec& V1, const arma::vec& V2, const arma::mat& TP, unsigned int nClass, unsigned int col_dim);
-RcppExport SEXP _CDMLearning_crosstab(SEXP V1SEXP, SEXP V2SEXP, SEXP TPSEXP, SEXP nClassSEXP, SEXP col_dimSEXP) {
+RcppExport SEXP _hmcdm_crosstab(SEXP V1SEXP, SEXP V2SEXP, SEXP TPSEXP, SEXP nClassSEXP, SEXP col_dimSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -154,7 +154,7 @@ END_RCPP
 }
 // resp_miss
 arma::cube resp_miss(const arma::cube& Responses, const arma::mat& test_order, const arma::vec& Test_versions);
-RcppExport SEXP _CDMLearning_resp_miss(SEXP ResponsesSEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP) {
+RcppExport SEXP _hmcdm_resp_miss(SEXP ResponsesSEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -167,7 +167,7 @@ END_RCPP
 }
 // OddsRatio
 arma::mat OddsRatio(unsigned int N, unsigned int J, const arma::mat& Yt);
-RcppExport SEXP _CDMLearning_OddsRatio(SEXP NSEXP, SEXP JSEXP, SEXP YtSEXP) {
+RcppExport SEXP _hmcdm_OddsRatio(SEXP NSEXP, SEXP JSEXP, SEXP YtSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -180,7 +180,7 @@ END_RCPP
 }
 // getMode
 int getMode(arma::vec sorted_vec, int size);
-RcppExport SEXP _CDMLearning_getMode(SEXP sorted_vecSEXP, SEXP sizeSEXP) {
+RcppExport SEXP _hmcdm_getMode(SEXP sorted_vecSEXP, SEXP sizeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -192,7 +192,7 @@ END_RCPP
 }
 // sim_resp_DINA
 arma::vec sim_resp_DINA(unsigned int J, unsigned int K, const arma::mat& ETA, arma::vec& Svec, arma::vec& Gvec, arma::vec& alpha);
-RcppExport SEXP _CDMLearning_sim_resp_DINA(SEXP JSEXP, SEXP KSEXP, SEXP ETASEXP, SEXP SvecSEXP, SEXP GvecSEXP, SEXP alphaSEXP) {
+RcppExport SEXP _hmcdm_sim_resp_DINA(SEXP JSEXP, SEXP KSEXP, SEXP ETASEXP, SEXP SvecSEXP, SEXP GvecSEXP, SEXP alphaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -208,7 +208,7 @@ END_RCPP
 }
 // simDINA
 arma::cube simDINA(const arma::cube& alphas, const arma::cube& itempars, const arma::cube& ETA, const arma::mat& test_order, const arma::vec& Test_versions);
-RcppExport SEXP _CDMLearning_simDINA(SEXP alphasSEXP, SEXP itemparsSEXP, SEXP ETASEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP) {
+RcppExport SEXP _hmcdm_simDINA(SEXP alphasSEXP, SEXP itemparsSEXP, SEXP ETASEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -223,7 +223,7 @@ END_RCPP
 }
 // pYit_DINA
 double pYit_DINA(const arma::vec& ETA_it, const arma::vec& Y_it, const arma::mat& itempars);
-RcppExport SEXP _CDMLearning_pYit_DINA(SEXP ETA_itSEXP, SEXP Y_itSEXP, SEXP itemparsSEXP) {
+RcppExport SEXP _hmcdm_pYit_DINA(SEXP ETA_itSEXP, SEXP Y_itSEXP, SEXP itemparsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -236,7 +236,7 @@ END_RCPP
 }
 // sim_resp_rRUM
 arma::vec sim_resp_rRUM(unsigned int J, unsigned int K, const arma::mat& Q, const arma::mat& rstar, const arma::vec& pistar, const arma::vec& alpha);
-RcppExport SEXP _CDMLearning_sim_resp_rRUM(SEXP JSEXP, SEXP KSEXP, SEXP QSEXP, SEXP rstarSEXP, SEXP pistarSEXP, SEXP alphaSEXP) {
+RcppExport SEXP _hmcdm_sim_resp_rRUM(SEXP JSEXP, SEXP KSEXP, SEXP QSEXP, SEXP rstarSEXP, SEXP pistarSEXP, SEXP alphaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -252,7 +252,7 @@ END_RCPP
 }
 // simrRUM
 arma::cube simrRUM(const arma::cube& alphas, const arma::cube& r_stars, const arma::mat& pi_stars, const arma::cube Qs, const arma::mat& test_order, const arma::vec& Test_versions);
-RcppExport SEXP _CDMLearning_simrRUM(SEXP alphasSEXP, SEXP r_starsSEXP, SEXP pi_starsSEXP, SEXP QsSEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP) {
+RcppExport SEXP _hmcdm_simrRUM(SEXP alphasSEXP, SEXP r_starsSEXP, SEXP pi_starsSEXP, SEXP QsSEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -268,7 +268,7 @@ END_RCPP
 }
 // pYit_rRUM
 double pYit_rRUM(const arma::vec& alpha_it, const arma::vec& Y_it, const arma::vec& pi_star_it, const arma::mat& r_star_it, const arma::mat& Q_it);
-RcppExport SEXP _CDMLearning_pYit_rRUM(SEXP alpha_itSEXP, SEXP Y_itSEXP, SEXP pi_star_itSEXP, SEXP r_star_itSEXP, SEXP Q_itSEXP) {
+RcppExport SEXP _hmcdm_pYit_rRUM(SEXP alpha_itSEXP, SEXP Y_itSEXP, SEXP pi_star_itSEXP, SEXP r_star_itSEXP, SEXP Q_itSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -283,7 +283,7 @@ END_RCPP
 }
 // sim_resp_NIDA
 arma::vec sim_resp_NIDA(const unsigned int J, const unsigned int K, const arma::mat& Q, const arma::vec& Svec, const arma::vec& Gvec, const arma::vec& alpha);
-RcppExport SEXP _CDMLearning_sim_resp_NIDA(SEXP JSEXP, SEXP KSEXP, SEXP QSEXP, SEXP SvecSEXP, SEXP GvecSEXP, SEXP alphaSEXP) {
+RcppExport SEXP _hmcdm_sim_resp_NIDA(SEXP JSEXP, SEXP KSEXP, SEXP QSEXP, SEXP SvecSEXP, SEXP GvecSEXP, SEXP alphaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -299,7 +299,7 @@ END_RCPP
 }
 // simNIDA
 arma::cube simNIDA(const arma::cube& alphas, const arma::vec& Svec, const arma::vec& Gvec, const arma::cube Qs, const arma::mat& test_order, const arma::vec& Test_versions);
-RcppExport SEXP _CDMLearning_simNIDA(SEXP alphasSEXP, SEXP SvecSEXP, SEXP GvecSEXP, SEXP QsSEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP) {
+RcppExport SEXP _hmcdm_simNIDA(SEXP alphasSEXP, SEXP SvecSEXP, SEXP GvecSEXP, SEXP QsSEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -315,7 +315,7 @@ END_RCPP
 }
 // pYit_NIDA
 double pYit_NIDA(const arma::vec& alpha_it, const arma::vec& Y_it, const arma::vec& Svec, const arma::vec& Gvec, const arma::mat& Q_it);
-RcppExport SEXP _CDMLearning_pYit_NIDA(SEXP alpha_itSEXP, SEXP Y_itSEXP, SEXP SvecSEXP, SEXP GvecSEXP, SEXP Q_itSEXP) {
+RcppExport SEXP _hmcdm_pYit_NIDA(SEXP alpha_itSEXP, SEXP Y_itSEXP, SEXP SvecSEXP, SEXP GvecSEXP, SEXP Q_itSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -330,7 +330,7 @@ END_RCPP
 }
 // J_incidence_cube
 arma::cube J_incidence_cube(const arma::mat& test_order, const arma::cube& Qs);
-RcppExport SEXP _CDMLearning_J_incidence_cube(SEXP test_orderSEXP, SEXP QsSEXP) {
+RcppExport SEXP _hmcdm_J_incidence_cube(SEXP test_orderSEXP, SEXP QsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -342,7 +342,7 @@ END_RCPP
 }
 // G2vec_efficient
 arma::vec G2vec_efficient(const arma::cube& ETA, const arma::cube& J_incidence, const arma::cube& alphas_i, int test_version_i, const arma::mat test_order, unsigned int t);
-RcppExport SEXP _CDMLearning_G2vec_efficient(SEXP ETASEXP, SEXP J_incidenceSEXP, SEXP alphas_iSEXP, SEXP test_version_iSEXP, SEXP test_orderSEXP, SEXP tSEXP) {
+RcppExport SEXP _hmcdm_G2vec_efficient(SEXP ETASEXP, SEXP J_incidenceSEXP, SEXP alphas_iSEXP, SEXP test_version_iSEXP, SEXP test_orderSEXP, SEXP tSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -358,7 +358,7 @@ END_RCPP
 }
 // sim_RT
 arma::cube sim_RT(const arma::cube& alphas, const arma::cube& RT_itempars, const arma::cube& Qs, const arma::vec& taus, double phi, const arma::cube ETA, int G_version, const arma::mat& test_order, arma::vec Test_versions);
-RcppExport SEXP _CDMLearning_sim_RT(SEXP alphasSEXP, SEXP RT_itemparsSEXP, SEXP QsSEXP, SEXP tausSEXP, SEXP phiSEXP, SEXP ETASEXP, SEXP G_versionSEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP) {
+RcppExport SEXP _hmcdm_sim_RT(SEXP alphasSEXP, SEXP RT_itemparsSEXP, SEXP QsSEXP, SEXP tausSEXP, SEXP phiSEXP, SEXP ETASEXP, SEXP G_versionSEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -377,7 +377,7 @@ END_RCPP
 }
 // dLit
 double dLit(const arma::vec& G_it, const arma::vec& L_it, const arma::mat& RT_itempars_it, double tau_i, double phi);
-RcppExport SEXP _CDMLearning_dLit(SEXP G_itSEXP, SEXP L_itSEXP, SEXP RT_itempars_itSEXP, SEXP tau_iSEXP, SEXP phiSEXP) {
+RcppExport SEXP _hmcdm_dLit(SEXP G_itSEXP, SEXP L_itSEXP, SEXP RT_itempars_itSEXP, SEXP tau_iSEXP, SEXP phiSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -392,7 +392,7 @@ END_RCPP
 }
 // simulate_alphas_HO_sep
 arma::cube simulate_alphas_HO_sep(const arma::vec& lambdas, const arma::vec& thetas, const arma::mat& alpha0s, const Rcpp::List& Q_examinee, const unsigned int T, const unsigned int Jt);
-RcppExport SEXP _CDMLearning_simulate_alphas_HO_sep(SEXP lambdasSEXP, SEXP thetasSEXP, SEXP alpha0sSEXP, SEXP Q_examineeSEXP, SEXP TSEXP, SEXP JtSEXP) {
+RcppExport SEXP _hmcdm_simulate_alphas_HO_sep(SEXP lambdasSEXP, SEXP thetasSEXP, SEXP alpha0sSEXP, SEXP Q_examineeSEXP, SEXP TSEXP, SEXP JtSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -408,7 +408,7 @@ END_RCPP
 }
 // pTran_HO_sep
 double pTran_HO_sep(const arma::vec& alpha_prev, const arma::vec& alpha_post, const arma::vec& lambdas, double theta_i, const arma::mat& Q_i, unsigned int Jt, unsigned int t);
-RcppExport SEXP _CDMLearning_pTran_HO_sep(SEXP alpha_prevSEXP, SEXP alpha_postSEXP, SEXP lambdasSEXP, SEXP theta_iSEXP, SEXP Q_iSEXP, SEXP JtSEXP, SEXP tSEXP) {
+RcppExport SEXP _hmcdm_pTran_HO_sep(SEXP alpha_prevSEXP, SEXP alpha_postSEXP, SEXP lambdasSEXP, SEXP theta_iSEXP, SEXP Q_iSEXP, SEXP JtSEXP, SEXP tSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -425,7 +425,7 @@ END_RCPP
 }
 // simulate_alphas_HO_joint
 arma::cube simulate_alphas_HO_joint(const arma::vec& lambdas, const arma::vec& thetas, const arma::mat& alpha0s, const Rcpp::List& Q_examinee, const unsigned int T, const unsigned int Jt);
-RcppExport SEXP _CDMLearning_simulate_alphas_HO_joint(SEXP lambdasSEXP, SEXP thetasSEXP, SEXP alpha0sSEXP, SEXP Q_examineeSEXP, SEXP TSEXP, SEXP JtSEXP) {
+RcppExport SEXP _hmcdm_simulate_alphas_HO_joint(SEXP lambdasSEXP, SEXP thetasSEXP, SEXP alpha0sSEXP, SEXP Q_examineeSEXP, SEXP TSEXP, SEXP JtSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -441,7 +441,7 @@ END_RCPP
 }
 // pTran_HO_joint
 double pTran_HO_joint(const arma::vec& alpha_prev, const arma::vec& alpha_post, const arma::vec& lambdas, double theta_i, const arma::mat& Q_i, unsigned int Jt, unsigned int t);
-RcppExport SEXP _CDMLearning_pTran_HO_joint(SEXP alpha_prevSEXP, SEXP alpha_postSEXP, SEXP lambdasSEXP, SEXP theta_iSEXP, SEXP Q_iSEXP, SEXP JtSEXP, SEXP tSEXP) {
+RcppExport SEXP _hmcdm_pTran_HO_joint(SEXP alpha_prevSEXP, SEXP alpha_postSEXP, SEXP lambdasSEXP, SEXP theta_iSEXP, SEXP Q_iSEXP, SEXP JtSEXP, SEXP tSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -458,7 +458,7 @@ END_RCPP
 }
 // simulate_alphas_indept
 arma::cube simulate_alphas_indept(const arma::vec taus, const arma::mat& alpha0s, const unsigned int T, const arma::mat& R);
-RcppExport SEXP _CDMLearning_simulate_alphas_indept(SEXP tausSEXP, SEXP alpha0sSEXP, SEXP TSEXP, SEXP RSEXP) {
+RcppExport SEXP _hmcdm_simulate_alphas_indept(SEXP tausSEXP, SEXP alpha0sSEXP, SEXP TSEXP, SEXP RSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -472,7 +472,7 @@ END_RCPP
 }
 // pTran_indept
 double pTran_indept(const arma::vec& alpha_prev, const arma::vec& alpha_post, const arma::vec& taus, const arma::mat& R);
-RcppExport SEXP _CDMLearning_pTran_indept(SEXP alpha_prevSEXP, SEXP alpha_postSEXP, SEXP tausSEXP, SEXP RSEXP) {
+RcppExport SEXP _hmcdm_pTran_indept(SEXP alpha_prevSEXP, SEXP alpha_postSEXP, SEXP tausSEXP, SEXP RSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -486,7 +486,7 @@ END_RCPP
 }
 // simulate_alphas_FOHM
 arma::cube simulate_alphas_FOHM(const arma::mat& Omega, const arma::mat& alpha0s, unsigned int T);
-RcppExport SEXP _CDMLearning_simulate_alphas_FOHM(SEXP OmegaSEXP, SEXP alpha0sSEXP, SEXP TSEXP) {
+RcppExport SEXP _hmcdm_simulate_alphas_FOHM(SEXP OmegaSEXP, SEXP alpha0sSEXP, SEXP TSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -499,7 +499,7 @@ END_RCPP
 }
 // rAlpha
 arma::mat rAlpha(const arma::mat& Omega, unsigned int N, unsigned int T, const arma::vec& alpha1);
-RcppExport SEXP _CDMLearning_rAlpha(SEXP OmegaSEXP, SEXP NSEXP, SEXP TSEXP, SEXP alpha1SEXP) {
+RcppExport SEXP _hmcdm_rAlpha(SEXP OmegaSEXP, SEXP NSEXP, SEXP TSEXP, SEXP alpha1SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -513,7 +513,7 @@ END_RCPP
 }
 // rOmega
 arma::mat rOmega(const arma::mat& TP);
-RcppExport SEXP _CDMLearning_rOmega(SEXP TPSEXP) {
+RcppExport SEXP _hmcdm_rOmega(SEXP TPSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -524,7 +524,7 @@ END_RCPP
 }
 // parm_update_HO
 Rcpp::List parm_update_HO(const unsigned int N, const unsigned int Jt, const unsigned int K, const unsigned int T, arma::cube& alphas, arma::vec& pi, arma::vec& lambdas, arma::vec& thetas, const arma::cube response, arma::cube& itempars, const arma::cube Qs, const Rcpp::List Q_examinee, const arma::mat test_order, const arma::vec Test_versions, const double theta_propose, const arma::vec deltas_propose);
-RcppExport SEXP _CDMLearning_parm_update_HO(SEXP NSEXP, SEXP JtSEXP, SEXP KSEXP, SEXP TSEXP, SEXP alphasSEXP, SEXP piSEXP, SEXP lambdasSEXP, SEXP thetasSEXP, SEXP responseSEXP, SEXP itemparsSEXP, SEXP QsSEXP, SEXP Q_examineeSEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP, SEXP theta_proposeSEXP, SEXP deltas_proposeSEXP) {
+RcppExport SEXP _hmcdm_parm_update_HO(SEXP NSEXP, SEXP JtSEXP, SEXP KSEXP, SEXP TSEXP, SEXP alphasSEXP, SEXP piSEXP, SEXP lambdasSEXP, SEXP thetasSEXP, SEXP responseSEXP, SEXP itemparsSEXP, SEXP QsSEXP, SEXP Q_examineeSEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP, SEXP theta_proposeSEXP, SEXP deltas_proposeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -550,7 +550,7 @@ END_RCPP
 }
 // Gibbs_DINA_HO
 Rcpp::List Gibbs_DINA_HO(const arma::cube& Response, const arma::cube& Qs, const Rcpp::List Q_examinee, const arma::mat& test_order, const arma::vec& Test_versions, const double theta_propose, const arma::vec deltas_propose, const unsigned int chain_length, const unsigned int burn_in);
-RcppExport SEXP _CDMLearning_Gibbs_DINA_HO(SEXP ResponseSEXP, SEXP QsSEXP, SEXP Q_examineeSEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP, SEXP theta_proposeSEXP, SEXP deltas_proposeSEXP, SEXP chain_lengthSEXP, SEXP burn_inSEXP) {
+RcppExport SEXP _hmcdm_Gibbs_DINA_HO(SEXP ResponseSEXP, SEXP QsSEXP, SEXP Q_examineeSEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP, SEXP theta_proposeSEXP, SEXP deltas_proposeSEXP, SEXP chain_lengthSEXP, SEXP burn_inSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -569,7 +569,7 @@ END_RCPP
 }
 // parm_update_HO_RT_sep
 Rcpp::List parm_update_HO_RT_sep(const unsigned int N, const unsigned int Jt, const unsigned int K, const unsigned int T, arma::cube& alphas, arma::vec& pi, arma::vec& lambdas, arma::vec& thetas, const arma::cube latency, arma::cube& RT_itempars, arma::vec& taus, arma::vec& phi_vec, arma::vec& tauvar, const arma::cube response, arma::cube& itempars, const arma::cube Qs, const Rcpp::List Q_examinee, const arma::mat test_order, const arma::vec Test_versions, const int G_version, const double theta_propose, const double a_sigma_tau0, const double rate_sigma_tau0, const arma::vec deltas_propose, const double a_alpha0, const double rate_alpha0);
-RcppExport SEXP _CDMLearning_parm_update_HO_RT_sep(SEXP NSEXP, SEXP JtSEXP, SEXP KSEXP, SEXP TSEXP, SEXP alphasSEXP, SEXP piSEXP, SEXP lambdasSEXP, SEXP thetasSEXP, SEXP latencySEXP, SEXP RT_itemparsSEXP, SEXP tausSEXP, SEXP phi_vecSEXP, SEXP tauvarSEXP, SEXP responseSEXP, SEXP itemparsSEXP, SEXP QsSEXP, SEXP Q_examineeSEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP, SEXP G_versionSEXP, SEXP theta_proposeSEXP, SEXP a_sigma_tau0SEXP, SEXP rate_sigma_tau0SEXP, SEXP deltas_proposeSEXP, SEXP a_alpha0SEXP, SEXP rate_alpha0SEXP) {
+RcppExport SEXP _hmcdm_parm_update_HO_RT_sep(SEXP NSEXP, SEXP JtSEXP, SEXP KSEXP, SEXP TSEXP, SEXP alphasSEXP, SEXP piSEXP, SEXP lambdasSEXP, SEXP thetasSEXP, SEXP latencySEXP, SEXP RT_itemparsSEXP, SEXP tausSEXP, SEXP phi_vecSEXP, SEXP tauvarSEXP, SEXP responseSEXP, SEXP itemparsSEXP, SEXP QsSEXP, SEXP Q_examineeSEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP, SEXP G_versionSEXP, SEXP theta_proposeSEXP, SEXP a_sigma_tau0SEXP, SEXP rate_sigma_tau0SEXP, SEXP deltas_proposeSEXP, SEXP a_alpha0SEXP, SEXP rate_alpha0SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -605,7 +605,7 @@ END_RCPP
 }
 // Gibbs_DINA_HO_RT_sep
 Rcpp::List Gibbs_DINA_HO_RT_sep(const arma::cube& Response, const arma::cube& Latency, const arma::cube& Qs, const Rcpp::List Q_examinee, const arma::mat& test_order, const arma::vec& Test_versions, int G_version, const double theta_propose, const arma::vec deltas_propose, const unsigned int chain_length, const unsigned int burn_in);
-RcppExport SEXP _CDMLearning_Gibbs_DINA_HO_RT_sep(SEXP ResponseSEXP, SEXP LatencySEXP, SEXP QsSEXP, SEXP Q_examineeSEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP, SEXP G_versionSEXP, SEXP theta_proposeSEXP, SEXP deltas_proposeSEXP, SEXP chain_lengthSEXP, SEXP burn_inSEXP) {
+RcppExport SEXP _hmcdm_Gibbs_DINA_HO_RT_sep(SEXP ResponseSEXP, SEXP LatencySEXP, SEXP QsSEXP, SEXP Q_examineeSEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP, SEXP G_versionSEXP, SEXP theta_proposeSEXP, SEXP deltas_proposeSEXP, SEXP chain_lengthSEXP, SEXP burn_inSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -626,7 +626,7 @@ END_RCPP
 }
 // parm_update_HO_RT_joint
 Rcpp::List parm_update_HO_RT_joint(const unsigned int N, const unsigned int Jt, const unsigned int K, const unsigned int T, arma::cube& alphas, arma::vec& pi, arma::vec& lambdas, arma::vec& thetas, const arma::cube latency, arma::cube& RT_itempars, arma::vec& taus, arma::vec& phi_vec, arma::mat& Sig, const arma::cube response, arma::cube& itempars, const arma::cube Qs, const Rcpp::List Q_examinee, const arma::mat test_order, const arma::vec Test_versions, const int G_version, const double sig_theta_propose, const arma::mat S, double p, const arma::vec deltas_propose, const double a_alpha0, const double rate_alpha0);
-RcppExport SEXP _CDMLearning_parm_update_HO_RT_joint(SEXP NSEXP, SEXP JtSEXP, SEXP KSEXP, SEXP TSEXP, SEXP alphasSEXP, SEXP piSEXP, SEXP lambdasSEXP, SEXP thetasSEXP, SEXP latencySEXP, SEXP RT_itemparsSEXP, SEXP tausSEXP, SEXP phi_vecSEXP, SEXP SigSEXP, SEXP responseSEXP, SEXP itemparsSEXP, SEXP QsSEXP, SEXP Q_examineeSEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP, SEXP G_versionSEXP, SEXP sig_theta_proposeSEXP, SEXP SSEXP, SEXP pSEXP, SEXP deltas_proposeSEXP, SEXP a_alpha0SEXP, SEXP rate_alpha0SEXP) {
+RcppExport SEXP _hmcdm_parm_update_HO_RT_joint(SEXP NSEXP, SEXP JtSEXP, SEXP KSEXP, SEXP TSEXP, SEXP alphasSEXP, SEXP piSEXP, SEXP lambdasSEXP, SEXP thetasSEXP, SEXP latencySEXP, SEXP RT_itemparsSEXP, SEXP tausSEXP, SEXP phi_vecSEXP, SEXP SigSEXP, SEXP responseSEXP, SEXP itemparsSEXP, SEXP QsSEXP, SEXP Q_examineeSEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP, SEXP G_versionSEXP, SEXP sig_theta_proposeSEXP, SEXP SSEXP, SEXP pSEXP, SEXP deltas_proposeSEXP, SEXP a_alpha0SEXP, SEXP rate_alpha0SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -662,7 +662,7 @@ END_RCPP
 }
 // Gibbs_DINA_HO_RT_joint
 Rcpp::List Gibbs_DINA_HO_RT_joint(const arma::cube& Response, const arma::cube& Latency, const arma::cube& Qs, const Rcpp::List Q_examinee, const arma::mat& test_order, const arma::vec& Test_versions, int G_version, const double sig_theta_propose, const arma::vec deltas_propose, const unsigned int chain_length, const unsigned int burn_in);
-RcppExport SEXP _CDMLearning_Gibbs_DINA_HO_RT_joint(SEXP ResponseSEXP, SEXP LatencySEXP, SEXP QsSEXP, SEXP Q_examineeSEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP, SEXP G_versionSEXP, SEXP sig_theta_proposeSEXP, SEXP deltas_proposeSEXP, SEXP chain_lengthSEXP, SEXP burn_inSEXP) {
+RcppExport SEXP _hmcdm_Gibbs_DINA_HO_RT_joint(SEXP ResponseSEXP, SEXP LatencySEXP, SEXP QsSEXP, SEXP Q_examineeSEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP, SEXP G_versionSEXP, SEXP sig_theta_proposeSEXP, SEXP deltas_proposeSEXP, SEXP chain_lengthSEXP, SEXP burn_inSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -683,7 +683,7 @@ END_RCPP
 }
 // parm_update_rRUM
 void parm_update_rRUM(const unsigned int N, const unsigned int Jt, const unsigned int K, const unsigned int T, arma::cube& alphas, arma::vec& pi, arma::vec& taus, const arma::mat& R, arma::cube& r_stars, arma::mat& pi_stars, const arma::cube Qs, const arma::cube& responses, arma::cube& X_ijk, arma::cube& Smats, arma::cube& Gmats, const arma::mat& test_order, const arma::vec& Test_versions, const arma::vec& dirich_prior);
-RcppExport SEXP _CDMLearning_parm_update_rRUM(SEXP NSEXP, SEXP JtSEXP, SEXP KSEXP, SEXP TSEXP, SEXP alphasSEXP, SEXP piSEXP, SEXP tausSEXP, SEXP RSEXP, SEXP r_starsSEXP, SEXP pi_starsSEXP, SEXP QsSEXP, SEXP responsesSEXP, SEXP X_ijkSEXP, SEXP SmatsSEXP, SEXP GmatsSEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP, SEXP dirich_priorSEXP) {
+RcppExport SEXP _hmcdm_parm_update_rRUM(SEXP NSEXP, SEXP JtSEXP, SEXP KSEXP, SEXP TSEXP, SEXP alphasSEXP, SEXP piSEXP, SEXP tausSEXP, SEXP RSEXP, SEXP r_starsSEXP, SEXP pi_starsSEXP, SEXP QsSEXP, SEXP responsesSEXP, SEXP X_ijkSEXP, SEXP SmatsSEXP, SEXP GmatsSEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP, SEXP dirich_priorSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const unsigned int >::type N(NSEXP);
@@ -710,7 +710,7 @@ END_RCPP
 }
 // Gibbs_rRUM_indept
 Rcpp::List Gibbs_rRUM_indept(const arma::cube& Response, const arma::cube& Qs, const arma::mat& R, const arma::mat& test_order, const arma::vec& Test_versions, const unsigned int chain_length, const unsigned int burn_in);
-RcppExport SEXP _CDMLearning_Gibbs_rRUM_indept(SEXP ResponseSEXP, SEXP QsSEXP, SEXP RSEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP, SEXP chain_lengthSEXP, SEXP burn_inSEXP) {
+RcppExport SEXP _hmcdm_Gibbs_rRUM_indept(SEXP ResponseSEXP, SEXP QsSEXP, SEXP RSEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP, SEXP chain_lengthSEXP, SEXP burn_inSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -727,7 +727,7 @@ END_RCPP
 }
 // parm_update_NIDA_indept
 void parm_update_NIDA_indept(const unsigned int N, const unsigned int Jt, const unsigned int K, const unsigned int T, arma::cube& alphas, arma::vec& pi, arma::vec& taus, const arma::mat& R, const arma::cube Qs, const arma::cube& responses, arma::cube& X_ijk, arma::cube& Smats, arma::cube& Gmats, const arma::mat& test_order, const arma::vec& Test_versions, const arma::vec& dirich_prior);
-RcppExport SEXP _CDMLearning_parm_update_NIDA_indept(SEXP NSEXP, SEXP JtSEXP, SEXP KSEXP, SEXP TSEXP, SEXP alphasSEXP, SEXP piSEXP, SEXP tausSEXP, SEXP RSEXP, SEXP QsSEXP, SEXP responsesSEXP, SEXP X_ijkSEXP, SEXP SmatsSEXP, SEXP GmatsSEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP, SEXP dirich_priorSEXP) {
+RcppExport SEXP _hmcdm_parm_update_NIDA_indept(SEXP NSEXP, SEXP JtSEXP, SEXP KSEXP, SEXP TSEXP, SEXP alphasSEXP, SEXP piSEXP, SEXP tausSEXP, SEXP RSEXP, SEXP QsSEXP, SEXP responsesSEXP, SEXP X_ijkSEXP, SEXP SmatsSEXP, SEXP GmatsSEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP, SEXP dirich_priorSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const unsigned int >::type N(NSEXP);
@@ -752,7 +752,7 @@ END_RCPP
 }
 // Gibbs_NIDA_indept
 Rcpp::List Gibbs_NIDA_indept(const arma::cube& Response, const arma::cube& Qs, const arma::mat& R, const arma::mat& test_order, const arma::vec& Test_versions, const unsigned int chain_length, const unsigned int burn_in);
-RcppExport SEXP _CDMLearning_Gibbs_NIDA_indept(SEXP ResponseSEXP, SEXP QsSEXP, SEXP RSEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP, SEXP chain_lengthSEXP, SEXP burn_inSEXP) {
+RcppExport SEXP _hmcdm_Gibbs_NIDA_indept(SEXP ResponseSEXP, SEXP QsSEXP, SEXP RSEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP, SEXP chain_lengthSEXP, SEXP burn_inSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -769,7 +769,7 @@ END_RCPP
 }
 // parm_update_DINA_FOHM
 void parm_update_DINA_FOHM(unsigned int N, unsigned int J, unsigned int K, unsigned int nClass, unsigned int nT, const arma::cube& Y, const arma::mat& TP, const arma::mat& ETA, arma::vec& ss, arma::vec& gs, arma::mat& CLASS, arma::vec& pi, arma::mat& Omega);
-RcppExport SEXP _CDMLearning_parm_update_DINA_FOHM(SEXP NSEXP, SEXP JSEXP, SEXP KSEXP, SEXP nClassSEXP, SEXP nTSEXP, SEXP YSEXP, SEXP TPSEXP, SEXP ETASEXP, SEXP ssSEXP, SEXP gsSEXP, SEXP CLASSSEXP, SEXP piSEXP, SEXP OmegaSEXP) {
+RcppExport SEXP _hmcdm_parm_update_DINA_FOHM(SEXP NSEXP, SEXP JSEXP, SEXP KSEXP, SEXP nClassSEXP, SEXP nTSEXP, SEXP YSEXP, SEXP TPSEXP, SEXP ETASEXP, SEXP ssSEXP, SEXP gsSEXP, SEXP CLASSSEXP, SEXP piSEXP, SEXP OmegaSEXP) {
 BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< unsigned int >::type N(NSEXP);
@@ -791,7 +791,7 @@ END_RCPP
 }
 // Gibbs_DINA_FOHM
 Rcpp::List Gibbs_DINA_FOHM(const arma::cube& Y, const arma::mat& Q, unsigned int burnin, unsigned int chain_length);
-RcppExport SEXP _CDMLearning_Gibbs_DINA_FOHM(SEXP YSEXP, SEXP QSEXP, SEXP burninSEXP, SEXP chain_lengthSEXP) {
+RcppExport SEXP _hmcdm_Gibbs_DINA_FOHM(SEXP YSEXP, SEXP QSEXP, SEXP burninSEXP, SEXP chain_lengthSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -805,7 +805,7 @@ END_RCPP
 }
 // MCMC_learning
 Rcpp::List MCMC_learning(const Rcpp::List Response_list, const Rcpp::List Q_list, const String model, const arma::mat& test_order, const arma::vec& Test_versions, const unsigned int chain_length, const unsigned int burn_in, const Rcpp::Nullable<Rcpp::List> Q_examinee, const Rcpp::Nullable<Rcpp::List> Latency_list, const int G_version, const double theta_propose, const Rcpp::Nullable<Rcpp::NumericVector> deltas_propose, const Rcpp::Nullable<Rcpp::NumericMatrix> R);
-RcppExport SEXP _CDMLearning_MCMC_learning(SEXP Response_listSEXP, SEXP Q_listSEXP, SEXP modelSEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP, SEXP chain_lengthSEXP, SEXP burn_inSEXP, SEXP Q_examineeSEXP, SEXP Latency_listSEXP, SEXP G_versionSEXP, SEXP theta_proposeSEXP, SEXP deltas_proposeSEXP, SEXP RSEXP) {
+RcppExport SEXP _hmcdm_MCMC_learning(SEXP Response_listSEXP, SEXP Q_listSEXP, SEXP modelSEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP, SEXP chain_lengthSEXP, SEXP burn_inSEXP, SEXP Q_examineeSEXP, SEXP Latency_listSEXP, SEXP G_versionSEXP, SEXP theta_proposeSEXP, SEXP deltas_proposeSEXP, SEXP RSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -828,7 +828,7 @@ END_RCPP
 }
 // point_estimates_learning
 Rcpp::List point_estimates_learning(const Rcpp::List output, const String model, const unsigned int N, const unsigned int Jt, const unsigned int K, const unsigned int T, bool alpha_EAP);
-RcppExport SEXP _CDMLearning_point_estimates_learning(SEXP outputSEXP, SEXP modelSEXP, SEXP NSEXP, SEXP JtSEXP, SEXP KSEXP, SEXP TSEXP, SEXP alpha_EAPSEXP) {
+RcppExport SEXP _hmcdm_point_estimates_learning(SEXP outputSEXP, SEXP modelSEXP, SEXP NSEXP, SEXP JtSEXP, SEXP KSEXP, SEXP TSEXP, SEXP alpha_EAPSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -845,7 +845,7 @@ END_RCPP
 }
 // Learning_fit
 Rcpp::List Learning_fit(const Rcpp::List output, const String model, const Rcpp::List Response_list, const Rcpp::List Q_list, const arma::mat test_order, const arma::vec Test_versions, const Rcpp::Nullable<Rcpp::List> Q_examinee, const Rcpp::Nullable<Rcpp::List> Latency_list, const int G_version, const Rcpp::Nullable<Rcpp::NumericMatrix> R);
-RcppExport SEXP _CDMLearning_Learning_fit(SEXP outputSEXP, SEXP modelSEXP, SEXP Response_listSEXP, SEXP Q_listSEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP, SEXP Q_examineeSEXP, SEXP Latency_listSEXP, SEXP G_versionSEXP, SEXP RSEXP) {
+RcppExport SEXP _hmcdm_Learning_fit(SEXP outputSEXP, SEXP modelSEXP, SEXP Response_listSEXP, SEXP Q_listSEXP, SEXP test_orderSEXP, SEXP Test_versionsSEXP, SEXP Q_examineeSEXP, SEXP Latency_listSEXP, SEXP G_versionSEXP, SEXP RSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -865,62 +865,62 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_CDMLearning_bijectionvector", (DL_FUNC) &_CDMLearning_bijectionvector, 1},
-    {"_CDMLearning_inv_bijectionvector", (DL_FUNC) &_CDMLearning_inv_bijectionvector, 2},
-    {"_CDMLearning_rwishart", (DL_FUNC) &_CDMLearning_rwishart, 2},
-    {"_CDMLearning_rinvwish", (DL_FUNC) &_CDMLearning_rinvwish, 2},
-    {"_CDMLearning_rmultinomial", (DL_FUNC) &_CDMLearning_rmultinomial, 1},
-    {"_CDMLearning_rDirichlet", (DL_FUNC) &_CDMLearning_rDirichlet, 1},
-    {"_CDMLearning_dmvnrm", (DL_FUNC) &_CDMLearning_dmvnrm, 4},
-    {"_CDMLearning_rmvnrm", (DL_FUNC) &_CDMLearning_rmvnrm, 2},
-    {"_CDMLearning_random_Q", (DL_FUNC) &_CDMLearning_random_Q, 2},
-    {"_CDMLearning_ETAmat", (DL_FUNC) &_CDMLearning_ETAmat, 3},
-    {"_CDMLearning_TPmat", (DL_FUNC) &_CDMLearning_TPmat, 1},
-    {"_CDMLearning_crosstab", (DL_FUNC) &_CDMLearning_crosstab, 5},
-    {"_CDMLearning_resp_miss", (DL_FUNC) &_CDMLearning_resp_miss, 3},
-    {"_CDMLearning_OddsRatio", (DL_FUNC) &_CDMLearning_OddsRatio, 3},
-    {"_CDMLearning_getMode", (DL_FUNC) &_CDMLearning_getMode, 2},
-    {"_CDMLearning_sim_resp_DINA", (DL_FUNC) &_CDMLearning_sim_resp_DINA, 6},
-    {"_CDMLearning_simDINA", (DL_FUNC) &_CDMLearning_simDINA, 5},
-    {"_CDMLearning_pYit_DINA", (DL_FUNC) &_CDMLearning_pYit_DINA, 3},
-    {"_CDMLearning_sim_resp_rRUM", (DL_FUNC) &_CDMLearning_sim_resp_rRUM, 6},
-    {"_CDMLearning_simrRUM", (DL_FUNC) &_CDMLearning_simrRUM, 6},
-    {"_CDMLearning_pYit_rRUM", (DL_FUNC) &_CDMLearning_pYit_rRUM, 5},
-    {"_CDMLearning_sim_resp_NIDA", (DL_FUNC) &_CDMLearning_sim_resp_NIDA, 6},
-    {"_CDMLearning_simNIDA", (DL_FUNC) &_CDMLearning_simNIDA, 6},
-    {"_CDMLearning_pYit_NIDA", (DL_FUNC) &_CDMLearning_pYit_NIDA, 5},
-    {"_CDMLearning_J_incidence_cube", (DL_FUNC) &_CDMLearning_J_incidence_cube, 2},
-    {"_CDMLearning_G2vec_efficient", (DL_FUNC) &_CDMLearning_G2vec_efficient, 6},
-    {"_CDMLearning_sim_RT", (DL_FUNC) &_CDMLearning_sim_RT, 9},
-    {"_CDMLearning_dLit", (DL_FUNC) &_CDMLearning_dLit, 5},
-    {"_CDMLearning_simulate_alphas_HO_sep", (DL_FUNC) &_CDMLearning_simulate_alphas_HO_sep, 6},
-    {"_CDMLearning_pTran_HO_sep", (DL_FUNC) &_CDMLearning_pTran_HO_sep, 7},
-    {"_CDMLearning_simulate_alphas_HO_joint", (DL_FUNC) &_CDMLearning_simulate_alphas_HO_joint, 6},
-    {"_CDMLearning_pTran_HO_joint", (DL_FUNC) &_CDMLearning_pTran_HO_joint, 7},
-    {"_CDMLearning_simulate_alphas_indept", (DL_FUNC) &_CDMLearning_simulate_alphas_indept, 4},
-    {"_CDMLearning_pTran_indept", (DL_FUNC) &_CDMLearning_pTran_indept, 4},
-    {"_CDMLearning_simulate_alphas_FOHM", (DL_FUNC) &_CDMLearning_simulate_alphas_FOHM, 3},
-    {"_CDMLearning_rAlpha", (DL_FUNC) &_CDMLearning_rAlpha, 4},
-    {"_CDMLearning_rOmega", (DL_FUNC) &_CDMLearning_rOmega, 1},
-    {"_CDMLearning_parm_update_HO", (DL_FUNC) &_CDMLearning_parm_update_HO, 16},
-    {"_CDMLearning_Gibbs_DINA_HO", (DL_FUNC) &_CDMLearning_Gibbs_DINA_HO, 9},
-    {"_CDMLearning_parm_update_HO_RT_sep", (DL_FUNC) &_CDMLearning_parm_update_HO_RT_sep, 26},
-    {"_CDMLearning_Gibbs_DINA_HO_RT_sep", (DL_FUNC) &_CDMLearning_Gibbs_DINA_HO_RT_sep, 11},
-    {"_CDMLearning_parm_update_HO_RT_joint", (DL_FUNC) &_CDMLearning_parm_update_HO_RT_joint, 26},
-    {"_CDMLearning_Gibbs_DINA_HO_RT_joint", (DL_FUNC) &_CDMLearning_Gibbs_DINA_HO_RT_joint, 11},
-    {"_CDMLearning_parm_update_rRUM", (DL_FUNC) &_CDMLearning_parm_update_rRUM, 18},
-    {"_CDMLearning_Gibbs_rRUM_indept", (DL_FUNC) &_CDMLearning_Gibbs_rRUM_indept, 7},
-    {"_CDMLearning_parm_update_NIDA_indept", (DL_FUNC) &_CDMLearning_parm_update_NIDA_indept, 16},
-    {"_CDMLearning_Gibbs_NIDA_indept", (DL_FUNC) &_CDMLearning_Gibbs_NIDA_indept, 7},
-    {"_CDMLearning_parm_update_DINA_FOHM", (DL_FUNC) &_CDMLearning_parm_update_DINA_FOHM, 13},
-    {"_CDMLearning_Gibbs_DINA_FOHM", (DL_FUNC) &_CDMLearning_Gibbs_DINA_FOHM, 4},
-    {"_CDMLearning_MCMC_learning", (DL_FUNC) &_CDMLearning_MCMC_learning, 13},
-    {"_CDMLearning_point_estimates_learning", (DL_FUNC) &_CDMLearning_point_estimates_learning, 7},
-    {"_CDMLearning_Learning_fit", (DL_FUNC) &_CDMLearning_Learning_fit, 10},
+    {"_hmcdm_bijectionvector", (DL_FUNC) &_hmcdm_bijectionvector, 1},
+    {"_hmcdm_inv_bijectionvector", (DL_FUNC) &_hmcdm_inv_bijectionvector, 2},
+    {"_hmcdm_rwishart", (DL_FUNC) &_hmcdm_rwishart, 2},
+    {"_hmcdm_rinvwish", (DL_FUNC) &_hmcdm_rinvwish, 2},
+    {"_hmcdm_rmultinomial", (DL_FUNC) &_hmcdm_rmultinomial, 1},
+    {"_hmcdm_rDirichlet", (DL_FUNC) &_hmcdm_rDirichlet, 1},
+    {"_hmcdm_dmvnrm", (DL_FUNC) &_hmcdm_dmvnrm, 4},
+    {"_hmcdm_rmvnrm", (DL_FUNC) &_hmcdm_rmvnrm, 2},
+    {"_hmcdm_random_Q", (DL_FUNC) &_hmcdm_random_Q, 2},
+    {"_hmcdm_ETAmat", (DL_FUNC) &_hmcdm_ETAmat, 3},
+    {"_hmcdm_TPmat", (DL_FUNC) &_hmcdm_TPmat, 1},
+    {"_hmcdm_crosstab", (DL_FUNC) &_hmcdm_crosstab, 5},
+    {"_hmcdm_resp_miss", (DL_FUNC) &_hmcdm_resp_miss, 3},
+    {"_hmcdm_OddsRatio", (DL_FUNC) &_hmcdm_OddsRatio, 3},
+    {"_hmcdm_getMode", (DL_FUNC) &_hmcdm_getMode, 2},
+    {"_hmcdm_sim_resp_DINA", (DL_FUNC) &_hmcdm_sim_resp_DINA, 6},
+    {"_hmcdm_simDINA", (DL_FUNC) &_hmcdm_simDINA, 5},
+    {"_hmcdm_pYit_DINA", (DL_FUNC) &_hmcdm_pYit_DINA, 3},
+    {"_hmcdm_sim_resp_rRUM", (DL_FUNC) &_hmcdm_sim_resp_rRUM, 6},
+    {"_hmcdm_simrRUM", (DL_FUNC) &_hmcdm_simrRUM, 6},
+    {"_hmcdm_pYit_rRUM", (DL_FUNC) &_hmcdm_pYit_rRUM, 5},
+    {"_hmcdm_sim_resp_NIDA", (DL_FUNC) &_hmcdm_sim_resp_NIDA, 6},
+    {"_hmcdm_simNIDA", (DL_FUNC) &_hmcdm_simNIDA, 6},
+    {"_hmcdm_pYit_NIDA", (DL_FUNC) &_hmcdm_pYit_NIDA, 5},
+    {"_hmcdm_J_incidence_cube", (DL_FUNC) &_hmcdm_J_incidence_cube, 2},
+    {"_hmcdm_G2vec_efficient", (DL_FUNC) &_hmcdm_G2vec_efficient, 6},
+    {"_hmcdm_sim_RT", (DL_FUNC) &_hmcdm_sim_RT, 9},
+    {"_hmcdm_dLit", (DL_FUNC) &_hmcdm_dLit, 5},
+    {"_hmcdm_simulate_alphas_HO_sep", (DL_FUNC) &_hmcdm_simulate_alphas_HO_sep, 6},
+    {"_hmcdm_pTran_HO_sep", (DL_FUNC) &_hmcdm_pTran_HO_sep, 7},
+    {"_hmcdm_simulate_alphas_HO_joint", (DL_FUNC) &_hmcdm_simulate_alphas_HO_joint, 6},
+    {"_hmcdm_pTran_HO_joint", (DL_FUNC) &_hmcdm_pTran_HO_joint, 7},
+    {"_hmcdm_simulate_alphas_indept", (DL_FUNC) &_hmcdm_simulate_alphas_indept, 4},
+    {"_hmcdm_pTran_indept", (DL_FUNC) &_hmcdm_pTran_indept, 4},
+    {"_hmcdm_simulate_alphas_FOHM", (DL_FUNC) &_hmcdm_simulate_alphas_FOHM, 3},
+    {"_hmcdm_rAlpha", (DL_FUNC) &_hmcdm_rAlpha, 4},
+    {"_hmcdm_rOmega", (DL_FUNC) &_hmcdm_rOmega, 1},
+    {"_hmcdm_parm_update_HO", (DL_FUNC) &_hmcdm_parm_update_HO, 16},
+    {"_hmcdm_Gibbs_DINA_HO", (DL_FUNC) &_hmcdm_Gibbs_DINA_HO, 9},
+    {"_hmcdm_parm_update_HO_RT_sep", (DL_FUNC) &_hmcdm_parm_update_HO_RT_sep, 26},
+    {"_hmcdm_Gibbs_DINA_HO_RT_sep", (DL_FUNC) &_hmcdm_Gibbs_DINA_HO_RT_sep, 11},
+    {"_hmcdm_parm_update_HO_RT_joint", (DL_FUNC) &_hmcdm_parm_update_HO_RT_joint, 26},
+    {"_hmcdm_Gibbs_DINA_HO_RT_joint", (DL_FUNC) &_hmcdm_Gibbs_DINA_HO_RT_joint, 11},
+    {"_hmcdm_parm_update_rRUM", (DL_FUNC) &_hmcdm_parm_update_rRUM, 18},
+    {"_hmcdm_Gibbs_rRUM_indept", (DL_FUNC) &_hmcdm_Gibbs_rRUM_indept, 7},
+    {"_hmcdm_parm_update_NIDA_indept", (DL_FUNC) &_hmcdm_parm_update_NIDA_indept, 16},
+    {"_hmcdm_Gibbs_NIDA_indept", (DL_FUNC) &_hmcdm_Gibbs_NIDA_indept, 7},
+    {"_hmcdm_parm_update_DINA_FOHM", (DL_FUNC) &_hmcdm_parm_update_DINA_FOHM, 13},
+    {"_hmcdm_Gibbs_DINA_FOHM", (DL_FUNC) &_hmcdm_Gibbs_DINA_FOHM, 4},
+    {"_hmcdm_MCMC_learning", (DL_FUNC) &_hmcdm_MCMC_learning, 13},
+    {"_hmcdm_point_estimates_learning", (DL_FUNC) &_hmcdm_point_estimates_learning, 7},
+    {"_hmcdm_Learning_fit", (DL_FUNC) &_hmcdm_Learning_fit, 10},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_CDMLearning(DllInfo *dll) {
+RcppExport void R_init_hmcdm(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }

@@ -21,5 +21,5 @@ Based on a response matrix, calculate the item pairwise odds-ratio according do 
 number of people answering both item i and item j correctly
 }
 \examples{
-OddsRatio(N,J,Y_sim)
+\donttest{OddsRatio(N,Jt,Y_real_list[[1]])}
 }

@@ -22,6 +22,15 @@ arma::vec bijectionvector(unsigned int K) {
   return vv;
 }
 
+
+//' @title Convert integer to attribute pattern
+//' @description Based on the bijective relationship between natural numbers and sum of powers of two,
+//'  convert integer between 0 and 2^K-1 to K-dimensional attribute pattern.
+//' @param K An \code{int} for the number of attributes
+//' @param CL An \code{int} between 0 and 2^K-1
+//' @return A \code{vec} of the K-dimensional attribute pattern corresponding to CL.
+//' @examples
+//' inv_bijectionvector(4,0)
 //' @export
 // [[Rcpp::export]]
 arma::vec inv_bijectionvector(unsigned int K,double CL){
@@ -72,7 +81,7 @@ arma::mat rwishart(unsigned int df, const arma::mat& S) {
 //' @author James J Balamuta
 //' @examples 
 //' #Call with the following data:
-//' riwishart(3, diag(2))
+//' rinvwish(3, diag(2))
 //' @export
 // [[Rcpp::export]]
 arma::mat rinvwish(unsigned int df, const arma::mat& Sig) {
@@ -268,7 +277,7 @@ arma::cube resp_miss(const arma::cube& Responses, const arma::mat& test_order,
 //' @param Yt An N-by-J response \code{matrix}
 //' @return A J-by-J upper-triangular \code{matrix} of the item pairwise odds ratios
 //' @examples 
-//' OddsRatio(N,J,Y_sim)
+//' \donttest{OddsRatio(N,Jt,Y_real_list[[1]])}
 //' @export
 // [[Rcpp::export]]
 arma::mat OddsRatio(unsigned int N,unsigned int J,const arma::mat& Yt){
@@ -325,7 +334,7 @@ int getMode(arma::vec sorted_vec, int size){
 //' @param alpha A length K \code{vector} of attribute pattern of a person 
 //' @return A length J \code{vector} of item responses 
 //' @examples
-//' J = 10
+//' J = 15
 //' K = 4
 //' Q = random_Q(J,K)
 //' ETA = ETAmat(K,J,Q)
@@ -367,7 +376,21 @@ arma::vec sim_resp_DINA(unsigned int J, unsigned int K, const arma::mat& ETA,
 //' for(t in 1:T){
 //'   ETAs[,,t] <- ETAmat(K,Jt,Q_list[[t]])
 //' }
-//' 
+//' class_0 <- sample(1:2^K, N, replace = T)
+//' Alphas_0 <- matrix(0,N,K)
+//' mu_thetatau = c(0,0)
+//' Sig_thetatau = rbind(c(1.8^2,.4*.5*1.8),c(.4*.5*1.8,.25))
+//' Z = matrix(rnorm(N*2),N,2)
+//' thetatau_true = Z%*%chol(Sig_thetatau)
+//' thetas_true = thetatau_true[,1]
+//' taus_true = thetatau_true[,2]
+//' G_version = 3
+//' phi_true = 0.8
+//' for(i in 1:N){
+//'   Alphas_0[i,] <- inv_bijectionvector(K,(class_0[i]-1))
+//' }
+//' lambdas_true <- c(-2, .4, .055)     
+//' Alphas <- simulate_alphas_HO_joint(lambdas_true,thetas_true,Alphas_0,Q_examinee,T,Jt)
 //' Y_sim <- simDINA(Alphas,itempars_true,ETAs,test_order,Test_versions)
 //' @export
 // [[Rcpp::export]]
@@ -428,13 +451,13 @@ double pYit_DINA(const arma::vec& ETA_it,const arma::vec& Y_it, const arma::mat&
 //' @param alpha A length K \code{vector} of attribute pattern of a person 
 //' @return A length J \code{vector} of item responses
 //' @examples
-//' J = 10
+//' J = 15
 //' K = 4
 //' Q = random_Q(J,K)
-//' Smats <- matrix(runif(Jt*K,.1,.3),Jt,K)
-//' Gmats <- matrix(runif(Jt*K,.1,.3),Jt,K)
-//' r_stars <- matrix(NA,Jt,K)
-//' pi_stars <- numeric(Jt)
+//' Smats <- matrix(runif(J*K,.1,.3),J,K)
+//' Gmats <- matrix(runif(J*K,.1,.3),J,K)
+//' r_stars <- matrix(NA,J,K)
+//' pi_stars <- numeric(J)
 //' for(t in 1:T){
 //'   pi_stars <- apply(((1-Smats)^Q),1,prod)
 //'   r_stars <- Gmats/(1-Smats)
@@ -479,17 +502,35 @@ arma::vec sim_resp_rRUM(unsigned int J, unsigned int K, const arma::mat& Q,
 //' @param Test_versions A length N \code{vector} of the test version of each examinee
 //' @return An \code{array} of rRUM item responses of examinees across all time points
 //' @examples
-//' data("Spatial_Rotation")
 //' Smats <- array(runif(Jt*K*(T),.1,.3),c(Jt,K,(T)))
 //' Gmats <- array(runif(Jt*K*(T),.1,.3),c(Jt,K,(T)))
 //' r_stars <- array(NA,c(Jt,K,T))
 //' pi_stars <- matrix(NA,Jt,(T))
 //' for(t in 1:T){
-//'   pi_stars[,,t] <- apply(((1-Smats[,,t])^Qs[,,t]),1,prod)
+//'   pi_stars[,t] <- apply(((1-Smats[,,t])^Qs[,,t]),1,prod)
 //'   r_stars[,,t] <- Gmats[,,t]/(1-Smats[,,t])
 //' }
 //' Test_versions_sim <- sample(1:5,N,replace = T)
-//' 
+//' tau <- numeric(K)
+//'   for(k in 1:K){
+//'     tau[k] <- runif(1,.2,.6)
+//'   }
+//'   R = matrix(0,K,K)
+//' # Initial alphas
+//' p_mastery <- c(.5,.5,.4,.4)
+//' Alphas_0 <- matrix(0,N,K)
+//' for(i in 1:N){
+//'   for(k in 1:K){
+//'     prereqs <- which(R[k,]==1)
+//'     if(length(prereqs)==0){
+//'       Alphas_0[i,k] <- rbinom(1,1,p_mastery[k])
+//'     }
+//'     if(length(prereqs)>0){
+//'       Alphas_0[i,k] <- prod(Alphas_0[i,prereqs])*rbinom(1,1,p_mastery)
+//'     }
+//'   }
+//' }
+//' Alphas <- simulate_alphas_indept(tau,Alphas_0,T,R) 
 //' Y_sim = simrRUM(Alphas,r_stars,pi_stars,Qs,test_order,Test_versions_sim)
 //' @export
 // [[Rcpp::export]]
@@ -546,7 +587,7 @@ double pYit_rRUM(const arma::vec& alpha_it, const arma::vec& Y_it, const arma::v
 //' @param alpha A length K \code{vector} of attribute pattern of a person 
 //' @return A length J \code{vector} of item responses
 //' @examples
-//' J = 10
+//' J = 15
 //' K = 4
 //' Q = random_Q(J,K)
 //' Svec <- runif(K,.1,.3)
@@ -590,10 +631,29 @@ arma::vec sim_resp_NIDA(const unsigned int J, const unsigned int K, const arma::
 //' @param Test_versions A length N \code{vector} of the test version of each examinee
 //' @return An \code{array} of NIDA item responses of examinees across all time points
 //' @examples
-//' data("Spatial_Rotation")
 //' Svec <- runif(K,.1,.3)
 //' Gvec <- runif(K,.1,.3)
 //' Test_versions_sim <- sample(1:5,N,replace = T)
+//' tau <- numeric(K)
+//'   for(k in 1:K){
+//'     tau[k] <- runif(1,.2,.6)
+//'   }
+//'   R = matrix(0,K,K)
+//' # Initial alphas
+//'     p_mastery <- c(.5,.5,.4,.4)
+//'     Alphas_0 <- matrix(0,N,K)
+//'     for(i in 1:N){
+//'       for(k in 1:K){
+//'         prereqs <- which(R[k,]==1)
+//'         if(length(prereqs)==0){
+//'           Alphas_0[i,k] <- rbinom(1,1,p_mastery[k])
+//'         }
+//'         if(length(prereqs)>0){
+//'           Alphas_0[i,k] <- prod(Alphas_0[i,prereqs])*rbinom(1,1,p_mastery)
+//'         }
+//'       }
+//'     }
+//'    Alphas <- simulate_alphas_indept(tau,Alphas_0,T,R) 
 //' Y_sim = simNIDA(Alphas,Svec,Gvec,Qs,test_order,Test_versions_sim)
 //' @export
 // [[Rcpp::export]]
@@ -734,6 +794,10 @@ arma::vec G2vec_efficient(const arma::cube& ETA, const arma::cube& J_incidence, 
 //' RT_itempars_true <- array(NA, dim = c(Jt,2,T))
 //' RT_itempars_true[,2,] <- rnorm(Jt*T,3.45,.5)
 //' RT_itempars_true[,1,] <- runif(Jt*T,1.5,2)
+//' ETAs <- array(NA,dim = c(Jt,2^K,T)) 
+//' for(t in 1:T){
+//'   ETAs[,,t] <- ETAmat(K,Jt,Q_list[[t]])
+//' }
 //' L_sim <- sim_RT(Alphas,RT_itempars_true,Qs,taus_true,phi_true,ETAs,
 //' G_version,test_order,Test_versions)
 //' @export
@@ -822,7 +886,6 @@ double dLit(const arma::vec& G_it, const arma::vec& L_it, const arma::mat& RT_it
 //' @param Jt An \code{int} of number of items in each block
 //' @return An N-by-K-by-T \code{array} of attribute patterns of subjects at each time point.
 //' @examples
-//' data("Spatial_Rotation")
 //' class_0 <- sample(1:2^K, N, replace = T)
 //' Alphas_0 <- matrix(0,N,K)
 //' thetas_true = rnorm(N)
@@ -916,7 +979,6 @@ double pTran_HO_sep(const arma::vec& alpha_prev, const arma::vec& alpha_post, co
 //' @param Jt An \code{int} of number of items in each block
 //' @return An N-by-K-by-T \code{array} of attribute patterns of subjects at each time point.
 //' @examples
-//' data("Spatial_Rotation")
 //' class_0 <- sample(1:2^K, N, replace = T)
 //' Alphas_0 <- matrix(0,N,K)
 //' mu_thetatau = c(0,0)
@@ -1012,7 +1074,6 @@ double pTran_HO_joint(const arma::vec& alpha_prev, const arma::vec& alpha_post, 
 //' @param R A K-by-K dichotomous reachability \code{matrix} indicating the attribute hierarchies. The k,k'th entry of R is 1 if k' is prereq to k.
 //' @return An N-by-K-by-T \code{array} of attribute patterns of subjects at each time point.
 //' @examples
-//' data("Spatial_Rotation")
 //' tau <- numeric(K)
 //' for(k in 1:K){
 //'   tau[k] <- runif(1,.2,.6)
@@ -3526,7 +3587,9 @@ Rcpp::List Gibbs_DINA_FOHM(const arma::cube& Y,const arma::mat& Q,
 //' @return A \code{list} of parameter samples and Metropolis-Hastings acceptance rates (if applicable).
 //' @author Susu Zhang
 //' @examples
-//' output_FOHM = MCMC_learning(Y_sim_list,Q_list,"DINA_FOHM",test_order,Test_versions,10000,5000)
+//' \donttest{
+//' output_FOHM = MCMC_learning(Y_real_list,Q_list,"DINA_FOHM",test_order,Test_versions,10000,5000)
+//' }
 //' @export
 // [[Rcpp::export]]
 Rcpp::List MCMC_learning(const Rcpp::List Response_list, const Rcpp::List Q_list, 
@@ -3617,7 +3680,10 @@ Rcpp::List MCMC_learning(const Rcpp::List Response_list, const Rcpp::List Q_list
 //' @return A \code{list} of point estimates of model parameters
 //' @author Susu Zhang
 //' @examples
+//' \donttest{
+//' output_FOHM = MCMC_learning(Y_real_list,Q_list,"DINA_FOHM",test_order,Test_versions,10000,5000)
 //' point_estimates = point_estimates_learning(output_FOHM,"DINA_FOHM",N,Jt,K,T,alpha_EAP = T)
+//' }
 //' @export
 // [[Rcpp::export]]
 Rcpp::List point_estimates_learning(const Rcpp::List output, const String model, const unsigned int N,
@@ -3854,7 +3920,10 @@ Rcpp::List point_estimates_learning(const Rcpp::List output, const String model,
 //' scores at each time point, and subjects' total response times at each time point. Predicted values can be compared to the observed ones from
 //' empirical data.
 //' @examples
-//' FOHM_fit <- Learning_fit(output_FOHM,"DINA_FOHM",Y_sim_list,Q_list,test_order,Test_versions)
+//' \donttest{
+//' output_FOHM = MCMC_learning(Y_real_list,Q_list,"DINA_FOHM",test_order,Test_versions,10000,5000)
+//' FOHM_fit <- Learning_fit(output_FOHM,"DINA_FOHM",Y_real_list,Q_list,test_order,Test_versions)
+//' }
 //' @export
 // [[Rcpp::export]]
 Rcpp::List Learning_fit(const Rcpp::List output, const String model,
