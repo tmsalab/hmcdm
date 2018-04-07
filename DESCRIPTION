@@ -1,6 +1,6 @@
-Package: CDMLearning
+Package: hmcdm
 Type: Package
-Title: Learning Models under Cognitive Diagnosis
+Title: Hidden Markov Cognitive Diagnosis Models for Learning
 Version: 1.0.0
 Authors@R: c(person("Susu", "Zhang", email = "susu.zhang1992@gmail.com", role = c("aut", "cre")),
            person("Shiyu", "Wang", email = "swang44@uga.edu", role = c("aut")),
@@ -17,4 +17,3 @@ Roxygen: list(markdown = TRUE)
 SystemRequirements: C++11
 Encoding: UTF-8
 LazyData: true
-Roxygen: list(markdown = TRUE)
