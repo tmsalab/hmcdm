@@ -14,6 +14,11 @@ the TPmat function}
 Generate a random transition matrix under nondecreasing learning trajectory assumption
 }
 \examples{
+N = length(Test_versions)
+Jt = nrow(Q_list[[1]])
+K = ncol(Q_list[[1]])
+T = nrow(test_order)
+J = Jt*T
 TP = TPmat(K)
 Omega_sim = rOmega(TP)
 }

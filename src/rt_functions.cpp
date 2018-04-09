@@ -75,6 +75,11 @@ arma::vec G2vec_efficient(const arma::cube& ETA, const arma::cube& J_incidence, 
 //' @param Test_versions A length N \code{vector} of the test version of each examinee
 //' @return A \code{cube} of response times of subjects on each item across time
 //' @examples
+//' N = length(Test_versions)
+//' Jt = nrow(Q_list[[1]])
+//' K = ncol(Q_list[[1]])
+//' T = nrow(test_order)
+//' J = Jt*T
 //' class_0 <- sample(1:2^K, N, replace = T)
 //' Alphas_0 <- matrix(0,N,K)
 //' mu_thetatau = c(0,0)

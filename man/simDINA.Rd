@@ -24,6 +24,11 @@ An \code{array} of DINA item responses of examinees across all time points
 Simulate a cube of DINA responses for all persons on items across all time points
 }
 \examples{
+N = length(Test_versions)
+Jt = nrow(Q_list[[1]])
+K = ncol(Q_list[[1]])
+T = nrow(test_order)
+J = Jt*T
 itempars_true <- array(runif(Jt*2*T,.1,.2), dim = c(Jt,2,T))
 
 ETAs <- array(NA,dim = c(Jt,2^K,T)) 

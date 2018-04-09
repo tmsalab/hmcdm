@@ -21,6 +21,11 @@ Based on the initial attribute patterns and probability of transitioning between
 create cube of attribute patterns of all subjects across time.
 }
 \examples{
+N = length(Test_versions)
+Jt = nrow(Q_list[[1]])
+K = ncol(Q_list[[1]])
+T = nrow(test_order)
+J = Jt*T
 TP <- TPmat(K)
 Omega_true <- rOmega(TP)
 class_0 <- sample(1:2^K, N, replace = T)

@@ -1,37 +1,3 @@
-#' Sample Size
-#' 
-#' This data set contains the sample size of the Spatial Rotation Learning Program.
-#' @format An integer of the sample size.
-#' @source Spatial Rotation Learning Experiment at UIUC between Fall 2015 and Spring 2016.
-#' @author Shiyu Wang, Yan Yang, Jeff Douglas, and Steve Culpepper
-"N"
-
-
-#' Item Pool Size
-#' 
-#' This data set contains the size of the item pool for the Spatial Rotation Learning Program.
-#' @format An integer of the total number of items.
-#' @source Spatial Rotation Learning Experiment at UIUC between Fall 2015 and Spring 2016.
-#' @author Shiyu Wang, Yan Yang, Jeff Douglas, and Steve Culpepper
-"J"
-
-
-#' Items administered per time point
-#' 
-#' This data set contains the number of items administered at each time point to each subject.
-#' @format An integer of the number of items per time point.
-#' @source Spatial Rotation Learning Experiment at UIUC between Fall 2015 and Spring 2016.
-#' @author Shiyu Wang, Yan Yang, Jeff Douglas, and Steve Culpepper
-"Jt"
-
-#' Number of skills
-#' 
-#' This data set contains the number of skills learned/assessed in the Spatial Rotation Learning Program.
-#' @format An integer of the total number of skills.
-#' @source Spatial Rotation Learning Experiment at UIUC between Fall 2015 and Spring 2016.
-#' @author Shiyu Wang, Yan Yang, Jeff Douglas, and Steve Culpepper
-"K"
-
 #' Observed response times list
 #' 
 #' This data set contains the observed latencies of responses of all subjects to all questions in the Spatial Rotation 
@@ -72,15 +38,6 @@
 #' @author Shiyu Wang, Yan Yang, Jeff Douglas, and Steve Culpepper
 "Q_examinee"
 
-
-
-#' Number of time points (initial included)
-#' 
-#' This data set contains the number of time points (including the initial time) of the Spatial Rotation Learning Program.
-#' @format An integer of the number of time points.
-#' @source Spatial Rotation Learning Experiment at UIUC between Fall 2015 and Spring 2016.
-#' @author Shiyu Wang, Yan Yang, Jeff Douglas, and Steve Culpepper
-"T"
 
 
 #' Subjects' test version

@@ -272,7 +272,13 @@ arma::cube resp_miss(const arma::cube& Responses, const arma::mat& test_order,
 //' @param Yt An N-by-J response \code{matrix}
 //' @return A J-by-J upper-triangular \code{matrix} of the item pairwise odds ratios
 //' @examples 
-//' \donttest{OddsRatio(N,Jt,Y_real_list[[1]])}
+//' \donttest{
+//' N = length(Test_versions)
+//' Jt = nrow(Q_list[[1]])
+//' K = ncol(Q_list[[1]])
+//' T = nrow(test_order)
+//' J = Jt*T
+//' OddsRatio(N,Jt,Y_real_list[[1]])}
 //' @export
 // [[Rcpp::export]]
 arma::mat OddsRatio(unsigned int N,unsigned int J,const arma::mat& Yt){

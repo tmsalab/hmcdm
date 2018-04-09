@@ -21,5 +21,11 @@ Based on a response matrix, calculate the item pairwise odds-ratio according do 
 number of people answering both item i and item j correctly
 }
 \examples{
-\donttest{OddsRatio(N,Jt,Y_real_list[[1]])}
+\donttest{
+N = length(Test_versions)
+Jt = nrow(Q_list[[1]])
+K = ncol(Q_list[[1]])
+T = nrow(test_order)
+J = Jt*T
+OddsRatio(N,Jt,Y_real_list[[1]])}
 }

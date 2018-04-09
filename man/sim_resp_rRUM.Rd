@@ -28,6 +28,7 @@ Simulate a single vector of rRUM responses for a person on a set of items
 \examples{
 J = 15
 K = 4
+T = 5
 Q = random_Q(J,K)
 Smats <- matrix(runif(J*K,.1,.3),J,K)
 Gmats <- matrix(runif(J*K,.1,.3),J,K)

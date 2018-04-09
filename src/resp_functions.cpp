@@ -53,6 +53,11 @@ arma::vec sim_resp_DINA(unsigned int J, unsigned int K, const arma::mat& ETA,
 //' @param Test_versions A length N \code{vector} of the test version of each examinee
 //' @return An \code{array} of DINA item responses of examinees across all time points
 //' @examples
+//' N = length(Test_versions)
+//' Jt = nrow(Q_list[[1]])
+//' K = ncol(Q_list[[1]])
+//' T = nrow(test_order)
+//' J = Jt*T
 //' itempars_true <- array(runif(Jt*2*T,.1,.2), dim = c(Jt,2,T))
 //' 
 //' ETAs <- array(NA,dim = c(Jt,2^K,T)) 
@@ -136,6 +141,7 @@ double pYit_DINA(const arma::vec& ETA_it,const arma::vec& Y_it, const arma::mat&
 //' @examples
 //' J = 15
 //' K = 4
+//' T = 5
 //' Q = random_Q(J,K)
 //' Smats <- matrix(runif(J*K,.1,.3),J,K)
 //' Gmats <- matrix(runif(J*K,.1,.3),J,K)
@@ -185,6 +191,11 @@ arma::vec sim_resp_rRUM(unsigned int J, unsigned int K, const arma::mat& Q,
 //' @param Test_versions A length N \code{vector} of the test version of each examinee
 //' @return An \code{array} of rRUM item responses of examinees across all time points
 //' @examples
+//' N = length(Test_versions)
+//' Jt = nrow(Q_list[[1]])
+//' K = ncol(Q_list[[1]])
+//' T = nrow(test_order)
+//' J = Jt*T
 //' Smats <- array(runif(Jt*K*(T),.1,.3),c(Jt,K,(T)))
 //' Gmats <- array(runif(Jt*K*(T),.1,.3),c(Jt,K,(T)))
 //' r_stars <- array(NA,c(Jt,K,T))
@@ -314,6 +325,11 @@ arma::vec sim_resp_NIDA(const unsigned int J, const unsigned int K, const arma::
 //' @param Test_versions A length N \code{vector} of the test version of each examinee
 //' @return An \code{array} of NIDA item responses of examinees across all time points
 //' @examples
+//' N = length(Test_versions)
+//' Jt = nrow(Q_list[[1]])
+//' K = ncol(Q_list[[1]])
+//' T = nrow(test_order)
+//' J = Jt*T
 //' Svec <- runif(K,.1,.3)
 //' Gvec <- runif(K,.1,.3)
 //' Test_versions_sim <- sample(1:5,N,replace = T)

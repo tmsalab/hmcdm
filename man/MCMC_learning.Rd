@@ -5,8 +5,9 @@
 \title{Gibbs sampler for learning models}
 \usage{
 MCMC_learning(Response_list, Q_list, model, test_order, Test_versions,
-  chain_length, burn_in, Q_examinee, Latency_list, G_version, theta_propose,
-  deltas_propose, R)
+  chain_length, burn_in, Q_examinee = NULL, Latency_list = NULL,
+  G_version = NA_integer_, theta_propose = 0, deltas_propose = NULL,
+  R = NULL)
 }
 \arguments{
 \item{Response_list}{A \code{list} of dichotomous item responses. t-th element is an N-by-Jt matrix of responses at time t.}

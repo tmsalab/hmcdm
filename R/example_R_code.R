@@ -1,11 +1,15 @@
 #' @examples 
 #' \dontrun{
 #' 
-#' #######################################################
-#' #   Testing CDM Learning functions                    #
-#' #######################################################
+#' ############################################################
+#' #   Example R code for simulating and fitting each model   #
+#' ############################################################
 #' # Load the spatial rotation data
-#' data("Spatial_Rotation")
+#' N = length(Test_versions)
+#' Jt = nrow(Q_list[[1]])
+#' K = ncol(Q_list[[1]])
+#' T = nrow(test_order)
+#' J = Jt*T
 #' 
 #' # Create the ideal response cube, where each slice is the ideal response matrix for an item block
 #' ETAs <- array(NA,dim = c(Jt,2^K,T)) 

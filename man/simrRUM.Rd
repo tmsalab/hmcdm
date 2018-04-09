@@ -26,6 +26,11 @@ An \code{array} of rRUM item responses of examinees across all time points
 Simulate a cube of rRUM responses for all persons on items across all time points
 }
 \examples{
+N = length(Test_versions)
+Jt = nrow(Q_list[[1]])
+K = ncol(Q_list[[1]])
+T = nrow(test_order)
+J = Jt*T
 Smats <- array(runif(Jt*K*(T),.1,.3),c(Jt,K,(T)))
 Gmats <- array(runif(Jt*K*(T),.1,.3),c(Jt,K,(T)))
 r_stars <- array(NA,c(Jt,K,T))

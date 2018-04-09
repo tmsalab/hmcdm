@@ -26,6 +26,11 @@ An \code{array} of NIDA item responses of examinees across all time points
 Simulate a cube of NIDA responses for all persons on items across all time points
 }
 \examples{
+N = length(Test_versions)
+Jt = nrow(Q_list[[1]])
+K = ncol(Q_list[[1]])
+T = nrow(test_order)
+J = Jt*T
 Svec <- runif(K,.1,.3)
 Gvec <- runif(K,.1,.3)
 Test_versions_sim <- sample(1:5,N,replace = T)

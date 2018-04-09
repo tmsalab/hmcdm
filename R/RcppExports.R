@@ -106,7 +106,13 @@ resp_miss <- function(Responses, test_order, Test_versions) {
 #' @param Yt An N-by-J response \code{matrix}
 #' @return A J-by-J upper-triangular \code{matrix} of the item pairwise odds ratios
 #' @examples 
-#' \donttest{OddsRatio(N,Jt,Y_real_list[[1]])}
+#' \donttest{
+#' N = length(Test_versions)
+#' Jt = nrow(Q_list[[1]])
+#' K = ncol(Q_list[[1]])
+#' T = nrow(test_order)
+#' J = Jt*T
+#' OddsRatio(N,Jt,Y_real_list[[1]])}
 #' @export
 OddsRatio <- function(N, J, Yt) {
     .Call(`_hmcdm_OddsRatio`, N, J, Yt)
@@ -138,6 +144,11 @@ getMode <- function(sorted_vec, size) {
 #' @author Susu Zhang
 #' @examples
 #' \donttest{
+#' N = length(Test_versions)
+#' Jt = nrow(Q_list[[1]])
+#' K = ncol(Q_list[[1]])
+#' T = nrow(test_order)
+#' J = Jt*T
 #' output_FOHM = MCMC_learning(Y_real_list,Q_list,"DINA_FOHM",test_order,Test_versions,10000,5000)
 #' point_estimates = point_estimates_learning(output_FOHM,"DINA_FOHM",N,Jt,K,T,alpha_EAP = T)
 #' }
@@ -299,6 +310,11 @@ sim_resp_DINA <- function(J, K, ETA, Svec, Gvec, alpha) {
 #' @param Test_versions A length N \code{vector} of the test version of each examinee
 #' @return An \code{array} of DINA item responses of examinees across all time points
 #' @examples
+#' N = length(Test_versions)
+#' Jt = nrow(Q_list[[1]])
+#' K = ncol(Q_list[[1]])
+#' T = nrow(test_order)
+#' J = Jt*T
 #' itempars_true <- array(runif(Jt*2*T,.1,.2), dim = c(Jt,2,T))
 #' 
 #' ETAs <- array(NA,dim = c(Jt,2^K,T)) 
@@ -342,6 +358,7 @@ pYit_DINA <- function(ETA_it, Y_it, itempars) {
 #' @examples
 #' J = 15
 #' K = 4
+#' T = 5
 #' Q = random_Q(J,K)
 #' Smats <- matrix(runif(J*K,.1,.3),J,K)
 #' Gmats <- matrix(runif(J*K,.1,.3),J,K)
@@ -368,6 +385,11 @@ sim_resp_rRUM <- function(J, K, Q, rstar, pistar, alpha) {
 #' @param Test_versions A length N \code{vector} of the test version of each examinee
 #' @return An \code{array} of rRUM item responses of examinees across all time points
 #' @examples
+#' N = length(Test_versions)
+#' Jt = nrow(Q_list[[1]])
+#' K = ncol(Q_list[[1]])
+#' T = nrow(test_order)
+#' J = Jt*T
 #' Smats <- array(runif(Jt*K*(T),.1,.3),c(Jt,K,(T)))
 #' Gmats <- array(runif(Jt*K*(T),.1,.3),c(Jt,K,(T)))
 #' r_stars <- array(NA,c(Jt,K,T))
@@ -439,6 +461,11 @@ sim_resp_NIDA <- function(J, K, Q, Svec, Gvec, alpha) {
 #' @param Test_versions A length N \code{vector} of the test version of each examinee
 #' @return An \code{array} of NIDA item responses of examinees across all time points
 #' @examples
+#' N = length(Test_versions)
+#' Jt = nrow(Q_list[[1]])
+#' K = ncol(Q_list[[1]])
+#' T = nrow(test_order)
+#' J = Jt*T
 #' Svec <- runif(K,.1,.3)
 #' Gvec <- runif(K,.1,.3)
 #' Test_versions_sim <- sample(1:5,N,replace = T)
@@ -495,6 +522,11 @@ G2vec_efficient <- function(ETA, J_incidence, alphas_i, test_version_i, test_ord
 #' @param Test_versions A length N \code{vector} of the test version of each examinee
 #' @return A \code{cube} of response times of subjects on each item across time
 #' @examples
+#' N = length(Test_versions)
+#' Jt = nrow(Q_list[[1]])
+#' K = ncol(Q_list[[1]])
+#' T = nrow(test_order)
+#' J = Jt*T
 #' class_0 <- sample(1:2^K, N, replace = T)
 #' Alphas_0 <- matrix(0,N,K)
 #' mu_thetatau = c(0,0)
@@ -542,6 +574,11 @@ dLit <- function(G_it, L_it, RT_itempars_it, tau_i, phi) {
 #' @param Jt An \code{int} of number of items in each block
 #' @return An N-by-K-by-T \code{array} of attribute patterns of subjects at each time point.
 #' @examples
+#' N = length(Test_versions)
+#' Jt = nrow(Q_list[[1]])
+#' K = ncol(Q_list[[1]])
+#' T = nrow(test_order)
+#' J = Jt*T
 #' class_0 <- sample(1:2^K, N, replace = T)
 #' Alphas_0 <- matrix(0,N,K)
 #' thetas_true = rnorm(N)
@@ -572,6 +609,11 @@ pTran_HO_sep <- function(alpha_prev, alpha_post, lambdas, theta_i, Q_i, Jt, t) {
 #' @param Jt An \code{int} of number of items in each block
 #' @return An N-by-K-by-T \code{array} of attribute patterns of subjects at each time point.
 #' @examples
+#' N = length(Test_versions)
+#' Jt = nrow(Q_list[[1]])
+#' K = ncol(Q_list[[1]])
+#' T = nrow(test_order)
+#' J = Jt*T
 #' class_0 <- sample(1:2^K, N, replace = T)
 #' Alphas_0 <- matrix(0,N,K)
 #' mu_thetatau = c(0,0)
@@ -602,6 +644,11 @@ pTran_HO_joint <- function(alpha_prev, alpha_post, lambdas, theta_i, Q_i, Jt, t)
 #' @param R A K-by-K dichotomous reachability \code{matrix} indicating the attribute hierarchies. The k,k'th entry of R is 1 if k' is prereq to k.
 #' @return An N-by-K-by-T \code{array} of attribute patterns of subjects at each time point.
 #' @examples
+#' N = length(Test_versions)
+#' Jt = nrow(Q_list[[1]])
+#' K = ncol(Q_list[[1]])
+#' T = nrow(test_order)
+#' J = Jt*T
 #' tau <- numeric(K)
 #' for(k in 1:K){
 #'   tau[k] <- runif(1,.2,.6)
@@ -639,6 +686,11 @@ pTran_indept <- function(alpha_prev, alpha_post, taus, R) {
 #' @param T An \code{int} of number of time points
 #' @return An N-by-K-by-T \code{array} of attribute patterns of subjects at each time point. 
 #' @examples
+#' N = length(Test_versions)
+#' Jt = nrow(Q_list[[1]])
+#' K = ncol(Q_list[[1]])
+#' T = nrow(test_order)
+#' J = Jt*T
 #' TP <- TPmat(K)
 #' Omega_true <- rOmega(TP)
 #' class_0 <- sample(1:2^K, N, replace = T)
@@ -661,6 +713,11 @@ rAlpha <- function(Omega, N, T, alpha1) {
 #' @param TP A 2^K-by-2^K dichotomous matrix of indicating possible transitions under the monotonicity assumption, created with
 #' the TPmat function 
 #' @examples
+#' N = length(Test_versions)
+#' Jt = nrow(Q_list[[1]])
+#' K = ncol(Q_list[[1]])
+#' T = nrow(test_order)
+#' J = Jt*T
 #' TP = TPmat(K)
 #' Omega_sim = rOmega(TP)
 #' @export

@@ -23,6 +23,11 @@ Based on the initial attribute patterns and probability of transitioning from 0 
 create cube of attribute patterns of all subjects across time. Transitions on different skills are regarded as independent.
 }
 \examples{
+N = length(Test_versions)
+Jt = nrow(Q_list[[1]])
+K = ncol(Q_list[[1]])
+T = nrow(test_order)
+J = Jt*T
 tau <- numeric(K)
 for(k in 1:K){
   tau[k] <- runif(1,.2,.6)
