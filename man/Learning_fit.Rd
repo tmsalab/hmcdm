@@ -5,8 +5,7 @@
 \title{Model fit statistics of learning models}
 \usage{
 Learning_fit(output, model, Response_list, Q_list, test_order, Test_versions,
-  Q_examinee = NULL, Latency_list = NULL, G_version = NA_integer_,
-  R = NULL)
+  Q_examinee, Latency_list, G_version, R)
 }
 \arguments{
 \item{output}{A \code{list} of MCMC outputs, obtained from the MCMC_learning function}

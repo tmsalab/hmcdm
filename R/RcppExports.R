@@ -116,6 +116,157 @@ getMode <- function(sorted_vec, size) {
     .Call(`_hmcdm_getMode`, sorted_vec, size)
 }
 
+#' @title Obtain learning model point estimates
+#' @description Obtain EAPs of continuous parameters and EAP or MAP of the attribute trajectory estimates under
+#' the CDM learning models based on the MCMC output
+#' @param output A \code{list} of MCMC outputs, obtained from the MCMC_learning function
+#' @param model A \code{charactor} of the type of model fitted with the MCMC sampler, possible selections are 
+#' "DINA_HO": Higher-Order Hidden Markov Diagnostic Classification Model with DINA responses;
+#' "DINA_HO_RT_joint": Higher-Order Hidden Markov DCM with DINA responses, log-Normal response times, and joint modeling of latent
+#' speed and learning ability; 
+#' "DINA_HO_RT_sep": Higher-Order Hidden Markov DCM with DINA responses, log-Normal response times, and separate modeling of latent
+#' speed and learning ability; 
+#' "rRUM_indept": Simple independent transition probability model with rRUM responses
+#' "NIDA_indept": Simple independent transition probability model with NIDA responses
+#' "DINA_FOHM": First Order Hidden Markov model with DINA responses
+#' @param N An \code{int} of number of subjects 
+#' @param Jt An \code{int} of number of items in each block
+#' @param K An \code{int} of number of skills
+#' @param T An \code{int} of number of time points
+#' @param alpha_EAP A \code{boolean} operator (T/F) of whether to use EAP for alphas (if F: use most likely trajectory (MAP) for alphas) 
+#' @return A \code{list} of point estimates of model parameters
+#' @author Susu Zhang
+#' @examples
+#' \donttest{
+#' output_FOHM = MCMC_learning(Y_real_list,Q_list,"DINA_FOHM",test_order,Test_versions,10000,5000)
+#' point_estimates = point_estimates_learning(output_FOHM,"DINA_FOHM",N,Jt,K,T,alpha_EAP = T)
+#' }
+#' @export
+point_estimates_learning <- function(output, model, N, Jt, K, T, alpha_EAP = TRUE) {
+    .Call(`_hmcdm_point_estimates_learning`, output, model, N, Jt, K, T, alpha_EAP)
+}
+
+#' @title Model fit statistics of learning models
+#' @description Obtain joint model's deviance information criteria (DIC) and posterior predictive item means, item response time means, 
+#' item odds ratios, subject total scores at each time point, and subject total response times at each time point.
+#' @param output A \code{list} of MCMC outputs, obtained from the MCMC_learning function
+#' @param model A \code{charactor} of the type of model fitted with the MCMC sampler, possible selections are 
+#' "DINA_HO": Higher-Order Hidden Markov Diagnostic Classification Model with DINA responses;
+#' "DINA_HO_RT_joint": Higher-Order Hidden Markov DCM with DINA responses, log-Normal response times, and joint modeling of latent
+#' speed and learning ability; 
+#' "DINA_HO_RT_sep": Higher-Order Hidden Markov DCM with DINA responses, log-Normal response times, and separate modeling of latent
+#' speed and learning ability; 
+#' "rRUM_indept": Simple independent transition probability model with rRUM responses
+#' "NIDA_indept": Simple independent transition probability model with NIDA responses
+#' "DINA_FOHM": First Order Hidden Markov model with DINA responses
+#' @param Response_list A \code{list} of dichotomous item responses. t-th element is an N-by-Jt matrix of responses at time t.
+#' @param Q_list A \code{list} of Q-matrices. b-th element is a Jt-by-K Q-matrix for items in block b. 
+#' @param test_order A \code{matrix} of the order of item blocks for each test version.
+#' @param Test_versions A \code{vector} of the test version of each learner.
+#' @param Q_examinee Optional. A \code{list} of the Q matrix for each learner. i-th element is a J-by-K Q-matrix for all items learner i was administered.
+#' @param Latency_list Optional. A \code{list} of the response times. t-th element is an N-by-Jt matrix of response times at time t.
+#' @param G_version Optional. An \code{int} of the type of covariate for increased fluency (1: G is dichotomous depending on whether all skills required for
+#' current item are mastered; 2: G cumulates practice effect on previous items using mastered skills; 3: G is a time block effect invariant across 
+#' subjects with different attribute trajectories)
+#' @param R Optional. A reachability \code{matrix} for the hierarchical relationship between attributes. 
+#' @return A list of DIC matrix, with deviance decomposed to that of the transition model, response model, response time model (if applicable),
+#' and joint model of random parameters, and posterior predictive item means, item odds ratios, item averaged response times, subjects' total
+#' scores at each time point, and subjects' total response times at each time point. Predicted values can be compared to the observed ones from
+#' empirical data.
+#' @examples
+#' \donttest{
+#' output_FOHM = MCMC_learning(Y_real_list,Q_list,"DINA_FOHM",test_order,Test_versions,10000,5000)
+#' FOHM_fit <- Learning_fit(output_FOHM,"DINA_FOHM",Y_real_list,Q_list,test_order,Test_versions)
+#' }
+#' @export
+Learning_fit <- function(output, model, Response_list, Q_list, test_order, Test_versions, Q_examinee = NULL, Latency_list = NULL, G_version = NA_integer_, R = NULL) {
+    .Call(`_hmcdm_Learning_fit`, output, model, Response_list, Q_list, test_order, Test_versions, Q_examinee, Latency_list, G_version, R)
+}
+
+parm_update_HO <- function(N, Jt, K, T, alphas, pi, lambdas, thetas, response, itempars, Qs, Q_examinee, test_order, Test_versions, theta_propose, deltas_propose) {
+    .Call(`_hmcdm_parm_update_HO`, N, Jt, K, T, alphas, pi, lambdas, thetas, response, itempars, Qs, Q_examinee, test_order, Test_versions, theta_propose, deltas_propose)
+}
+
+Gibbs_DINA_HO <- function(Response, Qs, Q_examinee, test_order, Test_versions, theta_propose, deltas_propose, chain_length, burn_in) {
+    .Call(`_hmcdm_Gibbs_DINA_HO`, Response, Qs, Q_examinee, test_order, Test_versions, theta_propose, deltas_propose, chain_length, burn_in)
+}
+
+parm_update_HO_RT_sep <- function(N, Jt, K, T, alphas, pi, lambdas, thetas, latency, RT_itempars, taus, phi_vec, tauvar, response, itempars, Qs, Q_examinee, test_order, Test_versions, G_version, theta_propose, a_sigma_tau0, rate_sigma_tau0, deltas_propose, a_alpha0, rate_alpha0) {
+    .Call(`_hmcdm_parm_update_HO_RT_sep`, N, Jt, K, T, alphas, pi, lambdas, thetas, latency, RT_itempars, taus, phi_vec, tauvar, response, itempars, Qs, Q_examinee, test_order, Test_versions, G_version, theta_propose, a_sigma_tau0, rate_sigma_tau0, deltas_propose, a_alpha0, rate_alpha0)
+}
+
+Gibbs_DINA_HO_RT_sep <- function(Response, Latency, Qs, Q_examinee, test_order, Test_versions, G_version, theta_propose, deltas_propose, chain_length, burn_in) {
+    .Call(`_hmcdm_Gibbs_DINA_HO_RT_sep`, Response, Latency, Qs, Q_examinee, test_order, Test_versions, G_version, theta_propose, deltas_propose, chain_length, burn_in)
+}
+
+parm_update_HO_RT_joint <- function(N, Jt, K, T, alphas, pi, lambdas, thetas, latency, RT_itempars, taus, phi_vec, Sig, response, itempars, Qs, Q_examinee, test_order, Test_versions, G_version, sig_theta_propose, S, p, deltas_propose, a_alpha0, rate_alpha0) {
+    .Call(`_hmcdm_parm_update_HO_RT_joint`, N, Jt, K, T, alphas, pi, lambdas, thetas, latency, RT_itempars, taus, phi_vec, Sig, response, itempars, Qs, Q_examinee, test_order, Test_versions, G_version, sig_theta_propose, S, p, deltas_propose, a_alpha0, rate_alpha0)
+}
+
+Gibbs_DINA_HO_RT_joint <- function(Response, Latency, Qs, Q_examinee, test_order, Test_versions, G_version, sig_theta_propose, deltas_propose, chain_length, burn_in) {
+    .Call(`_hmcdm_Gibbs_DINA_HO_RT_joint`, Response, Latency, Qs, Q_examinee, test_order, Test_versions, G_version, sig_theta_propose, deltas_propose, chain_length, burn_in)
+}
+
+parm_update_rRUM <- function(N, Jt, K, T, alphas, pi, taus, R, r_stars, pi_stars, Qs, responses, X_ijk, Smats, Gmats, test_order, Test_versions, dirich_prior) {
+    invisible(.Call(`_hmcdm_parm_update_rRUM`, N, Jt, K, T, alphas, pi, taus, R, r_stars, pi_stars, Qs, responses, X_ijk, Smats, Gmats, test_order, Test_versions, dirich_prior))
+}
+
+Gibbs_rRUM_indept <- function(Response, Qs, R, test_order, Test_versions, chain_length, burn_in) {
+    .Call(`_hmcdm_Gibbs_rRUM_indept`, Response, Qs, R, test_order, Test_versions, chain_length, burn_in)
+}
+
+parm_update_NIDA_indept <- function(N, Jt, K, T, alphas, pi, taus, R, Qs, responses, X_ijk, Smats, Gmats, test_order, Test_versions, dirich_prior) {
+    invisible(.Call(`_hmcdm_parm_update_NIDA_indept`, N, Jt, K, T, alphas, pi, taus, R, Qs, responses, X_ijk, Smats, Gmats, test_order, Test_versions, dirich_prior))
+}
+
+Gibbs_NIDA_indept <- function(Response, Qs, R, test_order, Test_versions, chain_length, burn_in) {
+    .Call(`_hmcdm_Gibbs_NIDA_indept`, Response, Qs, R, test_order, Test_versions, chain_length, burn_in)
+}
+
+parm_update_DINA_FOHM <- function(N, J, K, nClass, nT, Y, TP, ETA, ss, gs, CLASS, pi, Omega) {
+    invisible(.Call(`_hmcdm_parm_update_DINA_FOHM`, N, J, K, nClass, nT, Y, TP, ETA, ss, gs, CLASS, pi, Omega))
+}
+
+Gibbs_DINA_FOHM <- function(Y, Q, burnin, chain_length) {
+    .Call(`_hmcdm_Gibbs_DINA_FOHM`, Y, Q, burnin, chain_length)
+}
+
+#' @title Gibbs sampler for learning models
+#' @description Runs MCMC to estimate parameters of any of the listed learning models. 
+#' @param Response_list A \code{list} of dichotomous item responses. t-th element is an N-by-Jt matrix of responses at time t.
+#' @param Q_list A \code{list} of Q-matrices. b-th element is a Jt-by-K Q-matrix for items in block b. 
+#' @param model A \code{charactor} of the type of model fitted with the MCMC sampler, possible selections are 
+#' "DINA_HO": Higher-Order Hidden Markov Diagnostic Classification Model with DINA responses;
+#' "DINA_HO_RT_joint": Higher-Order Hidden Markov DCM with DINA responses, log-Normal response times, and joint modeling of latent
+#' speed and learning ability; 
+#' "DINA_HO_RT_sep": Higher-Order Hidden Markov DCM with DINA responses, log-Normal response times, and separate modeling of latent
+#' speed and learning ability; 
+#' "rRUM_indept": Simple independent transition probability model with rRUM responses
+#' "NIDA_indept": Simple independent transition probability model with NIDA responses
+#' "DINA_FOHM": First Order Hidden Markov model with DINA responses
+#' @param test_order A \code{matrix} of the order of item blocks for each test version.
+#' @param Test_versions A \code{vector} of the test version of each learner.
+#' @param chain_length An \code{int} of the MCMC chain length.
+#' @param burn_in An \code{int} of the MCMC burn-in chain length.
+#' @param Q_examinee Optional. A \code{list} of the Q matrix for each learner. i-th element is a J-by-K Q-matrix for all items learner i was administered.
+#' @param Latency_list Optional. A \code{list} of the response times. t-th element is an N-by-Jt matrix of response times at time t.
+#' @param G_version Optional. An \code{int} of the type of covariate for increased fluency (1: G is dichotomous depending on whether all skills required for
+#' current item are mastered; 2: G cumulates practice effect on previous items using mastered skills; 3: G is a time block effect invariant across 
+#' subjects with different attribute trajectories)
+#' @param theta_propose Optional. A \code{scalar} for the standard deviation of theta's proposal distribution in the MH sampling step.
+#' @param deltas_propose Optional. A \code{vector} for the band widths of each lambda's proposal distribution in the MH sampling step.
+#' @param R Optional. A reachability \code{matrix} for the hierarchical relationship between attributes. 
+#' @return A \code{list} of parameter samples and Metropolis-Hastings acceptance rates (if applicable).
+#' @author Susu Zhang
+#' @examples
+#' \donttest{
+#' output_FOHM = MCMC_learning(Y_real_list,Q_list,"DINA_FOHM",test_order,Test_versions,10000,5000)
+#' }
+#' @export
+MCMC_learning <- function(Response_list, Q_list, model, test_order, Test_versions, chain_length, burn_in, Q_examinee = NULL, Latency_list = NULL, G_version = NA_integer_, theta_propose = 0., deltas_propose = NULL, R = NULL) {
+    .Call(`_hmcdm_MCMC_learning`, Response_list, Q_list, model, test_order, Test_versions, chain_length, burn_in, Q_examinee, Latency_list, G_version, theta_propose, deltas_propose, R)
+}
+
 #' @title Simulate DINA model responses (single vector)
 #' @description Simulate a single vector of DINA responses for a person on a set of items
 #' @param J An \code{int} of number of items
@@ -515,156 +666,5 @@ rAlpha <- function(Omega, N, T, alpha1) {
 #' @export
 rOmega <- function(TP) {
     .Call(`_hmcdm_rOmega`, TP)
-}
-
-parm_update_HO <- function(N, Jt, K, T, alphas, pi, lambdas, thetas, response, itempars, Qs, Q_examinee, test_order, Test_versions, theta_propose, deltas_propose) {
-    .Call(`_hmcdm_parm_update_HO`, N, Jt, K, T, alphas, pi, lambdas, thetas, response, itempars, Qs, Q_examinee, test_order, Test_versions, theta_propose, deltas_propose)
-}
-
-Gibbs_DINA_HO <- function(Response, Qs, Q_examinee, test_order, Test_versions, theta_propose, deltas_propose, chain_length, burn_in) {
-    .Call(`_hmcdm_Gibbs_DINA_HO`, Response, Qs, Q_examinee, test_order, Test_versions, theta_propose, deltas_propose, chain_length, burn_in)
-}
-
-parm_update_HO_RT_sep <- function(N, Jt, K, T, alphas, pi, lambdas, thetas, latency, RT_itempars, taus, phi_vec, tauvar, response, itempars, Qs, Q_examinee, test_order, Test_versions, G_version, theta_propose, a_sigma_tau0, rate_sigma_tau0, deltas_propose, a_alpha0, rate_alpha0) {
-    .Call(`_hmcdm_parm_update_HO_RT_sep`, N, Jt, K, T, alphas, pi, lambdas, thetas, latency, RT_itempars, taus, phi_vec, tauvar, response, itempars, Qs, Q_examinee, test_order, Test_versions, G_version, theta_propose, a_sigma_tau0, rate_sigma_tau0, deltas_propose, a_alpha0, rate_alpha0)
-}
-
-Gibbs_DINA_HO_RT_sep <- function(Response, Latency, Qs, Q_examinee, test_order, Test_versions, G_version, theta_propose, deltas_propose, chain_length, burn_in) {
-    .Call(`_hmcdm_Gibbs_DINA_HO_RT_sep`, Response, Latency, Qs, Q_examinee, test_order, Test_versions, G_version, theta_propose, deltas_propose, chain_length, burn_in)
-}
-
-parm_update_HO_RT_joint <- function(N, Jt, K, T, alphas, pi, lambdas, thetas, latency, RT_itempars, taus, phi_vec, Sig, response, itempars, Qs, Q_examinee, test_order, Test_versions, G_version, sig_theta_propose, S, p, deltas_propose, a_alpha0, rate_alpha0) {
-    .Call(`_hmcdm_parm_update_HO_RT_joint`, N, Jt, K, T, alphas, pi, lambdas, thetas, latency, RT_itempars, taus, phi_vec, Sig, response, itempars, Qs, Q_examinee, test_order, Test_versions, G_version, sig_theta_propose, S, p, deltas_propose, a_alpha0, rate_alpha0)
-}
-
-Gibbs_DINA_HO_RT_joint <- function(Response, Latency, Qs, Q_examinee, test_order, Test_versions, G_version, sig_theta_propose, deltas_propose, chain_length, burn_in) {
-    .Call(`_hmcdm_Gibbs_DINA_HO_RT_joint`, Response, Latency, Qs, Q_examinee, test_order, Test_versions, G_version, sig_theta_propose, deltas_propose, chain_length, burn_in)
-}
-
-parm_update_rRUM <- function(N, Jt, K, T, alphas, pi, taus, R, r_stars, pi_stars, Qs, responses, X_ijk, Smats, Gmats, test_order, Test_versions, dirich_prior) {
-    invisible(.Call(`_hmcdm_parm_update_rRUM`, N, Jt, K, T, alphas, pi, taus, R, r_stars, pi_stars, Qs, responses, X_ijk, Smats, Gmats, test_order, Test_versions, dirich_prior))
-}
-
-Gibbs_rRUM_indept <- function(Response, Qs, R, test_order, Test_versions, chain_length, burn_in) {
-    .Call(`_hmcdm_Gibbs_rRUM_indept`, Response, Qs, R, test_order, Test_versions, chain_length, burn_in)
-}
-
-parm_update_NIDA_indept <- function(N, Jt, K, T, alphas, pi, taus, R, Qs, responses, X_ijk, Smats, Gmats, test_order, Test_versions, dirich_prior) {
-    invisible(.Call(`_hmcdm_parm_update_NIDA_indept`, N, Jt, K, T, alphas, pi, taus, R, Qs, responses, X_ijk, Smats, Gmats, test_order, Test_versions, dirich_prior))
-}
-
-Gibbs_NIDA_indept <- function(Response, Qs, R, test_order, Test_versions, chain_length, burn_in) {
-    .Call(`_hmcdm_Gibbs_NIDA_indept`, Response, Qs, R, test_order, Test_versions, chain_length, burn_in)
-}
-
-parm_update_DINA_FOHM <- function(N, J, K, nClass, nT, Y, TP, ETA, ss, gs, CLASS, pi, Omega) {
-    invisible(.Call(`_hmcdm_parm_update_DINA_FOHM`, N, J, K, nClass, nT, Y, TP, ETA, ss, gs, CLASS, pi, Omega))
-}
-
-Gibbs_DINA_FOHM <- function(Y, Q, burnin, chain_length) {
-    .Call(`_hmcdm_Gibbs_DINA_FOHM`, Y, Q, burnin, chain_length)
-}
-
-#' @title Gibbs sampler for learning models
-#' @description Runs MCMC to estimate parameters of any of the listed learning models. 
-#' @param Response_list A \code{list} of dichotomous item responses. t-th element is an N-by-Jt matrix of responses at time t.
-#' @param Q_list A \code{list} of Q-matrices. b-th element is a Jt-by-K Q-matrix for items in block b. 
-#' @param model A \code{charactor} of the type of model fitted with the MCMC sampler, possible selections are 
-#' "DINA_HO": Higher-Order Hidden Markov Diagnostic Classification Model with DINA responses;
-#' "DINA_HO_RT_joint": Higher-Order Hidden Markov DCM with DINA responses, log-Normal response times, and joint modeling of latent
-#' speed and learning ability; 
-#' "DINA_HO_RT_sep": Higher-Order Hidden Markov DCM with DINA responses, log-Normal response times, and separate modeling of latent
-#' speed and learning ability; 
-#' "rRUM_indept": Simple independent transition probability model with rRUM responses
-#' "NIDA_indept": Simple independent transition probability model with NIDA responses
-#' "DINA_FOHM": First Order Hidden Markov model with DINA responses
-#' @param test_order A \code{matrix} of the order of item blocks for each test version.
-#' @param Test_versions A \code{vector} of the test version of each learner.
-#' @param chain_length An \code{int} of the MCMC chain length.
-#' @param burn_in An \code{int} of the MCMC burn-in chain length.
-#' @param Q_examinee Optional. A \code{list} of the Q matrix for each learner. i-th element is a J-by-K Q-matrix for all items learner i was administered.
-#' @param Latency_list Optional. A \code{list} of the response times. t-th element is an N-by-Jt matrix of response times at time t.
-#' @param G_version Optional. An \code{int} of the type of covariate for increased fluency (1: G is dichotomous depending on whether all skills required for
-#' current item are mastered; 2: G cumulates practice effect on previous items using mastered skills; 3: G is a time block effect invariant across 
-#' subjects with different attribute trajectories)
-#' @param theta_propose Optional. A \code{scalar} for the standard deviation of theta's proposal distribution in the MH sampling step.
-#' @param deltas_propose Optional. A \code{vector} for the band widths of each lambda's proposal distribution in the MH sampling step.
-#' @param R Optional. A reachability \code{matrix} for the hierarchical relationship between attributes. 
-#' @return A \code{list} of parameter samples and Metropolis-Hastings acceptance rates (if applicable).
-#' @author Susu Zhang
-#' @examples
-#' \donttest{
-#' output_FOHM = MCMC_learning(Y_real_list,Q_list,"DINA_FOHM",test_order,Test_versions,10000,5000)
-#' }
-#' @export
-MCMC_learning <- function(Response_list, Q_list, model, test_order, Test_versions, chain_length, burn_in, Q_examinee = NULL, Latency_list = NULL, G_version = NA_integer_, theta_propose = 0., deltas_propose = NULL, R = NULL) {
-    .Call(`_hmcdm_MCMC_learning`, Response_list, Q_list, model, test_order, Test_versions, chain_length, burn_in, Q_examinee, Latency_list, G_version, theta_propose, deltas_propose, R)
-}
-
-#' @title Obtain learning model point estimates
-#' @description Obtain EAPs of continuous parameters and EAP or MAP of the attribute trajectory estimates under
-#' the CDM learning models based on the MCMC output
-#' @param output A \code{list} of MCMC outputs, obtained from the MCMC_learning function
-#' @param model A \code{charactor} of the type of model fitted with the MCMC sampler, possible selections are 
-#' "DINA_HO": Higher-Order Hidden Markov Diagnostic Classification Model with DINA responses;
-#' "DINA_HO_RT_joint": Higher-Order Hidden Markov DCM with DINA responses, log-Normal response times, and joint modeling of latent
-#' speed and learning ability; 
-#' "DINA_HO_RT_sep": Higher-Order Hidden Markov DCM with DINA responses, log-Normal response times, and separate modeling of latent
-#' speed and learning ability; 
-#' "rRUM_indept": Simple independent transition probability model with rRUM responses
-#' "NIDA_indept": Simple independent transition probability model with NIDA responses
-#' "DINA_FOHM": First Order Hidden Markov model with DINA responses
-#' @param N An \code{int} of number of subjects 
-#' @param Jt An \code{int} of number of items in each block
-#' @param K An \code{int} of number of skills
-#' @param T An \code{int} of number of time points
-#' @param alpha_EAP A \code{boolean} operator (T/F) of whether to use EAP for alphas (if F: use most likely trajectory (MAP) for alphas) 
-#' @return A \code{list} of point estimates of model parameters
-#' @author Susu Zhang
-#' @examples
-#' \donttest{
-#' output_FOHM = MCMC_learning(Y_real_list,Q_list,"DINA_FOHM",test_order,Test_versions,10000,5000)
-#' point_estimates = point_estimates_learning(output_FOHM,"DINA_FOHM",N,Jt,K,T,alpha_EAP = T)
-#' }
-#' @export
-point_estimates_learning <- function(output, model, N, Jt, K, T, alpha_EAP = TRUE) {
-    .Call(`_hmcdm_point_estimates_learning`, output, model, N, Jt, K, T, alpha_EAP)
-}
-
-#' @title Model fit statistics of learning models
-#' @description Obtain joint model's deviance information criteria (DIC) and posterior predictive item means, item response time means, 
-#' item odds ratios, subject total scores at each time point, and subject total response times at each time point.
-#' @param output A \code{list} of MCMC outputs, obtained from the MCMC_learning function
-#' @param model A \code{charactor} of the type of model fitted with the MCMC sampler, possible selections are 
-#' "DINA_HO": Higher-Order Hidden Markov Diagnostic Classification Model with DINA responses;
-#' "DINA_HO_RT_joint": Higher-Order Hidden Markov DCM with DINA responses, log-Normal response times, and joint modeling of latent
-#' speed and learning ability; 
-#' "DINA_HO_RT_sep": Higher-Order Hidden Markov DCM with DINA responses, log-Normal response times, and separate modeling of latent
-#' speed and learning ability; 
-#' "rRUM_indept": Simple independent transition probability model with rRUM responses
-#' "NIDA_indept": Simple independent transition probability model with NIDA responses
-#' "DINA_FOHM": First Order Hidden Markov model with DINA responses
-#' @param Response_list A \code{list} of dichotomous item responses. t-th element is an N-by-Jt matrix of responses at time t.
-#' @param Q_list A \code{list} of Q-matrices. b-th element is a Jt-by-K Q-matrix for items in block b. 
-#' @param test_order A \code{matrix} of the order of item blocks for each test version.
-#' @param Test_versions A \code{vector} of the test version of each learner.
-#' @param Q_examinee Optional. A \code{list} of the Q matrix for each learner. i-th element is a J-by-K Q-matrix for all items learner i was administered.
-#' @param Latency_list Optional. A \code{list} of the response times. t-th element is an N-by-Jt matrix of response times at time t.
-#' @param G_version Optional. An \code{int} of the type of covariate for increased fluency (1: G is dichotomous depending on whether all skills required for
-#' current item are mastered; 2: G cumulates practice effect on previous items using mastered skills; 3: G is a time block effect invariant across 
-#' subjects with different attribute trajectories)
-#' @param R Optional. A reachability \code{matrix} for the hierarchical relationship between attributes. 
-#' @return A list of DIC matrix, with deviance decomposed to that of the transition model, response model, response time model (if applicable),
-#' and joint model of random parameters, and posterior predictive item means, item odds ratios, item averaged response times, subjects' total
-#' scores at each time point, and subjects' total response times at each time point. Predicted values can be compared to the observed ones from
-#' empirical data.
-#' @examples
-#' \donttest{
-#' output_FOHM = MCMC_learning(Y_real_list,Q_list,"DINA_FOHM",test_order,Test_versions,10000,5000)
-#' FOHM_fit <- Learning_fit(output_FOHM,"DINA_FOHM",Y_real_list,Q_list,test_order,Test_versions)
-#' }
-#' @export
-Learning_fit <- function(output, model, Response_list, Q_list, test_order, Test_versions, Q_examinee = NULL, Latency_list = NULL, G_version = NA_integer_, R = NULL) {
-    .Call(`_hmcdm_Learning_fit`, output, model, Response_list, Q_list, test_order, Test_versions, Q_examinee, Latency_list, G_version, R)
 }
 

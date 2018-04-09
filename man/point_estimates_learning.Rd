@@ -4,7 +4,7 @@
 \alias{point_estimates_learning}
 \title{Obtain learning model point estimates}
 \usage{
-point_estimates_learning(output, model, N, Jt, K, T, alpha_EAP = TRUE)
+point_estimates_learning(output, model, N, Jt, K, T, alpha_EAP)
 }
 \arguments{
 \item{output}{A \code{list} of MCMC outputs, obtained from the MCMC_learning function}
