@@ -7,9 +7,9 @@
 \title{hmcdm: Hidden Markov Cognitive Diagnosis Models for Learning}
 \description{
 Functions for fitting hidden Markov models of learning under the cognitive diagnosis framework.
-This package enables the estimation of the hidden Markov diagnostic classification model,
-the first order hidden Markov model, the reduced-reparameterized unified learning model,
-and the joint learning model for responses and response times.
+  This package enables the estimation of the hidden Markov diagnostic classification model,
+  the first order hidden Markov model, the reduced-reparameterized unified learning model,
+  and the joint learning model for responses and response times.
 }
 \references{
 Wang, S., Yang, Y., Culpepper, S. A., & Douglas, J. A. (2018). Tracking Skill Acquisition With Cognitive Diagnosis Models: A Higher-Order, Hidden Markov Model With Covariates. Journal of Educational and Behavioral Statistics, 1076998617719727.
