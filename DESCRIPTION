@@ -2,9 +2,11 @@ Package: hmcdm
 Type: Package
 Title: Hidden Markov Cognitive Diagnosis Models for Learning
 Version: 1.1.1
-Authors@R: c(person("Susu", "Zhang", email = "susu.zhang1992@gmail.com", role = c("aut", "cre")),
-           person("Shiyu", "Wang", email = "swang44@uga.edu", role = c("aut")),
-           person("Yinghan", "Chen", email = "yinghanc@unr.edu ", role = c("aut")))
+Authors@R: c(
+     person("Susu", "Zhang", email = "susu.zhang1992@gmail.com", role = c("aut", "cre")),
+     person("Shiyu", "Wang", email = "swang44@uga.edu", role = c("aut")),
+     person("Yinghan", "Chen", email = "yinghanc@unr.edu ", role = c("aut"))
+    )
 Description: Functions for fitting hidden Markov models of learning under the cognitive diagnosis framework.
   This package enables the estimation of the hidden Markov diagnostic classification model,
   the first order hidden Markov model, the reduced-reparameterized unified learning model,
@@ -12,8 +14,8 @@ Description: Functions for fitting hidden Markov models of learning under the co
 License: GPL (>= 2)
 Imports: Rcpp (>= 0.12.14)
 LinkingTo: Rcpp, RcppArmadillo, progress
-RoxygenNote: 6.1.1
-Roxygen: list(markdown = TRUE)
 SystemRequirements: C++11
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 6.1.1
+Roxygen: list(markdown = TRUE)
