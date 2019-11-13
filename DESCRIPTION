@@ -12,7 +12,7 @@ Description: Functions for fitting hidden Markov models of learning under the co
 License: GPL (>= 2)
 Imports: Rcpp (>= 0.12.14)
 LinkingTo: Rcpp, RcppArmadillo, progress
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
 SystemRequirements: C++11
 Encoding: UTF-8
