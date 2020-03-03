@@ -2251,7 +2251,7 @@ Rcpp::List Gibbs_DINA_FOHM(const arma::cube& Y,const arma::mat& Q,
   
   arma::vec vv = bijectionvector(K);
   arma::mat ETA = ETAmat(K,J,Q);
-  arma::mat TP = TPmat(K);
+  arma::mat TP = TPmatFree(K);
   arma::vec vvp = bijectionvector(K*nT);
   
   //Savinging output
@@ -2264,7 +2264,7 @@ Rcpp::List Gibbs_DINA_FOHM(const arma::cube& Y,const arma::mat& Q,
   arma::mat Trajectories_mat(N,(K*nT));
   
   //need to initialize, alphas, X,ss, gs,pis 
-  arma::mat Omega = rOmega(TP);
+  arma::mat Omega = rOmegaFree(TP);
   arma::vec class0 = arma::randi<arma::vec>(N,arma::distr_param(0,C-1));
   arma::mat CLASS=rAlpha(Omega,N,nT,class0);
   arma::vec ss = arma::randu<arma::vec>(J);

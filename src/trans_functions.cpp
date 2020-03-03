@@ -406,3 +406,39 @@ arma::mat rOmega(const arma::mat& TP){
   }
   return Omega;
 }
+
+//' @title Generate a random transition matrix for the first order hidden Markov model
+//' @description Generate a random transition matrix under the unrestricted learning trajectory assumption
+//' @param TP A 2^K-by-2^K dichotomous matrix of indicating possible transitions
+//' @examples
+//' K = ncol(Q_list[[1]])
+//' TP = TPmatFree(K)
+//' Omega_sim = rOmega(TP)
+//' @export
+// [[Rcpp::export]]
+arma::mat rOmegaFree(const arma::mat& TP){
+  unsigned int C = TP.n_cols;
+  arma::mat Omega = arma::zeros<arma::mat>(C,C);
+  Omega(C-1,C-1) = 1.;
+  for(unsigned int cc=0;cc<C;cc++){
+    arma::uvec tflag = find(TP.row(cc)==1.);
+    arma::vec delta0 = arma::ones<arma::vec>(tflag.n_elem);
+    arma::vec ws = rDirichlet(delta0);
+    
+    //          Rcpp::Rcout << ws <<tflag<< std::endl;
+    for(unsigned int g=0;g<tflag.n_elem;g++){
+      Omega(cc,tflag(g)) = ws(g);
+    }
+  }
+  return Omega;
+}
+
+/*** R
+# TP = TPmat(2)
+# TPFree=TPmatFree(2)
+# rOmega(TP)
+# rOmegaFree(TPFree)
+# Omega = rOmegaFree(TP)
+# rowSums(Omega)
+
+*/

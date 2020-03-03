@@ -30,6 +30,6 @@ arma::mat OddsRatio(unsigned int N,unsigned int J,const arma::mat& Yt);
 
 int getMode(arma::vec sorted_vec, int size);
 
-
+arma::mat TPmatFree(unsigned int K);
 
 #endif

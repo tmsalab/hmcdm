@@ -319,3 +319,34 @@ int getMode(arma::vec sorted_vec, int size){
   return mode;
 }
 
+//' @title Generate non-monotonicity matrix
+//' @description Based on the latent attribute space, generate a matrix indicating whether it is possible to
+//' transition from pattern cc to cc', free from the monotonicity learning assumption.
+//' @param K An \code{int} of the number of attribtues.
+//' @return A 2^K-by-2^K \code{matrix} filled with 1, showing it is possible to transit between any two patterns 
+//' @examples
+//' TP = TPmatFree(4)
+//' @export
+// [[Rcpp::export]]
+arma::mat TPmatFree(unsigned int K){
+  double nClass = pow(2,K);
+  arma::mat TP = arma::eye<arma::mat>(nClass,nClass);
+  for(unsigned int rr=0;rr<nClass;rr++){
+    for(unsigned int cc=0;cc<nClass;cc++){
+      double temp = 1.0;
+      TP(rr,cc) = temp;
+    }
+  }
+  return TP;
+}
+
+/*** R
+
+# inv_bijectionvector(2,0)
+# inv_bijectionvector(2,1)
+# inv_bijectionvector(2,2)
+# inv_bijectionvector(2,3)
+# 
+# TPmat(2)
+# TPmatFree(4)
+*/
