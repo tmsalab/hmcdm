@@ -4,7 +4,9 @@
 \name{Test_versions}
 \alias{Test_versions}
 \title{Subjects' test version}
-\format{A vector of length 350, containing each subject's test version ranging from 1 to 5.}
+\format{
+A vector of length 350, containing each subject's test version ranging from 1 to 5.
+}
 \source{
 Spatial Rotation Learning Experiment at UIUC between Fall 2015 and Spring 2016.
 }

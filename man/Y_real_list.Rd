@@ -4,8 +4,10 @@
 \name{Y_real_list}
 \alias{Y_real_list}
 \title{Observed response accuracy list}
-\format{A list of length 5 (number of time points). Each element of the list is an N-by-Jt matrix, containing the
-subjects' response accuracy to each item at that time point.}
+\format{
+A list of length 5 (number of time points). Each element of the list is an N-by-Jt matrix, containing the
+subjects' response accuracy to each item at that time point.
+}
 \source{
 Spatial Rotation Learning Experiment at UIUC between Fall 2015 and Spring 2016.
 }
