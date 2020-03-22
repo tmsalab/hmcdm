@@ -5,19 +5,9 @@
 
 <!-- badges: start -->
 
-[![Build
-Status](https://travis-ci.com/tmsalab/hmcdm.svg)](https://travis-ci.com/tmsalab/hmcdm)
+[![R build
+status](https://github.com/tmsalab/hmcdm/workflows/R-CMD-check/badge.svg)](https://github.com/tmsalab/hmcdm/actions)
 [![Package-License](http://img.shields.io/badge/license-GPL%20\(%3E=2\)-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
-[![CRAN Version
-Badge](http://www.r-pkg.org/badges/version/hmcdm)](https://cran.r-project.org/package=hmcdm)
-[![CRAN
-Status](https://cranchecks.info/badges/worst/hmcdm)](https://cran.r-project.org/web/checks/check_results_hmcdm.html)
-[![RStudio CRAN Mirror’s Monthly
-Downloads](http://cranlogs.r-pkg.org/badges/hmcdm?color=brightgreen)](http://www.r-pkg.org/pkg/hmcdm)
-[![RStudio CRAN Mirror’s Total
-Downloads](http://cranlogs.r-pkg.org/badges/grand-total/hmcdm?color=brightgreen)](http://www.r-pkg.org/pkg/hmcdm)
-[![Coverage test
-coverage](https://codecov.io/gh/tmsalab/hmcdm/branch/master/graph/badge.svg)](https://codecov.io/github/tmsalab/hmcdm?branch=master)
 <!-- badges: end -->
 
 The goal of `hmcdm` is to provide an implementation of Hidden Markov
@@ -50,7 +40,7 @@ library("hmcdm")
 
 Susu Zhang, Shiyu Wang, and Yinghan Chen
 
-## Citing the `hmcdm` package
+## Citing the hmcdm package
 
 To ensure future development of the package, please cite `hmcdm` package
 if used during an analysis or simulation study. Citation information for
