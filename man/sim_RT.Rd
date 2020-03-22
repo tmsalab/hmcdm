@@ -4,8 +4,17 @@
 \alias{sim_RT}
 \title{Simulate item response times based on Wang et al.'s (2018) joint model of response times and accuracy in learning}
 \usage{
-sim_RT(alphas, RT_itempars, Qs, taus, phi, ETA, G_version, test_order,
-  Test_versions)
+sim_RT(
+  alphas,
+  RT_itempars,
+  Qs,
+  taus,
+  phi,
+  ETA,
+  G_version,
+  test_order,
+  Test_versions
+)
 }
 \arguments{
 \item{alphas}{An N-by-K-by-T \code{array} of attribute patterns of all persons across T time points}

@@ -4,8 +4,10 @@
 \name{Q_list}
 \alias{Q_list}
 \title{List of Q matrices}
-\format{A list of length 5 (number of item blocks). Each element of the list is a Jt-by-K matrix, containing the
-item-skill relationship of items in the corresponding block.}
+\format{
+A list of length 5 (number of item blocks). Each element of the list is a Jt-by-K matrix, containing the
+item-skill relationship of items in the corresponding block.
+}
 \source{
 Spatial Rotation Learning Experiment at UIUC between Fall 2015 and Spring 2016.
 }

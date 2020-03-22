@@ -18,6 +18,14 @@ Chen, Y., Culpepper, S. A., Wang, S., & Douglas, J. (2018). A hidden Markov mode
 
 Wang, S., Zhang, S., Douglas, J., & Culpepper, S. (2018). Using Response Times to Assess Learning Progress: A Joint Model for Responses and Response Times. Measurement: Interdisciplinary Research and Perspectives, 16(1), 45-58.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/tmsalab/hmcdm}
+  \item Report bugs at \url{https://github.com/tmsalab/hmcdm/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Susu Zhang \email{susu.zhang1992@gmail.com}
 

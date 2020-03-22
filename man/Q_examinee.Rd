@@ -4,8 +4,10 @@
 \name{Q_examinee}
 \alias{Q_examinee}
 \title{List of Q-matrices for each examinee.}
-\format{A list of length 350. Each element of the list is a 50x4 matrix, containing the Q matrix of all items
-administered across all time points to the examinee, in the order of administration.}
+\format{
+A list of length 350. Each element of the list is a 50x4 matrix, containing the Q matrix of all items
+administered across all time points to the examinee, in the order of administration.
+}
 \source{
 Spatial Rotation Learning Experiment at UIUC between Fall 2015 and Spring 2016.
 }

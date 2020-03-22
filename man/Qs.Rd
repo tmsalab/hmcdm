@@ -4,8 +4,10 @@
 \name{Qs}
 \alias{Qs}
 \title{Array of Q matrices}
-\format{An array of dimensions 10-by-4-by-5. Each slice of the array is a Jt-by-K matrix, containing the
-item-skill relationship of items in the corresponding block.}
+\format{
+An array of dimensions 10-by-4-by-5. Each slice of the array is a Jt-by-K matrix, containing the
+item-skill relationship of items in the corresponding block.
+}
 \source{
 Spatial Rotation Learning Experiment at UIUC between Fall 2015 and Spring 2016.
 }
