@@ -7,7 +7,7 @@
 simulate_alphas_FOHM(Omega, alpha0s, T)
 }
 \arguments{
-\item{Omega}{A 2^K-by-2^K \code{matrix} of transition probabilities from row pattern to column attern}
+\item{Omega}{A 2^K-by-2^K \code{matrix} of transition probabilities from row pattern to column pattern}
 
 \item{alpha0s}{An N-by-K \code{matrix} of subjects' initial attribute patterns.}
 

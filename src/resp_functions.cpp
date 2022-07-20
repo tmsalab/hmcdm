@@ -28,7 +28,7 @@ arma::vec sim_resp_DINA(unsigned int J, unsigned int K, const arma::mat& ETA,
 //' @title Simulate DINA model responses (entire cube)
 //' @description Simulate a cube of DINA responses for all persons on items across all time points
 //' @param alphas An N-by-K-by-T \code{array} of attribute patterns of all persons across T time points 
-//' @param itempars A J-by-2-by-T \code{cube} of item parameters (slipping: 1st col, guessin: 2nd col) across item blocks
+//' @param itempars A J-by-2-by-T \code{cube} of item parameters (slipping: 1st col, guessing: 2nd col) across item blocks
 //' @param ETA A J-by-2^K-by-T \code{array} of ideal responses across all item blocks, with each slice generated with ETAmat function
 //' @param Test_order A N_versions-by-T \code{matrix} indicating which block of items were administered to examinees with specific test version.
 //' @param Test_versions A length N \code{vector} of the test version of each examinee

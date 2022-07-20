@@ -7,7 +7,7 @@
 TPmat(K)
 }
 \arguments{
-\item{K}{An \code{int} of the number of attribtues.}
+\item{K}{An \code{int} of the number of attributes.}
 }
 \value{
 A 2^K-by-2^K dichotomous \code{matrix} of whether it is possible to transition between two patterns

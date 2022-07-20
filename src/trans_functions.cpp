@@ -300,7 +300,7 @@ double pTran_indept(const arma::vec& alpha_prev, const arma::vec& alpha_post, co
 //' @title Generate attribute trajectories under the first order hidden Markov model
 //' @description Based on the initial attribute patterns and probability of transitioning between different patterns, 
 //' create cube of attribute patterns of all subjects across time. 
-//' @param Omega A 2^K-by-2^K \code{matrix} of transition probabilities from row pattern to column attern
+//' @param Omega A 2^K-by-2^K \code{matrix} of transition probabilities from row pattern to column pattern
 //' @param alpha0s An N-by-K \code{matrix} of subjects' initial attribute patterns.
 //' @param T An \code{int} of number of time points
 //' @return An N-by-K-by-T \code{array} of attribute patterns of subjects at each time point. 

@@ -71,7 +71,7 @@ ETAmat <- function(K, J, Q) {
 #' @title Generate monotonicity matrix
 #' @description Based on the latent attribute space, generate a matrix indicating whether it is possible to
 #' transition from pattern cc to cc' under the monotonicity learning assumption.
-#' @param K An \code{int} of the number of attribtues.
+#' @param K An \code{int} of the number of attributes.
 #' @return A 2^K-by-2^K dichotomous \code{matrix} of whether it is possible to transition between two patterns 
 #' @examples
 #' TP = TPmat(4)
@@ -241,7 +241,7 @@ sim_resp_DINA <- function(J, K, ETA, Svec, Gvec, alpha) {
 #' @title Simulate DINA model responses (entire cube)
 #' @description Simulate a cube of DINA responses for all persons on items across all time points
 #' @param alphas An N-by-K-by-T \code{array} of attribute patterns of all persons across T time points 
-#' @param itempars A J-by-2-by-T \code{cube} of item parameters (slipping: 1st col, guessin: 2nd col) across item blocks
+#' @param itempars A J-by-2-by-T \code{cube} of item parameters (slipping: 1st col, guessing: 2nd col) across item blocks
 #' @param ETA A J-by-2^K-by-T \code{array} of ideal responses across all item blocks, with each slice generated with ETAmat function
 #' @param Test_order A N_versions-by-T \code{matrix} indicating which block of items were administered to examinees with specific test version.
 #' @param Test_versions A length N \code{vector} of the test version of each examinee
@@ -569,7 +569,7 @@ pTran_indept <- function(alpha_prev, alpha_post, taus, R) {
 #' @title Generate attribute trajectories under the first order hidden Markov model
 #' @description Based on the initial attribute patterns and probability of transitioning between different patterns, 
 #' create cube of attribute patterns of all subjects across time. 
-#' @param Omega A 2^K-by-2^K \code{matrix} of transition probabilities from row pattern to column attern
+#' @param Omega A 2^K-by-2^K \code{matrix} of transition probabilities from row pattern to column pattern
 #' @param alpha0s An N-by-K \code{matrix} of subjects' initial attribute patterns.
 #' @param T An \code{int} of number of time points
 #' @return An N-by-K-by-T \code{array} of attribute patterns of subjects at each time point. 

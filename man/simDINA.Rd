@@ -9,7 +9,7 @@ simDINA(alphas, itempars, ETA, Test_order, Test_versions)
 \arguments{
 \item{alphas}{An N-by-K-by-T \code{array} of attribute patterns of all persons across T time points}
 
-\item{itempars}{A J-by-2-by-T \code{cube} of item parameters (slipping: 1st col, guessin: 2nd col) across item blocks}
+\item{itempars}{A J-by-2-by-T \code{cube} of item parameters (slipping: 1st col, guessing: 2nd col) across item blocks}
 
 \item{ETA}{A J-by-2^K-by-T \code{array} of ideal responses across all item blocks, with each slice generated with ETAmat function}
 

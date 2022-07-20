@@ -186,7 +186,7 @@ arma::mat ETAmat(unsigned int K,unsigned int J,const arma::mat& Q) {
 //' @title Generate monotonicity matrix
 //' @description Based on the latent attribute space, generate a matrix indicating whether it is possible to
 //' transition from pattern cc to cc' under the monotonicity learning assumption.
-//' @param K An \code{int} of the number of attribtues.
+//' @param K An \code{int} of the number of attributes.
 //' @return A 2^K-by-2^K dichotomous \code{matrix} of whether it is possible to transition between two patterns 
 //' @examples
 //' TP = TPmat(4)
