@@ -23,9 +23,9 @@ number of people answering both item i and item j correctly
 \examples{
 \donttest{
 N = length(Test_versions)
-Jt = nrow(Q_list[[1]])
-K = ncol(Q_list[[1]])
-T = nrow(test_order)
-J = Jt*T
-OddsRatio(N,Jt,Y_real_list[[1]])}
+J = nrow(Q_matrix)
+K = ncol(Q_matrix)
+T = nrow(Test_order)
+Jt = J/T
+OddsRatio(N,J,Y_real_array[,,1])}
 }

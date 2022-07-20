@@ -24,10 +24,10 @@ create cube of attribute patterns of all subjects across time. Transitions on di
 }
 \examples{
 N = length(Test_versions)
-Jt = nrow(Q_list[[1]])
-K = ncol(Q_list[[1]])
-T = nrow(test_order)
-J = Jt*T
+J = nrow(Q_matrix)
+K = ncol(Q_matrix)
+T = nrow(Test_order)
+Jt = J/T
 tau <- numeric(K)
 for(k in 1:K){
   tau[k] <- runif(1,.2,.6)

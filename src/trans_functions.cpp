@@ -22,10 +22,10 @@
 //' @return An N-by-K-by-T \code{array} of attribute patterns of subjects at each time point.
 //' @examples
 //' N = length(Test_versions)
-//' Jt = nrow(Q_list[[1]])
-//' K = ncol(Q_list[[1]])
-//' T = nrow(test_order)
-//' J = Jt*T
+//' J = nrow(Q_matrix)
+//' K = ncol(Q_matrix)
+//' T = nrow(Test_order)
+//' Jt = J/T
 //' class_0 <- sample(1:2^K, N, replace = T)
 //' Alphas_0 <- matrix(0,N,K)
 //' thetas_true = rnorm(N)
@@ -33,6 +33,7 @@
 //'   Alphas_0[i,] <- inv_bijectionvector(K,(class_0[i]-1))
 //' }
 //' lambdas_true = c(-1, 1.8, .277, .055)
+//' Q_examinee <- Q_list(Q_matrix, Test_order, Test_versions)
 //' Alphas <- simulate_alphas_HO_sep(lambdas_true,thetas_true,Alphas_0,Q_examinee,T,Jt)
 //' @export
 // [[Rcpp::export]]
@@ -104,8 +105,6 @@ double pTran_HO_sep(const arma::vec& alpha_prev, const arma::vec& alpha_post, co
 }
 
 
-
-
 //' @title Generate attribute trajectories under the Higher-Order Hidden Markov DCM with latent learning ability as a random effect
 //' @description Based on the initial attribute patterns and learning model parameters, create cube of attribute patterns
 //' of all subjects across time. General learning ability is regarded as a random intercept.
@@ -120,10 +119,10 @@ double pTran_HO_sep(const arma::vec& alpha_prev, const arma::vec& alpha_post, co
 //' @return An N-by-K-by-T \code{array} of attribute patterns of subjects at each time point.
 //' @examples
 //' N = length(Test_versions)
-//' Jt = nrow(Q_list[[1]])
-//' K = ncol(Q_list[[1]])
-//' T = nrow(test_order)
-//' J = Jt*T
+//' J = nrow(Q_matrix)
+//' K = ncol(Q_matrix)
+//' T = nrow(Test_order)
+//' Jt = J/T
 //' class_0 <- sample(1:2^K, N, replace = T)
 //' Alphas_0 <- matrix(0,N,K)
 //' mu_thetatau = c(0,0)
@@ -135,6 +134,7 @@ double pTran_HO_sep(const arma::vec& alpha_prev, const arma::vec& alpha_post, co
 //'   Alphas_0[i,] <- inv_bijectionvector(K,(class_0[i]-1))
 //' }
 //' lambdas_true <- c(-2, .4, .055)     
+//' Q_examinee <- Q_list(Q_matrix, Test_order, Test_versions)
 //' Alphas <- simulate_alphas_HO_joint(lambdas_true,thetas_true,Alphas_0,Q_examinee,T,Jt)
 //' @export
 // [[Rcpp::export]]
@@ -206,10 +206,6 @@ double pTran_HO_joint(const arma::vec& alpha_prev, const arma::vec& alpha_post, 
 }
 
 
-
-
-
-
 //' @title Generate attribute trajectories under the simple independent-attribute learning model
 //' @description Based on the initial attribute patterns and probability of transitioning from 0 to 1 on each attribute, 
 //' create cube of attribute patterns of all subjects across time. Transitions on different skills are regarded as independent.
@@ -220,10 +216,10 @@ double pTran_HO_joint(const arma::vec& alpha_prev, const arma::vec& alpha_post, 
 //' @return An N-by-K-by-T \code{array} of attribute patterns of subjects at each time point.
 //' @examples
 //' N = length(Test_versions)
-//' Jt = nrow(Q_list[[1]])
-//' K = ncol(Q_list[[1]])
-//' T = nrow(test_order)
-//' J = Jt*T
+//' J = nrow(Q_matrix)
+//' K = ncol(Q_matrix)
+//' T = nrow(Test_order)
+//' Jt = J/T
 //' tau <- numeric(K)
 //' for(k in 1:K){
 //'   tau[k] <- runif(1,.2,.6)
@@ -310,10 +306,10 @@ double pTran_indept(const arma::vec& alpha_prev, const arma::vec& alpha_post, co
 //' @return An N-by-K-by-T \code{array} of attribute patterns of subjects at each time point. 
 //' @examples
 //' N = length(Test_versions)
-//' Jt = nrow(Q_list[[1]])
-//' K = ncol(Q_list[[1]])
-//' T = nrow(test_order)
-//' J = Jt*T
+//' J = nrow(Q_matrix)
+//' K = ncol(Q_matrix)
+//' T = nrow(Test_order)
+//' Jt = J/T
 //' TP <- TPmat(K)
 //' Omega_true <- rOmega(TP)
 //' class_0 <- sample(1:2^K, N, replace = T)
@@ -351,6 +347,7 @@ arma::cube simulate_alphas_FOHM(const arma::mat& Omega,const arma::mat& alpha0s,
   return Alphas;
 }
 
+
 // [[Rcpp::export]]
 arma::mat rAlpha(const arma::mat& Omega,unsigned int N,unsigned int T,
                  const arma::vec& alpha1){
@@ -382,10 +379,10 @@ arma::mat rAlpha(const arma::mat& Omega,unsigned int N,unsigned int T,
 //' the TPmat function 
 //' @examples
 //' N = length(Test_versions)
-//' Jt = nrow(Q_list[[1]])
-//' K = ncol(Q_list[[1]])
-//' T = nrow(test_order)
-//' J = Jt*T
+//' J = nrow(Q_matrix)
+//' K = ncol(Q_matrix)
+//' T = nrow(Test_order)
+//' Jt = J/T
 //' TP = TPmat(K)
 //' Omega_sim = rOmega(TP)
 //' @export
@@ -406,3 +403,4 @@ arma::mat rOmega(const arma::mat& TP){
   }
   return Omega;
 }
+

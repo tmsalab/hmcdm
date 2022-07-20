@@ -5,7 +5,7 @@
 \alias{Test_versions}
 \title{Subjects' test version}
 \format{
-A vector of length 350, containing each subject's test version ranging from 1 to 5.
+A vector of length N, containing each subject's assigned test module.
 }
 \source{
 Spatial Rotation Learning Experiment at UIUC between Fall 2015 and Spring 2016.
@@ -14,7 +14,15 @@ Spatial Rotation Learning Experiment at UIUC between Fall 2015 and Spring 2016.
 Test_versions
 }
 \description{
-This data set contains each subject's test version in the Spatial Rotation Learning Program.
+This data set contains each subject's test module in the Spatial Rotation Learning Program.
+}
+\details{
+The data object \code{"Test_versions"} contains a vector of length N indicating the test module assigned to each subject.
+Each test module consists of multiple item blocks with different orders over T time points.
+The order of item blocks corresponding to each test module is presented in the data object \code{"Test_order"}.
+}
+\seealso{
+\code{\link{Test_order}}
 }
 \author{
 Shiyu Wang, Yan Yang, Jeff Douglas, and Steve Culpepper

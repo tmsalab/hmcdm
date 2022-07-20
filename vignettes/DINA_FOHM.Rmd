@@ -1,0 +1,88 @@
+---
+title: "DINA_FOHM"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{DINA_FOHM}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(hmcdm)
+```
+
+### Load the spatial rotation data
+
+```{r}
+N = length(Test_versions)
+J = nrow(Q_matrix)
+K = ncol(Q_matrix)
+T = nrow(Test_order)
+Jt = J/T
+```
+
+
+## (1) Simulate responses and response times based on the DINA_FOHM model
+
+```{r}
+ETAs <- ETAmat(K, J, Q_matrix)
+TP <- TPmat(K)
+Omega_true <- rOmega(TP)
+class_0 <- sample(1:2^K, N, replace = T)
+Alphas_0 <- matrix(0,N,K)
+for(i in 1:N){
+  Alphas_0[i,] <- inv_bijectionvector(K,(class_0[i]-1))
+}
+Alphas <- simulate_alphas_FOHM(Omega_true, Alphas_0,T)
+itempars_true <- array(runif(Jt*2*T,.1,.2), dim = c(Jt,2,T))
+
+Y_sim <- simDINA(Alphas,itempars_true,ETAs,Test_order,Test_versions)
+```
+
+
+## (2) Run the MCMC to sample parameters from the posterior distribution
+
+```{r}
+output_FOHM = hmcdm(Y_sim,Q_matrix,"DINA_FOHM",Test_order,Test_versions,100,30)
+output_FOHM
+summary(output_FOHM)
+a <- summary(output_FOHM)
+head(a$ss_EAP)
+```
+
+## (3) Check for parameter estimation accuracy
+
+```{r}
+AAR_vec <- numeric(T)
+for(t in 1:T){
+  AAR_vec[t] <- mean(Alphas[,,t]==a$Alphas_est[,,t])
+}
+AAR_vec
+
+PAR_vec <- numeric(T)
+for(t in 1:T){
+  PAR_vec[t] <- mean(rowSums((Alphas[,,t]-a$Alphas_est[,,t])^2)==0)
+}
+PAR_vec
+```
+
+
+## (4) Evaluate the fit of the model to the observed response
+
+```{r}
+a$DIC
+head(a$PPP_total_scores)
+head(a$PPP_item_means)
+head(a$PPP_item_ORs)
+
+```
+
+
+

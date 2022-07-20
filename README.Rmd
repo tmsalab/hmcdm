@@ -47,7 +47,7 @@ library("hmcdm")
 
 ## Authors
 
-Susu Zhang, Shiyu Wang, and Yinghan Chen
+Susu Zhang, Shiyu Wang, Yinghan Chen, and Sunbeom Kwon
 
 ## Citing the hmcdm package
 

@@ -7,12 +7,12 @@
 sim_RT(
   alphas,
   RT_itempars,
-  Qs,
+  Q_matrix,
   taus,
   phi,
-  ETA,
+  ETAs,
   G_version,
-  test_order,
+  Test_order,
   Test_versions
 )
 }
@@ -21,19 +21,19 @@ sim_RT(
 
 \item{RT_itempars}{A J-by-2-by-T \code{array} of item time discrimination and time intensity parameters across item blocks}
 
-\item{Qs}{A J-by-K-by-T  \code{cube} of Q-matrices across all item blocks}
+\item{Q_matrix}{A J-by-K  Q-matrix for the test}
 
 \item{taus}{A length N \code{vector} of latent speed of each person}
 
 \item{phi}{A \code{scalar} of slope of increase in fluency over time due to covariates (G)}
 
-\item{ETA}{A J-by-2^K-by-T \code{array} of ideal responses across all item blocks, with each slice generated with ETAmat function}
+\item{ETAs}{A J-by-2^K \code{matrix} of ideal responses across all item blocks generated with ETAmat function}
 
 \item{G_version}{An \code{int} of the type of covariate for increased fluency (1: G is dichotomous depending on whether all skills required for
 current item are mastered; 2: G cumulates practice effect on previous items using mastered skills; 3: G is a time block effect invariant across
 subjects with different attribute trajectories)}
 
-\item{test_order}{A N_versions-by-T \code{matrix} indicating which block of items were administered to examinees with specific test version.}
+\item{Test_order}{A N_versions-by-T \code{matrix} indicating which block of items were administered to examinees with specific test version.}
 
 \item{Test_versions}{A length N \code{vector} of the test version of each examinee}
 }
@@ -45,10 +45,10 @@ Simulate a cube of subjects' response times across time points according to a va
 }
 \examples{
 N = length(Test_versions)
-Jt = nrow(Q_list[[1]])
-K = ncol(Q_list[[1]])
-T = nrow(test_order)
-J = Jt*T
+J = nrow(Q_matrix)
+K = ncol(Q_matrix)
+T = nrow(Test_order)
+Jt = J/T
 class_0 <- sample(1:2^K, N, replace = T)
 Alphas_0 <- matrix(0,N,K)
 mu_thetatau = c(0,0)
@@ -63,14 +63,12 @@ for(i in 1:N){
   Alphas_0[i,] <- inv_bijectionvector(K,(class_0[i]-1))
 }
 lambdas_true <- c(-2, .4, .055)     
+Q_examinee <- Q_list(Q_matrix, Test_order, Test_versions)
 Alphas <- simulate_alphas_HO_joint(lambdas_true,thetas_true,Alphas_0,Q_examinee,T,Jt)
 RT_itempars_true <- array(NA, dim = c(Jt,2,T))
 RT_itempars_true[,2,] <- rnorm(Jt*T,3.45,.5)
 RT_itempars_true[,1,] <- runif(Jt*T,1.5,2)
-ETAs <- array(NA,dim = c(Jt,2^K,T)) 
-for(t in 1:T){
-  ETAs[,,t] <- ETAmat(K,Jt,Q_list[[t]])
-}
-L_sim <- sim_RT(Alphas,RT_itempars_true,Qs,taus_true,phi_true,ETAs,
-G_version,test_order,Test_versions)
+ETAs <- ETAmat(K,J,Q_matrix)
+L_sim <- sim_RT(Alphas,RT_itempars_true,Q_matrix,taus_true,phi_true,ETAs,
+G_version,Test_order,Test_versions)
 }

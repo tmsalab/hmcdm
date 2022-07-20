@@ -7,7 +7,7 @@
 
 [![R build
 status](https://github.com/tmsalab/hmcdm/workflows/R-CMD-check/badge.svg)](https://github.com/tmsalab/hmcdm/actions)
-[![Package-License](http://img.shields.io/badge/license-GPL%20\(%3E=2\)-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
+[![Package-License](http://img.shields.io/badge/license-GPL%20(%3E=2)-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
 <!-- badges: end -->
 
 The goal of `hmcdm` is to provide an implementation of Hidden Markov
@@ -38,7 +38,7 @@ library("hmcdm")
 
 ## Authors
 
-Susu Zhang, Shiyu Wang, and Yinghan Chen
+Susu Zhang, Shiyu Wang, Yinghan Chen, and Sunbeom Kwon
 
 ## Citing the hmcdm package
 

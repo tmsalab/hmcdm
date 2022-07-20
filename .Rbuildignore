@@ -7,3 +7,6 @@
 ^docs$
 ^pkgdown$
 ^\.github$
+^data-raw$
+^revdep$
+^cran-comments\.md$

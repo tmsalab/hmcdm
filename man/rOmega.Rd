@@ -15,10 +15,10 @@ Generate a random transition matrix under nondecreasing learning trajectory assu
 }
 \examples{
 N = length(Test_versions)
-Jt = nrow(Q_list[[1]])
-K = ncol(Q_list[[1]])
-T = nrow(test_order)
-J = Jt*T
+J = nrow(Q_matrix)
+K = ncol(Q_matrix)
+T = nrow(Test_order)
+Jt = J/T
 TP = TPmat(K)
 Omega_sim = rOmega(TP)
 }

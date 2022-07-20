@@ -30,6 +30,12 @@ arma::mat OddsRatio(unsigned int N,unsigned int J,const arma::mat& Yt);
 
 int getMode(arma::vec sorted_vec, int size);
 
+arma::cube Sparse2Dense(const arma::cube Y_real_array, const arma::mat& test_order, const arma::vec& Test_versions);
+arma::cube Dense2Sparse(const arma::cube Y_sim,const arma::mat& test_order,const arma::vec& Test_versions);
 
+arma::cube Mat2Array(const arma::mat Q_matrix, unsigned int T);
+arma::mat Array2Mat(const arma::cube r_stars);
+
+Rcpp::List Q_list(const arma::mat Q_matrix, const arma::mat test_order, const arma::vec Test_versions);
 
 #endif

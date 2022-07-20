@@ -4,18 +4,18 @@
 \alias{simrRUM}
 \title{Simulate rRUM model responses (entire cube)}
 \usage{
-simrRUM(alphas, r_stars, pi_stars, Qs, test_order, Test_versions)
+simrRUM(alphas, r_stars_mat, pi_stars, Q_matrix, Test_order, Test_versions)
 }
 \arguments{
 \item{alphas}{An N-by-K-by-T \code{array} of attribute patterns of all persons across T time points}
 
-\item{r_stars}{A J-by-K-by-T \code{cube} of item penalty parameters for missing skills across all item blocks}
+\item{r_stars_mat}{A J-by-K \code{cube} of item penalty parameters for missing skills across all item blocks}
 
-\item{pi_stars}{A J-by-T \code{matrix} of item correct response probability with all requisite skills across blocks}
+\item{pi_stars}{A Jt-by-T \code{matrix} of item correct response probability with all requisite skills across blocks}
 
-\item{Qs}{A J-by-K-by-T  \code{cube} of Q-matrices across all item blocks}
+\item{Q_matrix}{A J-by-K of Q-matrix}
 
-\item{test_order}{A N_versions-by-T \code{matrix} indicating which block of items were administered to examinees with specific test version.}
+\item{Test_order}{A N_versions-by-T \code{matrix} indicating which block of items were administered to examinees with specific test version.}
 
 \item{Test_versions}{A length N \code{vector} of the test version of each examinee}
 }
@@ -27,18 +27,14 @@ Simulate a cube of rRUM responses for all persons on items across all time point
 }
 \examples{
 N = length(Test_versions)
-Jt = nrow(Q_list[[1]])
-K = ncol(Q_list[[1]])
-T = nrow(test_order)
-J = Jt*T
-Smats <- array(runif(Jt*K*(T),.1,.3),c(Jt,K,(T)))
-Gmats <- array(runif(Jt*K*(T),.1,.3),c(Jt,K,(T)))
-r_stars <- array(NA,c(Jt,K,T))
-pi_stars <- matrix(NA,Jt,(T))
-for(t in 1:T){
-  pi_stars[,t] <- apply(((1-Smats[,,t])^Qs[,,t]),1,prod)
-  r_stars[,,t] <- Gmats[,,t]/(1-Smats[,,t])
-}
+J = nrow(Q_matrix)
+K = ncol(Q_matrix)
+T = nrow(Test_order)
+Jt = J/T
+Smats <- matrix(runif(J*K,.1,.3),c(J,K))
+Gmats <- matrix(runif(J*K,.1,.3),c(J,K))
+r_stars <- Gmats / (1-Smats)
+pi_stars <- matrix(apply((1-Smats)^Q_matrix, 1, prod), nrow=Jt, ncol=T, byrow=T)
 Test_versions_sim <- sample(1:5,N,replace = T)
 tau <- numeric(K)
   for(k in 1:K){
@@ -60,5 +56,5 @@ for(i in 1:N){
   }
 }
 Alphas <- simulate_alphas_indept(tau,Alphas_0,T,R) 
-Y_sim = simrRUM(Alphas,r_stars,pi_stars,Qs,test_order,Test_versions_sim)
+Y_sim = simrRUM(Alphas,r_stars,pi_stars,Q_matrix,Test_order,Test_versions_sim)
 }

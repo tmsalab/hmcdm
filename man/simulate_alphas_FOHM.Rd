@@ -22,10 +22,10 @@ create cube of attribute patterns of all subjects across time.
 }
 \examples{
 N = length(Test_versions)
-Jt = nrow(Q_list[[1]])
-K = ncol(Q_list[[1]])
-T = nrow(test_order)
-J = Jt*T
+J = nrow(Q_matrix)
+K = ncol(Q_matrix)
+T = nrow(Test_order)
+Jt = J/T
 TP <- TPmat(K)
 Omega_true <- rOmega(TP)
 class_0 <- sample(1:2^K, N, replace = T)

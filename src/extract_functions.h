@@ -9,7 +9,7 @@ Rcpp::List Learning_fit(const Rcpp::List output, const std::string model,
                         const Rcpp::List Response_list, const Rcpp::List Q_list,
                         const arma::mat test_order, const arma::vec Test_versions,
                         const Rcpp::Nullable<Rcpp::List> Q_examinee,
-                        const Rcpp::Nullable<Rcpp::List> Latency_list, const int G_version,
+                        const Rcpp::Nullable<arma::cube> Latency_array, const int G_version,
                         const Rcpp::Nullable<Rcpp::NumericMatrix> R);
 
 #endif

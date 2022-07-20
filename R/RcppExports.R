@@ -22,16 +22,6 @@ rwishart <- function(df, S) {
     .Call(`_hmcdm_rwishart`, df, S)
 }
 
-#' @title Generate Random Inverse Wishart Distribution
-#' @description Creates a random inverse wishart distribution when given degrees of freedom and a sigma matrix. 
-#' @param df An \code{int} that represents the degrees of freedom.  (> 0)
-#' @param Sig A \code{matrix} with dimensions m x m that provides Sigma, the covariance matrix. 
-#' @return A \code{matrix} that is an inverse wishart distribution.
-#' @author James J Balamuta
-#' @examples 
-#' #Call with the following data:
-#' rinvwish(3, diag(2))
-#' @export
 rinvwish <- function(df, Sig) {
     .Call(`_hmcdm_rinvwish`, df, Sig)
 }
@@ -94,8 +84,8 @@ crosstab <- function(V1, V2, TP, nClass, col_dim) {
     .Call(`_hmcdm_crosstab`, V1, V2, TP, nClass, col_dim)
 }
 
-resp_miss <- function(Responses, test_order, Test_versions) {
-    .Call(`_hmcdm_resp_miss`, Responses, test_order, Test_versions)
+resp_miss <- function(Responses, Test_order, Test_versions) {
+    .Call(`_hmcdm_resp_miss`, Responses, Test_order, Test_versions)
 }
 
 #' @title Compute item pairwise odds ratio
@@ -108,11 +98,11 @@ resp_miss <- function(Responses, test_order, Test_versions) {
 #' @examples 
 #' \donttest{
 #' N = length(Test_versions)
-#' Jt = nrow(Q_list[[1]])
-#' K = ncol(Q_list[[1]])
-#' T = nrow(test_order)
-#' J = Jt*T
-#' OddsRatio(N,Jt,Y_real_list[[1]])}
+#' J = nrow(Q_matrix)
+#' K = ncol(Q_matrix)
+#' T = nrow(Test_order)
+#' Jt = J/T
+#' OddsRatio(N,J,Y_real_array[,,1])}
 #' @export
 OddsRatio <- function(N, J, Yt) {
     .Call(`_hmcdm_OddsRatio`, N, J, Yt)
@@ -122,130 +112,97 @@ getMode <- function(sorted_vec, size) {
     .Call(`_hmcdm_getMode`, sorted_vec, size)
 }
 
-#' @title Obtain learning model point estimates
-#' @description Obtain EAPs of continuous parameters and EAP or MAP of the attribute trajectory estimates under
-#' the CDM learning models based on the MCMC output
-#' @param output A \code{list} of MCMC outputs, obtained from the MCMC_learning function
-#' @param model A \code{charactor} of the type of model fitted with the MCMC sampler, possible selections are 
-#' "DINA_HO": Higher-Order Hidden Markov Diagnostic Classification Model with DINA responses;
-#' "DINA_HO_RT_joint": Higher-Order Hidden Markov DCM with DINA responses, log-Normal response times, and joint modeling of latent
-#' speed and learning ability; 
-#' "DINA_HO_RT_sep": Higher-Order Hidden Markov DCM with DINA responses, log-Normal response times, and separate modeling of latent
-#' speed and learning ability; 
-#' "rRUM_indept": Simple independent transition probability model with rRUM responses
-#' "NIDA_indept": Simple independent transition probability model with NIDA responses
-#' "DINA_FOHM": First Order Hidden Markov model with DINA responses
-#' @param N An \code{int} of number of subjects 
-#' @param Jt An \code{int} of number of items in each block
-#' @param K An \code{int} of number of skills
-#' @param T An \code{int} of number of time points
-#' @param alpha_EAP A \code{boolean} operator (T/F) of whether to use EAP for alphas (if F: use most likely trajectory (MAP) for alphas) 
-#' @return A \code{list} of point estimates of model parameters
-#' @author Susu Zhang
-#' @examples
+Sparse2Dense <- function(Y_real_array, Test_order, Test_versions) {
+    .Call(`_hmcdm_Sparse2Dense`, Y_real_array, Test_order, Test_versions)
+}
+
+Dense2Sparse <- function(Y_sim, Test_order, Test_versions) {
+    .Call(`_hmcdm_Dense2Sparse`, Y_sim, Test_order, Test_versions)
+}
+
+Mat2Array <- function(Q_matrix, T) {
+    .Call(`_hmcdm_Mat2Array`, Q_matrix, T)
+}
+
+Array2Mat <- function(r_stars) {
+    .Call(`_hmcdm_Array2Mat`, r_stars)
+}
+
+#' @title Generate a list of Q-matrices for each examinee.
+#' @description Generate a list of length N. Each element of the list is a JxK Q_matrix of all items
+#' administered across all time points to the examinee, in the order of administration.
+#' @param Q_matrix A J-by-K matrix, indicating the item-skill relationship.
+#' @param Test_order A TxT matrix, each row is the order of item blocks for that test version.
+#' @param Test_versions A vector of length N, containing each subject's test version.
+#' @return A list of length N. Each element of the list is a JxK matrix.
+#' @examples 
 #' \donttest{
-#' N = length(Test_versions)
-#' Jt = nrow(Q_list[[1]])
-#' K = ncol(Q_list[[1]])
-#' T = nrow(test_order)
-#' J = Jt*T
-#' output_FOHM = MCMC_learning(Y_real_list,Q_list,"DINA_FOHM",test_order,Test_versions,10000,5000)
-#' point_estimates = point_estimates_learning(output_FOHM,"DINA_FOHM",N,Jt,K,T,alpha_EAP = T)
-#' }
+#' Q_examinee = Q_list(Q_matrix, Test_order, Test_versions)}
 #' @export
+Q_list <- function(Q_matrix, Test_order, Test_versions) {
+    .Call(`_hmcdm_Q_list`, Q_matrix, Test_order, Test_versions)
+}
+
 point_estimates_learning <- function(output, model, N, Jt, K, T, alpha_EAP = TRUE) {
     .Call(`_hmcdm_point_estimates_learning`, output, model, N, Jt, K, T, alpha_EAP)
 }
 
-#' @title Model fit statistics of learning models
-#' @description Obtain joint model's deviance information criteria (DIC) and posterior predictive item means, item response time means, 
-#' item odds ratios, subject total scores at each time point, and subject total response times at each time point.
-#' @param output A \code{list} of MCMC outputs, obtained from the MCMC_learning function
-#' @param model A \code{charactor} of the type of model fitted with the MCMC sampler, possible selections are 
-#' "DINA_HO": Higher-Order Hidden Markov Diagnostic Classification Model with DINA responses;
-#' "DINA_HO_RT_joint": Higher-Order Hidden Markov DCM with DINA responses, log-Normal response times, and joint modeling of latent
-#' speed and learning ability; 
-#' "DINA_HO_RT_sep": Higher-Order Hidden Markov DCM with DINA responses, log-Normal response times, and separate modeling of latent
-#' speed and learning ability; 
-#' "rRUM_indept": Simple independent transition probability model with rRUM responses
-#' "NIDA_indept": Simple independent transition probability model with NIDA responses
-#' "DINA_FOHM": First Order Hidden Markov model with DINA responses
-#' @param Response_list A \code{list} of dichotomous item responses. t-th element is an N-by-Jt matrix of responses at time t.
-#' @param Q_list A \code{list} of Q-matrices. b-th element is a Jt-by-K Q-matrix for items in block b. 
-#' @param test_order A \code{matrix} of the order of item blocks for each test version.
-#' @param Test_versions A \code{vector} of the test version of each learner.
-#' @param Q_examinee Optional. A \code{list} of the Q matrix for each learner. i-th element is a J-by-K Q-matrix for all items learner i was administered.
-#' @param Latency_list Optional. A \code{list} of the response times. t-th element is an N-by-Jt matrix of response times at time t.
-#' @param G_version Optional. An \code{int} of the type of covariate for increased fluency (1: G is dichotomous depending on whether all skills required for
-#' current item are mastered; 2: G cumulates practice effect on previous items using mastered skills; 3: G is a time block effect invariant across 
-#' subjects with different attribute trajectories)
-#' @param R Optional. A reachability \code{matrix} for the hierarchical relationship between attributes. 
-#' @return A list of DIC matrix, with deviance decomposed to that of the transition model, response model, response time model (if applicable),
-#' and joint model of random parameters, and posterior predictive item means, item odds ratios, item averaged response times, subjects' total
-#' scores at each time point, and subjects' total response times at each time point. Predicted values can be compared to the observed ones from
-#' empirical data.
-#' @examples
-#' \donttest{
-#' output_FOHM = MCMC_learning(Y_real_list,Q_list,"DINA_FOHM",test_order,Test_versions,10000,5000)
-#' FOHM_fit <- Learning_fit(output_FOHM,"DINA_FOHM",Y_real_list,Q_list,test_order,Test_versions)
-#' }
-#' @export
-Learning_fit <- function(output, model, Response_list, Q_list, test_order, Test_versions, Q_examinee = NULL, Latency_list = NULL, G_version = NA_integer_, R = NULL) {
-    .Call(`_hmcdm_Learning_fit`, output, model, Response_list, Q_list, test_order, Test_versions, Q_examinee, Latency_list, G_version, R)
+Learning_fit <- function(output, model, Y_real_array, Q_matrix, Test_order, Test_versions, Q_examinee = NULL, Latency_array = NULL, G_version = NA_integer_, R = NULL) {
+    .Call(`_hmcdm_Learning_fit`, output, model, Y_real_array, Q_matrix, Test_order, Test_versions, Q_examinee, Latency_array, G_version, R)
 }
 
-parm_update_HO <- function(N, Jt, K, T, alphas, pi, lambdas, thetas, response, itempars, Qs, Q_examinee, test_order, Test_versions, theta_propose, deltas_propose) {
-    .Call(`_hmcdm_parm_update_HO`, N, Jt, K, T, alphas, pi, lambdas, thetas, response, itempars, Qs, Q_examinee, test_order, Test_versions, theta_propose, deltas_propose)
+parm_update_HO <- function(N, Jt, K, T, alphas, pi, lambdas, thetas, response, itempars, Qs, Q_examinee, Test_order, Test_versions, theta_propose, deltas_propose) {
+    .Call(`_hmcdm_parm_update_HO`, N, Jt, K, T, alphas, pi, lambdas, thetas, response, itempars, Qs, Q_examinee, Test_order, Test_versions, theta_propose, deltas_propose)
 }
 
-Gibbs_DINA_HO <- function(Response, Qs, Q_examinee, test_order, Test_versions, theta_propose, deltas_propose, chain_length, burn_in) {
-    .Call(`_hmcdm_Gibbs_DINA_HO`, Response, Qs, Q_examinee, test_order, Test_versions, theta_propose, deltas_propose, chain_length, burn_in)
+Gibbs_DINA_HO <- function(Response, Qs, Test_order, Test_versions, theta_propose, deltas_propose, chain_length, burn_in) {
+    .Call(`_hmcdm_Gibbs_DINA_HO`, Response, Qs, Test_order, Test_versions, theta_propose, deltas_propose, chain_length, burn_in)
 }
 
-parm_update_HO_RT_sep <- function(N, Jt, K, T, alphas, pi, lambdas, thetas, latency, RT_itempars, taus, phi_vec, tauvar, response, itempars, Qs, Q_examinee, test_order, Test_versions, G_version, theta_propose, a_sigma_tau0, rate_sigma_tau0, deltas_propose, a_alpha0, rate_alpha0) {
-    .Call(`_hmcdm_parm_update_HO_RT_sep`, N, Jt, K, T, alphas, pi, lambdas, thetas, latency, RT_itempars, taus, phi_vec, tauvar, response, itempars, Qs, Q_examinee, test_order, Test_versions, G_version, theta_propose, a_sigma_tau0, rate_sigma_tau0, deltas_propose, a_alpha0, rate_alpha0)
+parm_update_HO_RT_sep <- function(N, Jt, K, T, alphas, pi, lambdas, thetas, latency, RT_itempars, taus, phi_vec, tauvar, response, itempars, Qs, Q_examinee, Test_order, Test_versions, G_version, theta_propose, a_sigma_tau0, rate_sigma_tau0, deltas_propose, a_alpha0, rate_alpha0) {
+    .Call(`_hmcdm_parm_update_HO_RT_sep`, N, Jt, K, T, alphas, pi, lambdas, thetas, latency, RT_itempars, taus, phi_vec, tauvar, response, itempars, Qs, Q_examinee, Test_order, Test_versions, G_version, theta_propose, a_sigma_tau0, rate_sigma_tau0, deltas_propose, a_alpha0, rate_alpha0)
 }
 
-Gibbs_DINA_HO_RT_sep <- function(Response, Latency, Qs, Q_examinee, test_order, Test_versions, G_version, theta_propose, deltas_propose, chain_length, burn_in) {
-    .Call(`_hmcdm_Gibbs_DINA_HO_RT_sep`, Response, Latency, Qs, Q_examinee, test_order, Test_versions, G_version, theta_propose, deltas_propose, chain_length, burn_in)
+Gibbs_DINA_HO_RT_sep <- function(Response, Latency, Qs, Test_order, Test_versions, G_version, theta_propose, deltas_propose, chain_length, burn_in) {
+    .Call(`_hmcdm_Gibbs_DINA_HO_RT_sep`, Response, Latency, Qs, Test_order, Test_versions, G_version, theta_propose, deltas_propose, chain_length, burn_in)
 }
 
-parm_update_HO_RT_joint <- function(N, Jt, K, T, alphas, pi, lambdas, thetas, latency, RT_itempars, taus, phi_vec, Sig, response, itempars, Qs, Q_examinee, test_order, Test_versions, G_version, sig_theta_propose, S, p, deltas_propose, a_alpha0, rate_alpha0) {
-    .Call(`_hmcdm_parm_update_HO_RT_joint`, N, Jt, K, T, alphas, pi, lambdas, thetas, latency, RT_itempars, taus, phi_vec, Sig, response, itempars, Qs, Q_examinee, test_order, Test_versions, G_version, sig_theta_propose, S, p, deltas_propose, a_alpha0, rate_alpha0)
+parm_update_HO_RT_joint <- function(N, Jt, K, T, alphas, pi, lambdas, thetas, latency, RT_itempars, taus, phi_vec, Sig, response, itempars, Qs, Q_examinee, Test_order, Test_versions, G_version, sig_theta_propose, S, p, deltas_propose, a_alpha0, rate_alpha0) {
+    .Call(`_hmcdm_parm_update_HO_RT_joint`, N, Jt, K, T, alphas, pi, lambdas, thetas, latency, RT_itempars, taus, phi_vec, Sig, response, itempars, Qs, Q_examinee, Test_order, Test_versions, G_version, sig_theta_propose, S, p, deltas_propose, a_alpha0, rate_alpha0)
 }
 
-Gibbs_DINA_HO_RT_joint <- function(Response, Latency, Qs, Q_examinee, test_order, Test_versions, G_version, sig_theta_propose, deltas_propose, chain_length, burn_in) {
-    .Call(`_hmcdm_Gibbs_DINA_HO_RT_joint`, Response, Latency, Qs, Q_examinee, test_order, Test_versions, G_version, sig_theta_propose, deltas_propose, chain_length, burn_in)
+Gibbs_DINA_HO_RT_joint <- function(Response, Latency, Qs, Test_order, Test_versions, G_version, sig_theta_propose, deltas_propose, chain_length, burn_in) {
+    .Call(`_hmcdm_Gibbs_DINA_HO_RT_joint`, Response, Latency, Qs, Test_order, Test_versions, G_version, sig_theta_propose, deltas_propose, chain_length, burn_in)
 }
 
-parm_update_rRUM <- function(N, Jt, K, T, alphas, pi, taus, R, r_stars, pi_stars, Qs, responses, X_ijk, Smats, Gmats, test_order, Test_versions, dirich_prior) {
-    invisible(.Call(`_hmcdm_parm_update_rRUM`, N, Jt, K, T, alphas, pi, taus, R, r_stars, pi_stars, Qs, responses, X_ijk, Smats, Gmats, test_order, Test_versions, dirich_prior))
+parm_update_rRUM <- function(N, Jt, K, T, alphas, pi, taus, R, r_stars, pi_stars, Qs, responses, X_ijk, Smats, Gmats, Test_order, Test_versions, dirich_prior) {
+    invisible(.Call(`_hmcdm_parm_update_rRUM`, N, Jt, K, T, alphas, pi, taus, R, r_stars, pi_stars, Qs, responses, X_ijk, Smats, Gmats, Test_order, Test_versions, dirich_prior))
 }
 
-Gibbs_rRUM_indept <- function(Response, Qs, R, test_order, Test_versions, chain_length, burn_in) {
-    .Call(`_hmcdm_Gibbs_rRUM_indept`, Response, Qs, R, test_order, Test_versions, chain_length, burn_in)
+Gibbs_rRUM_indept <- function(Response, Qs, R, Test_order, Test_versions, chain_length, burn_in) {
+    .Call(`_hmcdm_Gibbs_rRUM_indept`, Response, Qs, R, Test_order, Test_versions, chain_length, burn_in)
 }
 
-parm_update_NIDA_indept <- function(N, Jt, K, T, alphas, pi, taus, R, Qs, responses, X_ijk, Smats, Gmats, test_order, Test_versions, dirich_prior) {
-    invisible(.Call(`_hmcdm_parm_update_NIDA_indept`, N, Jt, K, T, alphas, pi, taus, R, Qs, responses, X_ijk, Smats, Gmats, test_order, Test_versions, dirich_prior))
+parm_update_NIDA_indept <- function(N, Jt, K, T, alphas, pi, taus, R, Qs, responses, X_ijk, Smats, Gmats, Test_order, Test_versions, dirich_prior) {
+    invisible(.Call(`_hmcdm_parm_update_NIDA_indept`, N, Jt, K, T, alphas, pi, taus, R, Qs, responses, X_ijk, Smats, Gmats, Test_order, Test_versions, dirich_prior))
 }
 
-Gibbs_NIDA_indept <- function(Response, Qs, R, test_order, Test_versions, chain_length, burn_in) {
-    .Call(`_hmcdm_Gibbs_NIDA_indept`, Response, Qs, R, test_order, Test_versions, chain_length, burn_in)
+Gibbs_NIDA_indept <- function(Response, Qs, R, Test_order, Test_versions, chain_length, burn_in) {
+    .Call(`_hmcdm_Gibbs_NIDA_indept`, Response, Qs, R, Test_order, Test_versions, chain_length, burn_in)
 }
 
 parm_update_DINA_FOHM <- function(N, J, K, nClass, nT, Y, TP, ETA, ss, gs, CLASS, pi, Omega) {
     invisible(.Call(`_hmcdm_parm_update_DINA_FOHM`, N, J, K, nClass, nT, Y, TP, ETA, ss, gs, CLASS, pi, Omega))
 }
 
-Gibbs_DINA_FOHM <- function(Y, Q, burnin, chain_length) {
-    .Call(`_hmcdm_Gibbs_DINA_FOHM`, Y, Q, burnin, chain_length)
+Gibbs_DINA_FOHM <- function(Response, Qs, Test_order, Test_versions, chain_length, burn_in) {
+    .Call(`_hmcdm_Gibbs_DINA_FOHM`, Response, Qs, Test_order, Test_versions, chain_length, burn_in)
 }
 
 #' @title Gibbs sampler for learning models
 #' @description Runs MCMC to estimate parameters of any of the listed learning models. 
-#' @param Response_list A \code{list} of dichotomous item responses. t-th element is an N-by-Jt matrix of responses at time t.
-#' @param Q_list A \code{list} of Q-matrices. b-th element is a Jt-by-K Q-matrix for items in block b. 
+#' @param Y_real_array An \code{array} of dichotomous item responses. t-th slice is an N-by-J matrix of responses at time t.
+#' @param Q_matrix A J-by-K Q-matrix. 
 #' @param model A \code{charactor} of the type of model fitted with the MCMC sampler, possible selections are 
 #' "DINA_HO": Higher-Order Hidden Markov Diagnostic Classification Model with DINA responses;
 #' "DINA_HO_RT_joint": Higher-Order Hidden Markov DCM with DINA responses, log-Normal response times, and joint modeling of latent
@@ -255,12 +212,11 @@ Gibbs_DINA_FOHM <- function(Y, Q, burnin, chain_length) {
 #' "rRUM_indept": Simple independent transition probability model with rRUM responses
 #' "NIDA_indept": Simple independent transition probability model with NIDA responses
 #' "DINA_FOHM": First Order Hidden Markov model with DINA responses
-#' @param test_order A \code{matrix} of the order of item blocks for each test version.
+#' @param Test_order A \code{matrix} of the order of item blocks for each test version.
 #' @param Test_versions A \code{vector} of the test version of each learner.
 #' @param chain_length An \code{int} of the MCMC chain length.
 #' @param burn_in An \code{int} of the MCMC burn-in chain length.
-#' @param Q_examinee Optional. A \code{list} of the Q matrix for each learner. i-th element is a J-by-K Q-matrix for all items learner i was administered.
-#' @param Latency_list Optional. A \code{list} of the response times. t-th element is an N-by-Jt matrix of response times at time t.
+#' @param Latency_array Optional. A \code{array} of the response times. t-th slice is an N-by-J matrix of response times at time t.
 #' @param G_version Optional. An \code{int} of the type of covariate for increased fluency (1: G is dichotomous depending on whether all skills required for
 #' current item are mastered; 2: G cumulates practice effect on previous items using mastered skills; 3: G is a time block effect invariant across 
 #' subjects with different attribute trajectories)
@@ -271,32 +227,13 @@ Gibbs_DINA_FOHM <- function(Y, Q, burnin, chain_length) {
 #' @author Susu Zhang
 #' @examples
 #' \donttest{
-#' output_FOHM = MCMC_learning(Y_real_list,Q_list,"DINA_FOHM",test_order,Test_versions,10000,5000)
+#' output_FOHM = hmcdm(Y_real_array,Q_matrix,"DINA_FOHM",Test_order,Test_versions,100,30)
 #' }
 #' @export
-MCMC_learning <- function(Response_list, Q_list, model, test_order, Test_versions, chain_length, burn_in, Q_examinee = NULL, Latency_list = NULL, G_version = NA_integer_, theta_propose = 0., deltas_propose = NULL, R = NULL) {
-    .Call(`_hmcdm_MCMC_learning`, Response_list, Q_list, model, test_order, Test_versions, chain_length, burn_in, Q_examinee, Latency_list, G_version, theta_propose, deltas_propose, R)
+hmcdm <- function(Y_real_array, Q_matrix, model, Test_order, Test_versions, chain_length, burn_in, G_version = NA_integer_, theta_propose = 0., Latency_array = NULL, deltas_propose = NULL, R = NULL) {
+    .Call(`_hmcdm_hmcdm`, Y_real_array, Q_matrix, model, Test_order, Test_versions, chain_length, burn_in, G_version, theta_propose, Latency_array, deltas_propose, R)
 }
 
-#' @title Simulate DINA model responses (single vector)
-#' @description Simulate a single vector of DINA responses for a person on a set of items
-#' @param J An \code{int} of number of items
-#' @param K An \code{int} of number of attributes
-#' @param ETA A \code{matrix} of ideal responses generated with ETAmat function
-#' @param Svec A length J \code{vector} of item slipping parameters
-#' @param Gvec A length J \code{vector} of item guessing parameters
-#' @param alpha A length K \code{vector} of attribute pattern of a person 
-#' @return A length J \code{vector} of item responses 
-#' @examples
-#' J = 15
-#' K = 4
-#' Q = random_Q(J,K)
-#' ETA = ETAmat(K,J,Q)
-#' s = runif(J,.1,.2)
-#' g = runif(J,.1,.2)
-#' alpha_i = c(1,0,0,1)
-#' Y_i = sim_resp_DINA(J,K,ETA,s,g,alpha_i)
-#' @export
 sim_resp_DINA <- function(J, K, ETA, Svec, Gvec, alpha) {
     .Call(`_hmcdm_sim_resp_DINA`, J, K, ETA, Svec, Gvec, alpha)
 }
@@ -306,21 +243,18 @@ sim_resp_DINA <- function(J, K, ETA, Svec, Gvec, alpha) {
 #' @param alphas An N-by-K-by-T \code{array} of attribute patterns of all persons across T time points 
 #' @param itempars A J-by-2-by-T \code{cube} of item parameters (slipping: 1st col, guessin: 2nd col) across item blocks
 #' @param ETA A J-by-2^K-by-T \code{array} of ideal responses across all item blocks, with each slice generated with ETAmat function
-#' @param test_order A N_versions-by-T \code{matrix} indicating which block of items were administered to examinees with specific test version.
+#' @param Test_order A N_versions-by-T \code{matrix} indicating which block of items were administered to examinees with specific test version.
 #' @param Test_versions A length N \code{vector} of the test version of each examinee
 #' @return An \code{array} of DINA item responses of examinees across all time points
 #' @examples
 #' N = length(Test_versions)
-#' Jt = nrow(Q_list[[1]])
-#' K = ncol(Q_list[[1]])
-#' T = nrow(test_order)
-#' J = Jt*T
+#' J = nrow(Q_matrix)
+#' K = ncol(Q_matrix)
+#' T = nrow(Test_order)
+#' Jt = J/T
 #' itempars_true <- array(runif(Jt*2*T,.1,.2), dim = c(Jt,2,T))
 #' 
-#' ETAs <- array(NA,dim = c(Jt,2^K,T)) 
-#' for(t in 1:T){
-#'   ETAs[,,t] <- ETAmat(K,Jt,Q_list[[t]])
-#' }
+#' ETAs <- ETAmat(K,J,Q_matrix)
 #' class_0 <- sample(1:2^K, N, replace = T)
 #' Alphas_0 <- matrix(0,N,K)
 #' mu_thetatau = c(0,0)
@@ -334,43 +268,19 @@ sim_resp_DINA <- function(J, K, ETA, Svec, Gvec, alpha) {
 #' for(i in 1:N){
 #'   Alphas_0[i,] <- inv_bijectionvector(K,(class_0[i]-1))
 #' }
-#' lambdas_true <- c(-2, .4, .055)     
+#' lambdas_true <- c(-2, .4, .055)
+#' Q_examinee <- Q_list(Q_matrix, Test_order, Test_versions)     
 #' Alphas <- simulate_alphas_HO_joint(lambdas_true,thetas_true,Alphas_0,Q_examinee,T,Jt)
-#' Y_sim <- simDINA(Alphas,itempars_true,ETAs,test_order,Test_versions)
+#' Y_sim <- simDINA(Alphas,itempars_true,ETAs,Test_order,Test_versions)
 #' @export
-simDINA <- function(alphas, itempars, ETA, test_order, Test_versions) {
-    .Call(`_hmcdm_simDINA`, alphas, itempars, ETA, test_order, Test_versions)
+simDINA <- function(alphas, itempars, ETA, Test_order, Test_versions) {
+    .Call(`_hmcdm_simDINA`, alphas, itempars, ETA, Test_order, Test_versions)
 }
 
 pYit_DINA <- function(ETA_it, Y_it, itempars) {
     .Call(`_hmcdm_pYit_DINA`, ETA_it, Y_it, itempars)
 }
 
-#' @title Simulate rRUM model responses (single vector)
-#' @description Simulate a single vector of rRUM responses for a person on a set of items
-#' @param J An \code{int} of number of items
-#' @param K An \code{int} of number of attributes
-#' @param Q A J-by-K Q \code{matrix}
-#' @param rstar A J-by-K \code{matrix} of item penalty parameters for missing requisite skills
-#' @param pistar length J \code{vector} of item correct response probability with all requisite skills
-#' @param alpha A length K \code{vector} of attribute pattern of a person 
-#' @return A length J \code{vector} of item responses
-#' @examples
-#' J = 15
-#' K = 4
-#' T = 5
-#' Q = random_Q(J,K)
-#' Smats <- matrix(runif(J*K,.1,.3),J,K)
-#' Gmats <- matrix(runif(J*K,.1,.3),J,K)
-#' r_stars <- matrix(NA,J,K)
-#' pi_stars <- numeric(J)
-#' for(t in 1:T){
-#'   pi_stars <- apply(((1-Smats)^Q),1,prod)
-#'   r_stars <- Gmats/(1-Smats)
-#' }
-#' alpha_i = c(1,0,0,1)
-#' Y_i = sim_resp_rRUM(J,K,Q,r_stars,pi_stars,alpha_i)
-#' @export
 sim_resp_rRUM <- function(J, K, Q, rstar, pistar, alpha) {
     .Call(`_hmcdm_sim_resp_rRUM`, J, K, Q, rstar, pistar, alpha)
 }
@@ -378,26 +288,22 @@ sim_resp_rRUM <- function(J, K, Q, rstar, pistar, alpha) {
 #' @title Simulate rRUM model responses (entire cube)
 #' @description Simulate a cube of rRUM responses for all persons on items across all time points
 #' @param alphas An N-by-K-by-T \code{array} of attribute patterns of all persons across T time points 
-#' @param r_stars A J-by-K-by-T \code{cube} of item penalty parameters for missing skills across all item blocks
-#' @param pi_stars A J-by-T \code{matrix} of item correct response probability with all requisite skills across blocks
-#' @param Qs A J-by-K-by-T  \code{cube} of Q-matrices across all item blocks
-#' @param test_order A N_versions-by-T \code{matrix} indicating which block of items were administered to examinees with specific test version.
+#' @param r_stars_mat A J-by-K \code{cube} of item penalty parameters for missing skills across all item blocks
+#' @param pi_stars A Jt-by-T \code{matrix} of item correct response probability with all requisite skills across blocks
+#' @param Q_matrix A J-by-K of Q-matrix
+#' @param Test_order A N_versions-by-T \code{matrix} indicating which block of items were administered to examinees with specific test version.
 #' @param Test_versions A length N \code{vector} of the test version of each examinee
 #' @return An \code{array} of rRUM item responses of examinees across all time points
 #' @examples
 #' N = length(Test_versions)
-#' Jt = nrow(Q_list[[1]])
-#' K = ncol(Q_list[[1]])
-#' T = nrow(test_order)
-#' J = Jt*T
-#' Smats <- array(runif(Jt*K*(T),.1,.3),c(Jt,K,(T)))
-#' Gmats <- array(runif(Jt*K*(T),.1,.3),c(Jt,K,(T)))
-#' r_stars <- array(NA,c(Jt,K,T))
-#' pi_stars <- matrix(NA,Jt,(T))
-#' for(t in 1:T){
-#'   pi_stars[,t] <- apply(((1-Smats[,,t])^Qs[,,t]),1,prod)
-#'   r_stars[,,t] <- Gmats[,,t]/(1-Smats[,,t])
-#' }
+#' J = nrow(Q_matrix)
+#' K = ncol(Q_matrix)
+#' T = nrow(Test_order)
+#' Jt = J/T
+#' Smats <- matrix(runif(J*K,.1,.3),c(J,K))
+#' Gmats <- matrix(runif(J*K,.1,.3),c(J,K))
+#' r_stars <- Gmats / (1-Smats)
+#' pi_stars <- matrix(apply((1-Smats)^Q_matrix, 1, prod), nrow=Jt, ncol=T, byrow=T)
 #' Test_versions_sim <- sample(1:5,N,replace = T)
 #' tau <- numeric(K)
 #'   for(k in 1:K){
@@ -419,34 +325,16 @@ sim_resp_rRUM <- function(J, K, Q, rstar, pistar, alpha) {
 #'   }
 #' }
 #' Alphas <- simulate_alphas_indept(tau,Alphas_0,T,R) 
-#' Y_sim = simrRUM(Alphas,r_stars,pi_stars,Qs,test_order,Test_versions_sim)
+#' Y_sim = simrRUM(Alphas,r_stars,pi_stars,Q_matrix,Test_order,Test_versions_sim)
 #' @export
-simrRUM <- function(alphas, r_stars, pi_stars, Qs, test_order, Test_versions) {
-    .Call(`_hmcdm_simrRUM`, alphas, r_stars, pi_stars, Qs, test_order, Test_versions)
+simrRUM <- function(alphas, r_stars_mat, pi_stars, Q_matrix, Test_order, Test_versions) {
+    .Call(`_hmcdm_simrRUM`, alphas, r_stars_mat, pi_stars, Q_matrix, Test_order, Test_versions)
 }
 
 pYit_rRUM <- function(alpha_it, Y_it, pi_star_it, r_star_it, Q_it) {
     .Call(`_hmcdm_pYit_rRUM`, alpha_it, Y_it, pi_star_it, r_star_it, Q_it)
 }
 
-#' @title Simulate NIDA model responses (single vector)
-#' @description Simulate a single vector of NIDA responses for a person on a set of items
-#' @param J An \code{int} of number of items
-#' @param K An \code{int} of number of attributes
-#' @param Q A J-by-K Q \code{matrix}
-#' @param Svec A length K \code{vector} of slipping probability in applying mastered skills
-#' @param Gvec A length K \code{vector} of guessing probability in applying mastered skills
-#' @param alpha A length K \code{vector} of attribute pattern of a person 
-#' @return A length J \code{vector} of item responses
-#' @examples
-#' J = 15
-#' K = 4
-#' Q = random_Q(J,K)
-#' Svec <- runif(K,.1,.3)
-#' Gvec <- runif(K,.1,.3)
-#' alpha_i = c(1,0,0,1)
-#' Y_i = sim_resp_NIDA(J,K,Q,Svec,Gvec,alpha_i)
-#' @export
 sim_resp_NIDA <- function(J, K, Q, Svec, Gvec, alpha) {
     .Call(`_hmcdm_sim_resp_NIDA`, J, K, Q, Svec, Gvec, alpha)
 }
@@ -456,16 +344,16 @@ sim_resp_NIDA <- function(J, K, Q, Svec, Gvec, alpha) {
 #' @param alphas An N-by-K-by-T \code{array} of attribute patterns of all persons across T time points 
 #' @param Svec A length K \code{vector} of slipping probability in applying mastered skills
 #' @param Gvec A length K \code{vector} of guessing probability in applying mastered skills
-#' @param Qs A J-by-K-by-T  \code{cube} of Q-matrices across all item blocks
-#' @param test_order A N_versions-by-T \code{matrix} indicating which block of items were administered to examinees with specific test version.
+#' @param Q_matrix A J-by-K Q-matrix
+#' @param Test_order A N_versions-by-T \code{matrix} indicating which block of items were administered to examinees with specific test version.
 #' @param Test_versions A length N \code{vector} of the test version of each examinee
 #' @return An \code{array} of NIDA item responses of examinees across all time points
 #' @examples
 #' N = length(Test_versions)
-#' Jt = nrow(Q_list[[1]])
-#' K = ncol(Q_list[[1]])
-#' T = nrow(test_order)
-#' J = Jt*T
+#' J = nrow(Q_matrix)
+#' K = ncol(Q_matrix)
+#' T = nrow(Test_order)
+#' Jt = J/T
 #' Svec <- runif(K,.1,.3)
 #' Gvec <- runif(K,.1,.3)
 #' Test_versions_sim <- sample(1:5,N,replace = T)
@@ -489,44 +377,44 @@ sim_resp_NIDA <- function(J, K, Q, Svec, Gvec, alpha) {
 #'       }
 #'     }
 #'    Alphas <- simulate_alphas_indept(tau,Alphas_0,T,R) 
-#' Y_sim = simNIDA(Alphas,Svec,Gvec,Qs,test_order,Test_versions_sim)
+#' Y_sim = simNIDA(Alphas,Svec,Gvec,Q_matrix,Test_order,Test_versions_sim)
 #' @export
-simNIDA <- function(alphas, Svec, Gvec, Qs, test_order, Test_versions) {
-    .Call(`_hmcdm_simNIDA`, alphas, Svec, Gvec, Qs, test_order, Test_versions)
+simNIDA <- function(alphas, Svec, Gvec, Q_matrix, Test_order, Test_versions) {
+    .Call(`_hmcdm_simNIDA`, alphas, Svec, Gvec, Q_matrix, Test_order, Test_versions)
 }
 
 pYit_NIDA <- function(alpha_it, Y_it, Svec, Gvec, Q_it) {
     .Call(`_hmcdm_pYit_NIDA`, alpha_it, Y_it, Svec, Gvec, Q_it)
 }
 
-J_incidence_cube <- function(test_order, Qs) {
-    .Call(`_hmcdm_J_incidence_cube`, test_order, Qs)
+J_incidence_cube <- function(Test_order, Qs) {
+    .Call(`_hmcdm_J_incidence_cube`, Test_order, Qs)
 }
 
-G2vec_efficient <- function(ETA, J_incidence, alphas_i, test_version_i, test_order, t) {
-    .Call(`_hmcdm_G2vec_efficient`, ETA, J_incidence, alphas_i, test_version_i, test_order, t)
+G2vec_efficient <- function(ETA, J_incidence, alphas_i, test_version_i, Test_order, t) {
+    .Call(`_hmcdm_G2vec_efficient`, ETA, J_incidence, alphas_i, test_version_i, Test_order, t)
 }
 
 #' @title Simulate item response times based on Wang et al.'s (2018) joint model of response times and accuracy in learning
 #' @description Simulate a cube of subjects' response times across time points according to a variant of the logNormal model
 #' @param alphas An N-by-K-by-T \code{array} of attribute patterns of all persons across T time points 
 #' @param RT_itempars A J-by-2-by-T \code{array} of item time discrimination and time intensity parameters across item blocks
-#' @param Qs A J-by-K-by-T  \code{cube} of Q-matrices across all item blocks
+#' @param Q_matrix A J-by-K  Q-matrix for the test
 #' @param taus A length N \code{vector} of latent speed of each person
 #' @param phi A \code{scalar} of slope of increase in fluency over time due to covariates (G)
-#' @param ETA A J-by-2^K-by-T \code{array} of ideal responses across all item blocks, with each slice generated with ETAmat function
+#' @param ETAs A J-by-2^K \code{matrix} of ideal responses across all item blocks generated with ETAmat function
 #' @param G_version An \code{int} of the type of covariate for increased fluency (1: G is dichotomous depending on whether all skills required for
 #' current item are mastered; 2: G cumulates practice effect on previous items using mastered skills; 3: G is a time block effect invariant across 
 #' subjects with different attribute trajectories)
-#' @param test_order A N_versions-by-T \code{matrix} indicating which block of items were administered to examinees with specific test version.
+#' @param Test_order A N_versions-by-T \code{matrix} indicating which block of items were administered to examinees with specific test version.
 #' @param Test_versions A length N \code{vector} of the test version of each examinee
 #' @return A \code{cube} of response times of subjects on each item across time
 #' @examples
 #' N = length(Test_versions)
-#' Jt = nrow(Q_list[[1]])
-#' K = ncol(Q_list[[1]])
-#' T = nrow(test_order)
-#' J = Jt*T
+#' J = nrow(Q_matrix)
+#' K = ncol(Q_matrix)
+#' T = nrow(Test_order)
+#' Jt = J/T
 #' class_0 <- sample(1:2^K, N, replace = T)
 #' Alphas_0 <- matrix(0,N,K)
 #' mu_thetatau = c(0,0)
@@ -541,19 +429,17 @@ G2vec_efficient <- function(ETA, J_incidence, alphas_i, test_version_i, test_ord
 #'   Alphas_0[i,] <- inv_bijectionvector(K,(class_0[i]-1))
 #' }
 #' lambdas_true <- c(-2, .4, .055)     
+#' Q_examinee <- Q_list(Q_matrix, Test_order, Test_versions)
 #' Alphas <- simulate_alphas_HO_joint(lambdas_true,thetas_true,Alphas_0,Q_examinee,T,Jt)
 #' RT_itempars_true <- array(NA, dim = c(Jt,2,T))
 #' RT_itempars_true[,2,] <- rnorm(Jt*T,3.45,.5)
 #' RT_itempars_true[,1,] <- runif(Jt*T,1.5,2)
-#' ETAs <- array(NA,dim = c(Jt,2^K,T)) 
-#' for(t in 1:T){
-#'   ETAs[,,t] <- ETAmat(K,Jt,Q_list[[t]])
-#' }
-#' L_sim <- sim_RT(Alphas,RT_itempars_true,Qs,taus_true,phi_true,ETAs,
-#' G_version,test_order,Test_versions)
+#' ETAs <- ETAmat(K,J,Q_matrix)
+#' L_sim <- sim_RT(Alphas,RT_itempars_true,Q_matrix,taus_true,phi_true,ETAs,
+#' G_version,Test_order,Test_versions)
 #' @export
-sim_RT <- function(alphas, RT_itempars, Qs, taus, phi, ETA, G_version, test_order, Test_versions) {
-    .Call(`_hmcdm_sim_RT`, alphas, RT_itempars, Qs, taus, phi, ETA, G_version, test_order, Test_versions)
+sim_RT <- function(alphas, RT_itempars, Q_matrix, taus, phi, ETAs, G_version, Test_order, Test_versions) {
+    .Call(`_hmcdm_sim_RT`, alphas, RT_itempars, Q_matrix, taus, phi, ETAs, G_version, Test_order, Test_versions)
 }
 
 dLit <- function(G_it, L_it, RT_itempars_it, tau_i, phi) {
@@ -575,10 +461,10 @@ dLit <- function(G_it, L_it, RT_itempars_it, tau_i, phi) {
 #' @return An N-by-K-by-T \code{array} of attribute patterns of subjects at each time point.
 #' @examples
 #' N = length(Test_versions)
-#' Jt = nrow(Q_list[[1]])
-#' K = ncol(Q_list[[1]])
-#' T = nrow(test_order)
-#' J = Jt*T
+#' J = nrow(Q_matrix)
+#' K = ncol(Q_matrix)
+#' T = nrow(Test_order)
+#' Jt = J/T
 #' class_0 <- sample(1:2^K, N, replace = T)
 #' Alphas_0 <- matrix(0,N,K)
 #' thetas_true = rnorm(N)
@@ -586,6 +472,7 @@ dLit <- function(G_it, L_it, RT_itempars_it, tau_i, phi) {
 #'   Alphas_0[i,] <- inv_bijectionvector(K,(class_0[i]-1))
 #' }
 #' lambdas_true = c(-1, 1.8, .277, .055)
+#' Q_examinee <- Q_list(Q_matrix, Test_order, Test_versions)
 #' Alphas <- simulate_alphas_HO_sep(lambdas_true,thetas_true,Alphas_0,Q_examinee,T,Jt)
 #' @export
 simulate_alphas_HO_sep <- function(lambdas, thetas, alpha0s, Q_examinee, T, Jt) {
@@ -610,10 +497,10 @@ pTran_HO_sep <- function(alpha_prev, alpha_post, lambdas, theta_i, Q_i, Jt, t) {
 #' @return An N-by-K-by-T \code{array} of attribute patterns of subjects at each time point.
 #' @examples
 #' N = length(Test_versions)
-#' Jt = nrow(Q_list[[1]])
-#' K = ncol(Q_list[[1]])
-#' T = nrow(test_order)
-#' J = Jt*T
+#' J = nrow(Q_matrix)
+#' K = ncol(Q_matrix)
+#' T = nrow(Test_order)
+#' Jt = J/T
 #' class_0 <- sample(1:2^K, N, replace = T)
 #' Alphas_0 <- matrix(0,N,K)
 #' mu_thetatau = c(0,0)
@@ -625,6 +512,7 @@ pTran_HO_sep <- function(alpha_prev, alpha_post, lambdas, theta_i, Q_i, Jt, t) {
 #'   Alphas_0[i,] <- inv_bijectionvector(K,(class_0[i]-1))
 #' }
 #' lambdas_true <- c(-2, .4, .055)     
+#' Q_examinee <- Q_list(Q_matrix, Test_order, Test_versions)
 #' Alphas <- simulate_alphas_HO_joint(lambdas_true,thetas_true,Alphas_0,Q_examinee,T,Jt)
 #' @export
 simulate_alphas_HO_joint <- function(lambdas, thetas, alpha0s, Q_examinee, T, Jt) {
@@ -645,10 +533,10 @@ pTran_HO_joint <- function(alpha_prev, alpha_post, lambdas, theta_i, Q_i, Jt, t)
 #' @return An N-by-K-by-T \code{array} of attribute patterns of subjects at each time point.
 #' @examples
 #' N = length(Test_versions)
-#' Jt = nrow(Q_list[[1]])
-#' K = ncol(Q_list[[1]])
-#' T = nrow(test_order)
-#' J = Jt*T
+#' J = nrow(Q_matrix)
+#' K = ncol(Q_matrix)
+#' T = nrow(Test_order)
+#' Jt = J/T
 #' tau <- numeric(K)
 #' for(k in 1:K){
 #'   tau[k] <- runif(1,.2,.6)
@@ -687,10 +575,10 @@ pTran_indept <- function(alpha_prev, alpha_post, taus, R) {
 #' @return An N-by-K-by-T \code{array} of attribute patterns of subjects at each time point. 
 #' @examples
 #' N = length(Test_versions)
-#' Jt = nrow(Q_list[[1]])
-#' K = ncol(Q_list[[1]])
-#' T = nrow(test_order)
-#' J = Jt*T
+#' J = nrow(Q_matrix)
+#' K = ncol(Q_matrix)
+#' T = nrow(Test_order)
+#' Jt = J/T
 #' TP <- TPmat(K)
 #' Omega_true <- rOmega(TP)
 #' class_0 <- sample(1:2^K, N, replace = T)
@@ -714,10 +602,10 @@ rAlpha <- function(Omega, N, T, alpha1) {
 #' the TPmat function 
 #' @examples
 #' N = length(Test_versions)
-#' Jt = nrow(Q_list[[1]])
-#' K = ncol(Q_list[[1]])
-#' T = nrow(test_order)
-#' J = Jt*T
+#' J = nrow(Q_matrix)
+#' K = ncol(Q_matrix)
+#' T = nrow(Test_order)
+#' Jt = J/T
 #' TP = TPmat(K)
 #' Omega_sim = rOmega(TP)
 #' @export
