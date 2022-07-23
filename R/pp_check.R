@@ -17,7 +17,7 @@
 #' [bayesplot::ppc_scatter_avg()]
 #' [bayesplot::ppc_error_scatter_avg()]
 #' @references 
-#' Zhang, S., Douglas, J. A., Wang, S. & Culpepper, S. A. (2019) <doi:https://doi.org/10.1007/978-3-030-05584-4_24>
+#' Zhang, S., Douglas, J. A., Wang, S. & Culpepper, S. A. (2019) <doi:10.1007/978-3-030-05584-4_24>
 #' @examples
 #' \donttest{
 #' output_FOHM = hmcdm(Y_real_array,Q_matrix,"DINA_FOHM",Test_order,Test_versions,10000,5000)
