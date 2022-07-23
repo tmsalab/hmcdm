@@ -27,22 +27,22 @@ arma::vec sim_resp_DINA(unsigned int J, unsigned int K, const arma::mat& ETA,
 
 //' @title Simulate DINA model responses (entire cube)
 //' @description Simulate a cube of DINA responses for all persons on items across all time points
-//' @param alphas An N-by-K-by-T \code{array} of attribute patterns of all persons across T time points 
-//' @param itempars A J-by-2-by-T \code{cube} of item parameters (slipping: 1st col, guessing: 2nd col) across item blocks
-//' @param ETA A J-by-2^K-by-T \code{array} of ideal responses across all item blocks, with each slice generated with ETAmat function
-//' @param Test_order A N_versions-by-T \code{matrix} indicating which block of items were administered to examinees with specific test version.
+//' @param alphas An N-by-K-by-L \code{array} of attribute patterns of all persons across L time points 
+//' @param itempars A J-by-2-by-L \code{cube} of item parameters (slipping: 1st col, guessing: 2nd col) across item blocks
+//' @param ETA A J-by-2^K-by-L \code{array} of ideal responses across all item blocks, with each slice generated with ETAmat function
+//' @param Test_order A N_versions-by-L \code{matrix} indicating which block of items were administered to examinees with specific test version.
 //' @param Test_versions A length N \code{vector} of the test version of each examinee
 //' @return An \code{array} of DINA item responses of examinees across all time points
 //' @examples
 //' N = length(Test_versions)
 //' J = nrow(Q_matrix)
 //' K = ncol(Q_matrix)
-//' T = nrow(Test_order)
-//' Jt = J/T
-//' itempars_true <- array(runif(Jt*2*T,.1,.2), dim = c(Jt,2,T))
+//' L = nrow(Test_order)
+//' Jt = J/L
+//' itempars_true <- array(runif(Jt*2*L,.1,.2), dim = c(Jt,2,L))
 //' 
 //' ETAs <- ETAmat(K,J,Q_matrix)
-//' class_0 <- sample(1:2^K, N, replace = T)
+//' class_0 <- sample(1:2^K, N, replace = L)
 //' Alphas_0 <- matrix(0,N,K)
 //' mu_thetatau = c(0,0)
 //' Sig_thetatau = rbind(c(1.8^2,.4*.5*1.8),c(.4*.5*1.8,.25))
@@ -57,7 +57,7 @@ arma::vec sim_resp_DINA(unsigned int J, unsigned int K, const arma::mat& ETA,
 //' }
 //' lambdas_true <- c(-2, .4, .055)
 //' Q_examinee <- Q_list(Q_matrix, Test_order, Test_versions)     
-//' Alphas <- simulate_alphas_HO_joint(lambdas_true,thetas_true,Alphas_0,Q_examinee,T,Jt)
+//' Alphas <- simulate_alphas_HO_joint(lambdas_true,thetas_true,Alphas_0,Q_examinee,L,Jt)
 //' Y_sim <- simDINA(Alphas,itempars_true,ETAs,Test_order,Test_versions)
 //' @export
 // [[Rcpp::export]]
@@ -138,24 +138,24 @@ arma::vec sim_resp_rRUM(unsigned int J, unsigned int K, const arma::mat& Q,
 
 //' @title Simulate rRUM model responses (entire cube)
 //' @description Simulate a cube of rRUM responses for all persons on items across all time points
-//' @param alphas An N-by-K-by-T \code{array} of attribute patterns of all persons across T time points 
+//' @param alphas An N-by-K-by-L \code{array} of attribute patterns of all persons across L time points 
 //' @param r_stars_mat A J-by-K \code{cube} of item penalty parameters for missing skills across all item blocks
-//' @param pi_stars A Jt-by-T \code{matrix} of item correct response probability with all requisite skills across blocks
+//' @param pi_stars A Jt-by-L \code{matrix} of item correct response probability with all requisite skills across blocks
 //' @param Q_matrix A J-by-K of Q-matrix
-//' @param Test_order A N_versions-by-T \code{matrix} indicating which block of items were administered to examinees with specific test version.
+//' @param Test_order A N_versions-by-L \code{matrix} indicating which block of items were administered to examinees with specific test version.
 //' @param Test_versions A length N \code{vector} of the test version of each examinee
 //' @return An \code{array} of rRUM item responses of examinees across all time points
 //' @examples
 //' N = length(Test_versions)
 //' J = nrow(Q_matrix)
 //' K = ncol(Q_matrix)
-//' T = nrow(Test_order)
-//' Jt = J/T
+//' L = nrow(Test_order)
+//' Jt = J/L
 //' Smats <- matrix(runif(J*K,.1,.3),c(J,K))
 //' Gmats <- matrix(runif(J*K,.1,.3),c(J,K))
 //' r_stars <- Gmats / (1-Smats)
-//' pi_stars <- matrix(apply((1-Smats)^Q_matrix, 1, prod), nrow=Jt, ncol=T, byrow=T)
-//' Test_versions_sim <- sample(1:5,N,replace = T)
+//' pi_stars <- matrix(apply((1-Smats)^Q_matrix, 1, prod), nrow=Jt, ncol=L, byrow=L)
+//' Test_versions_sim <- sample(1:5,N,replace = L)
 //' tau <- numeric(K)
 //'   for(k in 1:K){
 //'     tau[k] <- runif(1,.2,.6)
@@ -175,7 +175,7 @@ arma::vec sim_resp_rRUM(unsigned int J, unsigned int K, const arma::mat& Q,
 //'     }
 //'   }
 //' }
-//' Alphas <- simulate_alphas_indept(tau,Alphas_0,T,R) 
+//' Alphas <- simulate_alphas_indept(tau,Alphas_0,L,R) 
 //' Y_sim = simrRUM(Alphas,r_stars,pi_stars,Q_matrix,Test_order,Test_versions_sim)
 //' @export
 // [[Rcpp::export]]
@@ -257,22 +257,22 @@ arma::vec sim_resp_NIDA(const unsigned int J, const unsigned int K, const arma::
 
 //' @title Simulate NIDA model responses (entire cube)
 //' @description Simulate a cube of NIDA responses for all persons on items across all time points
-//' @param alphas An N-by-K-by-T \code{array} of attribute patterns of all persons across T time points 
+//' @param alphas An N-by-K-by-L \code{array} of attribute patterns of all persons across L time points 
 //' @param Svec A length K \code{vector} of slipping probability in applying mastered skills
 //' @param Gvec A length K \code{vector} of guessing probability in applying mastered skills
 //' @param Q_matrix A J-by-K Q-matrix
-//' @param Test_order A N_versions-by-T \code{matrix} indicating which block of items were administered to examinees with specific test version.
+//' @param Test_order A N_versions-by-L \code{matrix} indicating which block of items were administered to examinees with specific test version.
 //' @param Test_versions A length N \code{vector} of the test version of each examinee
 //' @return An \code{array} of NIDA item responses of examinees across all time points
 //' @examples
 //' N = length(Test_versions)
 //' J = nrow(Q_matrix)
 //' K = ncol(Q_matrix)
-//' T = nrow(Test_order)
-//' Jt = J/T
+//' L = nrow(Test_order)
+//' Jt = J/L
 //' Svec <- runif(K,.1,.3)
 //' Gvec <- runif(K,.1,.3)
-//' Test_versions_sim <- sample(1:5,N,replace = T)
+//' Test_versions_sim <- sample(1:5,N,replace = L)
 //' tau <- numeric(K)
 //'   for(k in 1:K){
 //'     tau[k] <- runif(1,.2,.6)
@@ -292,7 +292,7 @@ arma::vec sim_resp_NIDA(const unsigned int J, const unsigned int K, const arma::
 //'         }
 //'       }
 //'     }
-//'    Alphas <- simulate_alphas_indept(tau,Alphas_0,T,R) 
+//'    Alphas <- simulate_alphas_indept(tau,Alphas_0,L,R) 
 //' Y_sim = simNIDA(Alphas,Svec,Gvec,Q_matrix,Test_order,Test_versions_sim)
 //' @export
 // [[Rcpp::export]]

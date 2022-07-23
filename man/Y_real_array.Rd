@@ -5,8 +5,8 @@
 \alias{Y_real_array}
 \title{Observed response accuracy array}
 \format{
-An array of dimensions N-by-J-by-T. Each slice of the array is an N-by-J matrix, containing the
-subjects' response accuracy to each item at time point t.
+An array of dimensions N-by-J-by-L. Each slice of the array is an N-by-J matrix, containing the
+subjects' response accuracy to each item at time point l.
 }
 \source{
 Spatial Rotation Learning Experiment at UIUC between Fall 2015 and Spring 2016.
@@ -15,7 +15,7 @@ Spatial Rotation Learning Experiment at UIUC between Fall 2015 and Spring 2016.
 Y_real_array
 }
 \description{
-This data set contains each subject's observed response accuracy (0/1) at all time points in the Spatial
+\code{Y_real_array} contains each subject's observed response accuracy (0/1) at all time points in the Spatial
 Rotation Learning Program.
 }
 \author{

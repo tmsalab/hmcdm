@@ -5,8 +5,8 @@
 \alias{L_real_array}
 \title{Observed response times array}
 \format{
-An array of dimensions N-by-J-by-T. Each slice of the array is an N-by-J matrix, containing the
-subjects' response times in seconds to each item at time point t.
+An array of dimensions N-by-J-by-L. Each slice of the array is an N-by-J matrix, containing the
+subjects' response times in seconds to each item at time point l.
 }
 \source{
 Spatial Rotation Learning Experiment at UIUC between Fall 2015 and Spring 2016.
@@ -15,7 +15,7 @@ Spatial Rotation Learning Experiment at UIUC between Fall 2015 and Spring 2016.
 L_real_array
 }
 \description{
-This data set contains the observed latencies of responses of all subjects to all questions in the Spatial Rotation
+\code{L_real_array} contains the observed latencies of responses of all subjects to all questions in the Spatial Rotation
 Learning Program.
 }
 \author{

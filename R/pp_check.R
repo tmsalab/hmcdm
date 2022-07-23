@@ -4,11 +4,12 @@
 #' @param plotfun A character string naming the type of plot. The list of available 
 #' plot functions include `"dens_overlay"`, `"hist"`, `"stat_2d"`, `"scatter_avg"`, `"error_scatter_avg"`.
 #' The default function is `"dens_overlay"`.
-#' @param type A character string naming the which statistic to use for checking posterior predictive distribution plot. 
+#' @param type A character string naming the statistic to be used for obtaining posterior predictive distribution plot. 
 #' The list of available types include `"total_score"`, `"item_mean"`, `"item_OR"`, `"latency_mean"`, and `"latency_total"`. The default type is `"total_score"` which examines total scores of subjects. 
 #' Type `"item_mean"` is related to the first order moment and examines mean scores of all the items included in the test. 
 #' Type `"item_OR"` is related to the second order moment and examines odds ratios of all item pairs.
 #' Types `"latency_mean"` and `"total_latency"` are available only for `hmcdm` objects that include item response time information (i.e., `hmcdm` object fitted with "`DINA_HO_RT`" model).
+#' @return Plots for checking the posterior predictive distributions. The default `Plotfun` `"dens_overlay"` plots density of each dataset are overlaid with the distribution of the observed values.
 #' @seealso 
 #' [bayesplot::ppc_dens_overlay()]
 #' [bayesplot::ppc_stat()]
@@ -16,7 +17,7 @@
 #' [bayesplot::ppc_scatter_avg()]
 #' [bayesplot::ppc_error_scatter_avg()]
 #' @references 
-#' Zhang, S., Douglas, J. A., Wang, S. & Culpepper, S. A., 2019, Handbook of Diagnostic Classification Models: Models and Model Extensions, Applications, Software Packages. von Davier, M. & Lee, Y-S. (eds.). Springer, p. 503-524
+#' Zhang, S., Douglas, J. A., Wang, S. & Culpepper, S. A. (2019) <doi:https://doi.org/10.1007/978-3-030-05584-4_24>
 #' @examples
 #' \donttest{
 #' output_FOHM = hmcdm(Y_real_array,Q_matrix,"DINA_FOHM",Test_order,Test_versions,10000,5000)
@@ -27,9 +28,9 @@
 #' @export
 pp_check.hmcdm <- function(object,plotfun="dens_overlay",type="total_score"){
   N <- dim(object$input_data$Response)[1]
-  T <- dim(object$input_data$Response)[3]
+  L <- dim(object$input_data$Response)[3]
   Jt <- dim(object$input_data$Response)[2]
-  J <- Jt*T
+  J <- Jt*L
   
   Y_sim <- Dense2Sparse(object$input_data$Response, object$input_data$Test_order, object$input_data$Test_versions)
   Y_sim_array <- Sparse2Dense(Y_sim, object$input_data$Test_order, object$input_data$Test_versions)
@@ -40,7 +41,7 @@ pp_check.hmcdm <- function(object,plotfun="dens_overlay",type="total_score"){
   Y_sim_collapsed <- matrix(NA,N,J)
   for(i in 1:N){
     test_i <- object$input_data$Test_versions[i]
-    for(t in 1:T){
+    for(t in 1:L){
       t_i = object$input_data$Test_order[test_i,t]
       Y_sim_collapsed[i,(Jt*(t_i-1)+1):(Jt*t_i)] <- Y_sim_array[i,,t]
     }
@@ -69,8 +70,8 @@ pp_check.hmcdm <- function(object,plotfun="dens_overlay",type="total_score"){
   
   if(type=="total_score"){
     ## total score
-    total_score_obs <- matrix(NA, N, T)
-    for(t in 1:T){
+    total_score_obs <- matrix(NA, N, L)
+    for(t in 1:L){
       total_score_obs[,t] <- rowSums(object$input_data$Response[,,t])
     }
     obs <- rowSums(total_score_obs)
@@ -101,7 +102,7 @@ pp_check.hmcdm <- function(object,plotfun="dens_overlay",type="total_score"){
     L_sim_collapsed <- matrix(NA,N,J)
     for(i in 1:N){
       test_i <- object$input_data$Test_versions[i]
-      for(t in 1:T){
+      for(t in 1:L){
         t_i = object$input_data$Test_order[test_i,t]
         L_sim_collapsed[i,(Jt*(t_i-1)+1):(Jt*t_i)] <- L_sim_array[i,,t]
       }
@@ -115,8 +116,8 @@ pp_check.hmcdm <- function(object,plotfun="dens_overlay",type="total_score"){
   }
   if(type=="total_latency"){
     ## total score
-    total_latency_obs <- matrix(NA, N, T)
-    for(t in 1:T){
+    total_latency_obs <- matrix(NA, N, L)
+    for(t in 1:L){
       total_latency_obs[,t] <- rowSums(object$input_data$Latency[,,t])
     }
     obs <- rowSums(total_latency_obs)

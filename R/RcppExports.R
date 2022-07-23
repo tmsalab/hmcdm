@@ -100,8 +100,8 @@ resp_miss <- function(Responses, Test_order, Test_versions) {
 #' N = length(Test_versions)
 #' J = nrow(Q_matrix)
 #' K = ncol(Q_matrix)
-#' T = nrow(Test_order)
-#' Jt = J/T
+#' L = nrow(Test_order)
+#' Jt = J/L
 #' OddsRatio(N,J,Y_real_array[,,1])}
 #' @export
 OddsRatio <- function(N, J, Yt) {
@@ -240,22 +240,22 @@ sim_resp_DINA <- function(J, K, ETA, Svec, Gvec, alpha) {
 
 #' @title Simulate DINA model responses (entire cube)
 #' @description Simulate a cube of DINA responses for all persons on items across all time points
-#' @param alphas An N-by-K-by-T \code{array} of attribute patterns of all persons across T time points 
-#' @param itempars A J-by-2-by-T \code{cube} of item parameters (slipping: 1st col, guessing: 2nd col) across item blocks
-#' @param ETA A J-by-2^K-by-T \code{array} of ideal responses across all item blocks, with each slice generated with ETAmat function
-#' @param Test_order A N_versions-by-T \code{matrix} indicating which block of items were administered to examinees with specific test version.
+#' @param alphas An N-by-K-by-L \code{array} of attribute patterns of all persons across L time points 
+#' @param itempars A J-by-2-by-L \code{cube} of item parameters (slipping: 1st col, guessing: 2nd col) across item blocks
+#' @param ETA A J-by-2^K-by-L \code{array} of ideal responses across all item blocks, with each slice generated with ETAmat function
+#' @param Test_order A N_versions-by-L \code{matrix} indicating which block of items were administered to examinees with specific test version.
 #' @param Test_versions A length N \code{vector} of the test version of each examinee
 #' @return An \code{array} of DINA item responses of examinees across all time points
 #' @examples
 #' N = length(Test_versions)
 #' J = nrow(Q_matrix)
 #' K = ncol(Q_matrix)
-#' T = nrow(Test_order)
-#' Jt = J/T
-#' itempars_true <- array(runif(Jt*2*T,.1,.2), dim = c(Jt,2,T))
+#' L = nrow(Test_order)
+#' Jt = J/L
+#' itempars_true <- array(runif(Jt*2*L,.1,.2), dim = c(Jt,2,L))
 #' 
 #' ETAs <- ETAmat(K,J,Q_matrix)
-#' class_0 <- sample(1:2^K, N, replace = T)
+#' class_0 <- sample(1:2^K, N, replace = L)
 #' Alphas_0 <- matrix(0,N,K)
 #' mu_thetatau = c(0,0)
 #' Sig_thetatau = rbind(c(1.8^2,.4*.5*1.8),c(.4*.5*1.8,.25))
@@ -270,7 +270,7 @@ sim_resp_DINA <- function(J, K, ETA, Svec, Gvec, alpha) {
 #' }
 #' lambdas_true <- c(-2, .4, .055)
 #' Q_examinee <- Q_list(Q_matrix, Test_order, Test_versions)     
-#' Alphas <- simulate_alphas_HO_joint(lambdas_true,thetas_true,Alphas_0,Q_examinee,T,Jt)
+#' Alphas <- simulate_alphas_HO_joint(lambdas_true,thetas_true,Alphas_0,Q_examinee,L,Jt)
 #' Y_sim <- simDINA(Alphas,itempars_true,ETAs,Test_order,Test_versions)
 #' @export
 simDINA <- function(alphas, itempars, ETA, Test_order, Test_versions) {
@@ -287,24 +287,24 @@ sim_resp_rRUM <- function(J, K, Q, rstar, pistar, alpha) {
 
 #' @title Simulate rRUM model responses (entire cube)
 #' @description Simulate a cube of rRUM responses for all persons on items across all time points
-#' @param alphas An N-by-K-by-T \code{array} of attribute patterns of all persons across T time points 
+#' @param alphas An N-by-K-by-L \code{array} of attribute patterns of all persons across L time points 
 #' @param r_stars_mat A J-by-K \code{cube} of item penalty parameters for missing skills across all item blocks
-#' @param pi_stars A Jt-by-T \code{matrix} of item correct response probability with all requisite skills across blocks
+#' @param pi_stars A Jt-by-L \code{matrix} of item correct response probability with all requisite skills across blocks
 #' @param Q_matrix A J-by-K of Q-matrix
-#' @param Test_order A N_versions-by-T \code{matrix} indicating which block of items were administered to examinees with specific test version.
+#' @param Test_order A N_versions-by-L \code{matrix} indicating which block of items were administered to examinees with specific test version.
 #' @param Test_versions A length N \code{vector} of the test version of each examinee
 #' @return An \code{array} of rRUM item responses of examinees across all time points
 #' @examples
 #' N = length(Test_versions)
 #' J = nrow(Q_matrix)
 #' K = ncol(Q_matrix)
-#' T = nrow(Test_order)
-#' Jt = J/T
+#' L = nrow(Test_order)
+#' Jt = J/L
 #' Smats <- matrix(runif(J*K,.1,.3),c(J,K))
 #' Gmats <- matrix(runif(J*K,.1,.3),c(J,K))
 #' r_stars <- Gmats / (1-Smats)
-#' pi_stars <- matrix(apply((1-Smats)^Q_matrix, 1, prod), nrow=Jt, ncol=T, byrow=T)
-#' Test_versions_sim <- sample(1:5,N,replace = T)
+#' pi_stars <- matrix(apply((1-Smats)^Q_matrix, 1, prod), nrow=Jt, ncol=L, byrow=L)
+#' Test_versions_sim <- sample(1:5,N,replace = L)
 #' tau <- numeric(K)
 #'   for(k in 1:K){
 #'     tau[k] <- runif(1,.2,.6)
@@ -324,7 +324,7 @@ sim_resp_rRUM <- function(J, K, Q, rstar, pistar, alpha) {
 #'     }
 #'   }
 #' }
-#' Alphas <- simulate_alphas_indept(tau,Alphas_0,T,R) 
+#' Alphas <- simulate_alphas_indept(tau,Alphas_0,L,R) 
 #' Y_sim = simrRUM(Alphas,r_stars,pi_stars,Q_matrix,Test_order,Test_versions_sim)
 #' @export
 simrRUM <- function(alphas, r_stars_mat, pi_stars, Q_matrix, Test_order, Test_versions) {
@@ -341,22 +341,22 @@ sim_resp_NIDA <- function(J, K, Q, Svec, Gvec, alpha) {
 
 #' @title Simulate NIDA model responses (entire cube)
 #' @description Simulate a cube of NIDA responses for all persons on items across all time points
-#' @param alphas An N-by-K-by-T \code{array} of attribute patterns of all persons across T time points 
+#' @param alphas An N-by-K-by-L \code{array} of attribute patterns of all persons across L time points 
 #' @param Svec A length K \code{vector} of slipping probability in applying mastered skills
 #' @param Gvec A length K \code{vector} of guessing probability in applying mastered skills
 #' @param Q_matrix A J-by-K Q-matrix
-#' @param Test_order A N_versions-by-T \code{matrix} indicating which block of items were administered to examinees with specific test version.
+#' @param Test_order A N_versions-by-L \code{matrix} indicating which block of items were administered to examinees with specific test version.
 #' @param Test_versions A length N \code{vector} of the test version of each examinee
 #' @return An \code{array} of NIDA item responses of examinees across all time points
 #' @examples
 #' N = length(Test_versions)
 #' J = nrow(Q_matrix)
 #' K = ncol(Q_matrix)
-#' T = nrow(Test_order)
-#' Jt = J/T
+#' L = nrow(Test_order)
+#' Jt = J/L
 #' Svec <- runif(K,.1,.3)
 #' Gvec <- runif(K,.1,.3)
-#' Test_versions_sim <- sample(1:5,N,replace = T)
+#' Test_versions_sim <- sample(1:5,N,replace = L)
 #' tau <- numeric(K)
 #'   for(k in 1:K){
 #'     tau[k] <- runif(1,.2,.6)
@@ -376,7 +376,7 @@ sim_resp_NIDA <- function(J, K, Q, Svec, Gvec, alpha) {
 #'         }
 #'       }
 #'     }
-#'    Alphas <- simulate_alphas_indept(tau,Alphas_0,T,R) 
+#'    Alphas <- simulate_alphas_indept(tau,Alphas_0,L,R) 
 #' Y_sim = simNIDA(Alphas,Svec,Gvec,Q_matrix,Test_order,Test_versions_sim)
 #' @export
 simNIDA <- function(alphas, Svec, Gvec, Q_matrix, Test_order, Test_versions) {
@@ -456,16 +456,16 @@ dLit <- function(G_it, L_it, RT_itempars_it, tau_i, phi) {
 #' @param alpha0s An N-by-K \code{matrix} of subjects' initial attribute patterns.
 #' @param Q_examinee A length N \code{list} of Jt*K Q matrices across time for each examinee, items are in the order that they are
 #' administered to the examinee
-#' @param T An \code{int} of number of time points
+#' @param L An \code{int} of number of time points
 #' @param Jt An \code{int} of number of items in each block
-#' @return An N-by-K-by-T \code{array} of attribute patterns of subjects at each time point.
+#' @return An N-by-K-by-L \code{array} of attribute patterns of subjects at each time point.
 #' @examples
 #' N = length(Test_versions)
 #' J = nrow(Q_matrix)
 #' K = ncol(Q_matrix)
-#' T = nrow(Test_order)
-#' Jt = J/T
-#' class_0 <- sample(1:2^K, N, replace = T)
+#' L = nrow(Test_order)
+#' Jt = J/L
+#' class_0 <- sample(1:2^K, N, replace = L)
 #' Alphas_0 <- matrix(0,N,K)
 #' thetas_true = rnorm(N)
 #' for(i in 1:N){
@@ -473,10 +473,10 @@ dLit <- function(G_it, L_it, RT_itempars_it, tau_i, phi) {
 #' }
 #' lambdas_true = c(-1, 1.8, .277, .055)
 #' Q_examinee <- Q_list(Q_matrix, Test_order, Test_versions)
-#' Alphas <- simulate_alphas_HO_sep(lambdas_true,thetas_true,Alphas_0,Q_examinee,T,Jt)
+#' Alphas <- simulate_alphas_HO_sep(lambdas_true,thetas_true,Alphas_0,Q_examinee,L,Jt)
 #' @export
-simulate_alphas_HO_sep <- function(lambdas, thetas, alpha0s, Q_examinee, T, Jt) {
-    .Call(`_hmcdm_simulate_alphas_HO_sep`, lambdas, thetas, alpha0s, Q_examinee, T, Jt)
+simulate_alphas_HO_sep <- function(lambdas, thetas, alpha0s, Q_examinee, L, Jt) {
+    .Call(`_hmcdm_simulate_alphas_HO_sep`, lambdas, thetas, alpha0s, Q_examinee, L, Jt)
 }
 
 pTran_HO_sep <- function(alpha_prev, alpha_post, lambdas, theta_i, Q_i, Jt, t) {
@@ -492,16 +492,16 @@ pTran_HO_sep <- function(alpha_prev, alpha_post, lambdas, theta_i, Q_i, Jt, t) {
 #' @param alpha0s An N-by-K \code{matrix} of subjects' initial attribute patterns.
 #' @param Q_examinee A length N \code{list} of Jt*K Q matrices across time for each examinee, items are in the order that they are
 #' administered to the examinee
-#' @param T An \code{int} of number of time points
+#' @param L An \code{int} of number of time points
 #' @param Jt An \code{int} of number of items in each block
-#' @return An N-by-K-by-T \code{array} of attribute patterns of subjects at each time point.
+#' @return An N-by-K-by-L \code{array} of attribute patterns of subjects at each time point.
 #' @examples
 #' N = length(Test_versions)
 #' J = nrow(Q_matrix)
 #' K = ncol(Q_matrix)
-#' T = nrow(Test_order)
-#' Jt = J/T
-#' class_0 <- sample(1:2^K, N, replace = T)
+#' L = nrow(Test_order)
+#' Jt = J/L
+#' class_0 <- sample(1:2^K, N, replace = L)
 #' Alphas_0 <- matrix(0,N,K)
 #' mu_thetatau = c(0,0)
 #' Sig_thetatau = rbind(c(1.8^2,.4*.5*1.8),c(.4*.5*1.8,.25))
@@ -513,10 +513,10 @@ pTran_HO_sep <- function(alpha_prev, alpha_post, lambdas, theta_i, Q_i, Jt, t) {
 #' }
 #' lambdas_true <- c(-2, .4, .055)     
 #' Q_examinee <- Q_list(Q_matrix, Test_order, Test_versions)
-#' Alphas <- simulate_alphas_HO_joint(lambdas_true,thetas_true,Alphas_0,Q_examinee,T,Jt)
+#' Alphas <- simulate_alphas_HO_joint(lambdas_true,thetas_true,Alphas_0,Q_examinee,L,Jt)
 #' @export
-simulate_alphas_HO_joint <- function(lambdas, thetas, alpha0s, Q_examinee, T, Jt) {
-    .Call(`_hmcdm_simulate_alphas_HO_joint`, lambdas, thetas, alpha0s, Q_examinee, T, Jt)
+simulate_alphas_HO_joint <- function(lambdas, thetas, alpha0s, Q_examinee, L, Jt) {
+    .Call(`_hmcdm_simulate_alphas_HO_joint`, lambdas, thetas, alpha0s, Q_examinee, L, Jt)
 }
 
 pTran_HO_joint <- function(alpha_prev, alpha_post, lambdas, theta_i, Q_i, Jt, t) {
@@ -528,15 +528,15 @@ pTran_HO_joint <- function(alpha_prev, alpha_post, lambdas, theta_i, Q_i, Jt, t)
 #' create cube of attribute patterns of all subjects across time. Transitions on different skills are regarded as independent.
 #' @param taus A length K \code{vector} of transition probabilities from 0 to 1 on each skill
 #' @param alpha0s An N-by-K \code{matrix} of subjects' initial attribute patterns.
-#' @param T An \code{int} of number of time points
+#' @param L An \code{int} of number of time points
 #' @param R A K-by-K dichotomous reachability \code{matrix} indicating the attribute hierarchies. The k,k'th entry of R is 1 if k' is prereq to k.
-#' @return An N-by-K-by-T \code{array} of attribute patterns of subjects at each time point.
+#' @return An N-by-K-by-L \code{array} of attribute patterns of subjects at each time point.
 #' @examples
 #' N = length(Test_versions)
 #' J = nrow(Q_matrix)
 #' K = ncol(Q_matrix)
-#' T = nrow(Test_order)
-#' Jt = J/T
+#' L = nrow(Test_order)
+#' Jt = J/L
 #' tau <- numeric(K)
 #' for(k in 1:K){
 #'   tau[k] <- runif(1,.2,.6)
@@ -556,10 +556,10 @@ pTran_HO_joint <- function(alpha_prev, alpha_post, lambdas, theta_i, Q_i, Jt, t)
 #'     }
 #'   }
 #' }
-#' Alphas <- simulate_alphas_indept(tau,Alphas_0,T,R) 
+#' Alphas <- simulate_alphas_indept(tau,Alphas_0,L,R) 
 #' @export
-simulate_alphas_indept <- function(taus, alpha0s, T, R) {
-    .Call(`_hmcdm_simulate_alphas_indept`, taus, alpha0s, T, R)
+simulate_alphas_indept <- function(taus, alpha0s, L, R) {
+    .Call(`_hmcdm_simulate_alphas_indept`, taus, alpha0s, L, R)
 }
 
 pTran_indept <- function(alpha_prev, alpha_post, taus, R) {
@@ -571,41 +571,38 @@ pTran_indept <- function(alpha_prev, alpha_post, taus, R) {
 #' create cube of attribute patterns of all subjects across time. 
 #' @param Omega A 2^K-by-2^K \code{matrix} of transition probabilities from row pattern to column pattern
 #' @param alpha0s An N-by-K \code{matrix} of subjects' initial attribute patterns.
-#' @param T An \code{int} of number of time points
-#' @return An N-by-K-by-T \code{array} of attribute patterns of subjects at each time point. 
+#' @param L An \code{int} of number of time points
+#' @return An N-by-K-by-L \code{array} of attribute patterns of subjects at each time point. 
 #' @examples
 #' N = length(Test_versions)
 #' J = nrow(Q_matrix)
 #' K = ncol(Q_matrix)
-#' T = nrow(Test_order)
-#' Jt = J/T
+#' L = nrow(Test_order)
+#' Jt = J/L
 #' TP <- TPmat(K)
 #' Omega_true <- rOmega(TP)
-#' class_0 <- sample(1:2^K, N, replace = T)
+#' class_0 <- sample(1:2^K, N, replace = L)
 #' Alphas_0 <- matrix(0,N,K)
 #' for(i in 1:N){
 #'   Alphas_0[i,] <- inv_bijectionvector(K,(class_0[i]-1))
 #' }
-#' Alphas <- simulate_alphas_FOHM(Omega_true, Alphas_0,T)
+#' Alphas <- simulate_alphas_FOHM(Omega_true, Alphas_0,L)
 #' @export
-simulate_alphas_FOHM <- function(Omega, alpha0s, T) {
-    .Call(`_hmcdm_simulate_alphas_FOHM`, Omega, alpha0s, T)
+simulate_alphas_FOHM <- function(Omega, alpha0s, L) {
+    .Call(`_hmcdm_simulate_alphas_FOHM`, Omega, alpha0s, L)
 }
 
-rAlpha <- function(Omega, N, T, alpha1) {
-    .Call(`_hmcdm_rAlpha`, Omega, N, T, alpha1)
+rAlpha <- function(Omega, N, L, alpha1) {
+    .Call(`_hmcdm_rAlpha`, Omega, N, L, alpha1)
 }
 
 #' @title Generate a random transition matrix for the first order hidden Markov model
 #' @description Generate a random transition matrix under nondecreasing learning trajectory assumption
 #' @param TP A 2^K-by-2^K dichotomous matrix of indicating possible transitions under the monotonicity assumption, created with
 #' the TPmat function 
+#' @return A 2^K-by-2^K transition matrix, the (i,j)th element indicating the transition probability of transitioning from i-th class to j-th class.
 #' @examples
-#' N = length(Test_versions)
-#' J = nrow(Q_matrix)
 #' K = ncol(Q_matrix)
-#' T = nrow(Test_order)
-#' Jt = J/T
 #' TP = TPmat(K)
 #' Omega_sim = rOmega(TP)
 #' @export

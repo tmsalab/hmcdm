@@ -14,11 +14,11 @@ Spatial Rotation Learning Experiment at UIUC between Fall 2015 and Spring 2016.
 Test_versions
 }
 \description{
-This data set contains each subject's test module in the Spatial Rotation Learning Program.
+\code{Test_versions} contains each subject's test module in the Spatial Rotation Learning Program.
 }
 \details{
 The data object \code{"Test_versions"} contains a vector of length N indicating the test module assigned to each subject.
-Each test module consists of multiple item blocks with different orders over T time points.
+Each test module consists of multiple item blocks with different orders over L time points.
 The order of item blocks corresponding to each test module is presented in the data object \code{"Test_order"}.
 }
 \seealso{

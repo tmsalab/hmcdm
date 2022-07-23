@@ -4,7 +4,7 @@
 \alias{simulate_alphas_HO_joint}
 \title{Generate attribute trajectories under the Higher-Order Hidden Markov DCM with latent learning ability as a random effect}
 \usage{
-simulate_alphas_HO_joint(lambdas, thetas, alpha0s, Q_examinee, T, Jt)
+simulate_alphas_HO_joint(lambdas, thetas, alpha0s, Q_examinee, L, Jt)
 }
 \arguments{
 \item{lambdas}{A length 3 \code{vector} of transition model coefficients. First entry is intercept of the logistic transition
@@ -17,12 +17,12 @@ model, second entry is the slope for number of other mastered skills, third entr
 \item{Q_examinee}{A length N \code{list} of Jt*K Q matrices across time for each examinee, items are in the order that they are
 administered to the examinee}
 
-\item{T}{An \code{int} of number of time points}
+\item{L}{An \code{int} of number of time points}
 
 \item{Jt}{An \code{int} of number of items in each block}
 }
 \value{
-An N-by-K-by-T \code{array} of attribute patterns of subjects at each time point.
+An N-by-K-by-L \code{array} of attribute patterns of subjects at each time point.
 }
 \description{
 Based on the initial attribute patterns and learning model parameters, create cube of attribute patterns
@@ -32,9 +32,9 @@ of all subjects across time. General learning ability is regarded as a random in
 N = length(Test_versions)
 J = nrow(Q_matrix)
 K = ncol(Q_matrix)
-T = nrow(Test_order)
-Jt = J/T
-class_0 <- sample(1:2^K, N, replace = T)
+L = nrow(Test_order)
+Jt = J/L
+class_0 <- sample(1:2^K, N, replace = L)
 Alphas_0 <- matrix(0,N,K)
 mu_thetatau = c(0,0)
 Sig_thetatau = rbind(c(1.8^2,.4*.5*1.8),c(.4*.5*1.8,.25))
@@ -46,5 +46,5 @@ for(i in 1:N){
 }
 lambdas_true <- c(-2, .4, .055)     
 Q_examinee <- Q_list(Q_matrix, Test_order, Test_versions)
-Alphas <- simulate_alphas_HO_joint(lambdas_true,thetas_true,Alphas_0,Q_examinee,T,Jt)
+Alphas <- simulate_alphas_HO_joint(lambdas_true,thetas_true,Alphas_0,Q_examinee,L,Jt)
 }

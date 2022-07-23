@@ -10,15 +10,14 @@ rOmega(TP)
 \item{TP}{A 2^K-by-2^K dichotomous matrix of indicating possible transitions under the monotonicity assumption, created with
 the TPmat function}
 }
+\value{
+A 2^K-by-2^K transition matrix, the (i,j)th element indicating the transition probability of transitioning from i-th class to j-th class.
+}
 \description{
 Generate a random transition matrix under nondecreasing learning trajectory assumption
 }
 \examples{
-N = length(Test_versions)
-J = nrow(Q_matrix)
 K = ncol(Q_matrix)
-T = nrow(Test_order)
-Jt = J/T
 TP = TPmat(K)
 Omega_sim = rOmega(TP)
 }

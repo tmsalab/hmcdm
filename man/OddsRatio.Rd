@@ -25,7 +25,7 @@ number of people answering both item i and item j correctly
 N = length(Test_versions)
 J = nrow(Q_matrix)
 K = ncol(Q_matrix)
-T = nrow(Test_order)
-Jt = J/T
+L = nrow(Test_order)
+Jt = J/L
 OddsRatio(N,J,Y_real_array[,,1])}
 }

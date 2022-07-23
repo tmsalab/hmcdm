@@ -24,8 +24,8 @@ library(hmcdm)
 N = length(Test_versions)
 J = nrow(Q_matrix)
 K = ncol(Q_matrix)
-T = nrow(Test_order)
-Jt = J/T
+L = nrow(Test_order)
+Jt = J/L
 ```
 
 
@@ -35,13 +35,13 @@ Jt = J/T
 ETAs <- ETAmat(K, J, Q_matrix)
 TP <- TPmat(K)
 Omega_true <- rOmega(TP)
-class_0 <- sample(1:2^K, N, replace = T)
+class_0 <- sample(1:2^K, N, replace = L)
 Alphas_0 <- matrix(0,N,K)
 for(i in 1:N){
   Alphas_0[i,] <- inv_bijectionvector(K,(class_0[i]-1))
 }
-Alphas <- simulate_alphas_FOHM(Omega_true, Alphas_0,T)
-itempars_true <- array(runif(Jt*2*T,.1,.2), dim = c(Jt,2,T))
+Alphas <- simulate_alphas_FOHM(Omega_true, Alphas_0,L)
+itempars_true <- array(runif(Jt*2*L,.1,.2), dim = c(Jt,2,L))
 
 Y_sim <- simDINA(Alphas,itempars_true,ETAs,Test_order,Test_versions)
 ```
@@ -60,14 +60,14 @@ head(a$ss_EAP)
 ## (3) Check for parameter estimation accuracy
 
 ```{r}
-AAR_vec <- numeric(T)
-for(t in 1:T){
+AAR_vec <- numeric(L)
+for(t in 1:L){
   AAR_vec[t] <- mean(Alphas[,,t]==a$Alphas_est[,,t])
 }
 AAR_vec
 
-PAR_vec <- numeric(T)
-for(t in 1:T){
+PAR_vec <- numeric(L)
+for(t in 1:L){
   PAR_vec[t] <- mean(rowSums((Alphas[,,t]-a$Alphas_est[,,t])^2)==0)
 }
 PAR_vec

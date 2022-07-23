@@ -4,19 +4,19 @@
 \alias{simulate_alphas_indept}
 \title{Generate attribute trajectories under the simple independent-attribute learning model}
 \usage{
-simulate_alphas_indept(taus, alpha0s, T, R)
+simulate_alphas_indept(taus, alpha0s, L, R)
 }
 \arguments{
 \item{taus}{A length K \code{vector} of transition probabilities from 0 to 1 on each skill}
 
 \item{alpha0s}{An N-by-K \code{matrix} of subjects' initial attribute patterns.}
 
-\item{T}{An \code{int} of number of time points}
+\item{L}{An \code{int} of number of time points}
 
 \item{R}{A K-by-K dichotomous reachability \code{matrix} indicating the attribute hierarchies. The k,k'th entry of R is 1 if k' is prereq to k.}
 }
 \value{
-An N-by-K-by-T \code{array} of attribute patterns of subjects at each time point.
+An N-by-K-by-L \code{array} of attribute patterns of subjects at each time point.
 }
 \description{
 Based on the initial attribute patterns and probability of transitioning from 0 to 1 on each attribute,
@@ -26,8 +26,8 @@ create cube of attribute patterns of all subjects across time. Transitions on di
 N = length(Test_versions)
 J = nrow(Q_matrix)
 K = ncol(Q_matrix)
-T = nrow(Test_order)
-Jt = J/T
+L = nrow(Test_order)
+Jt = J/L
 tau <- numeric(K)
 for(k in 1:K){
   tau[k] <- runif(1,.2,.6)
@@ -47,5 +47,5 @@ for(i in 1:N){
     }
   }
 }
-Alphas <- simulate_alphas_indept(tau,Alphas_0,T,R) 
+Alphas <- simulate_alphas_indept(tau,Alphas_0,L,R) 
 }

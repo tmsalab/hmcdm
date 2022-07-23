@@ -7,7 +7,7 @@
 simNIDA(alphas, Svec, Gvec, Q_matrix, Test_order, Test_versions)
 }
 \arguments{
-\item{alphas}{An N-by-K-by-T \code{array} of attribute patterns of all persons across T time points}
+\item{alphas}{An N-by-K-by-L \code{array} of attribute patterns of all persons across L time points}
 
 \item{Svec}{A length K \code{vector} of slipping probability in applying mastered skills}
 
@@ -15,7 +15,7 @@ simNIDA(alphas, Svec, Gvec, Q_matrix, Test_order, Test_versions)
 
 \item{Q_matrix}{A J-by-K Q-matrix}
 
-\item{Test_order}{A N_versions-by-T \code{matrix} indicating which block of items were administered to examinees with specific test version.}
+\item{Test_order}{A N_versions-by-L \code{matrix} indicating which block of items were administered to examinees with specific test version.}
 
 \item{Test_versions}{A length N \code{vector} of the test version of each examinee}
 }
@@ -29,11 +29,11 @@ Simulate a cube of NIDA responses for all persons on items across all time point
 N = length(Test_versions)
 J = nrow(Q_matrix)
 K = ncol(Q_matrix)
-T = nrow(Test_order)
-Jt = J/T
+L = nrow(Test_order)
+Jt = J/L
 Svec <- runif(K,.1,.3)
 Gvec <- runif(K,.1,.3)
-Test_versions_sim <- sample(1:5,N,replace = T)
+Test_versions_sim <- sample(1:5,N,replace = L)
 tau <- numeric(K)
   for(k in 1:K){
     tau[k] <- runif(1,.2,.6)
@@ -53,6 +53,6 @@ tau <- numeric(K)
         }
       }
     }
-   Alphas <- simulate_alphas_indept(tau,Alphas_0,T,R) 
+   Alphas <- simulate_alphas_indept(tau,Alphas_0,L,R) 
 Y_sim = simNIDA(Alphas,Svec,Gvec,Q_matrix,Test_order,Test_versions_sim)
 }

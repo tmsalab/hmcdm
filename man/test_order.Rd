@@ -5,7 +5,7 @@
 \alias{Test_order}
 \title{Test block ordering of each test version}
 \format{
-A T-by-T matrix, each row is the order of item blocks for that test version.
+A L-by-L matrix, each row is the order of item blocks for that test version.
 }
 \source{
 Spatial Rotation Learning Experiment at UIUC between Fall 2015 and Spring 2016.
@@ -14,7 +14,7 @@ Spatial Rotation Learning Experiment at UIUC between Fall 2015 and Spring 2016.
 Test_order
 }
 \description{
-This data set contains the item block ordering corresponding to each test module.
+\code{Test_order} contains the item block ordering corresponding to each test module.
 }
 \details{
 Each row represents the test module number and shows the order of item blocks administered to a subject with the test module.

@@ -3,7 +3,7 @@
 
 
 // ------------------------------------------- Basic Functions ---------------------------------------------------
-// Functions for generating random numbers or generic functions for CDM (e.g., Q matrix, ETA, bijection, etc.)
+// Generating random numbers or generic functions for CDM (e.g., Q matrix, ETA, bijection, etc.)
 // ---------------------------------------------------------------------------------------------------------------
 
 
@@ -264,8 +264,8 @@ arma::cube resp_miss(const arma::cube& Responses, const arma::mat& Test_order,
 //' N = length(Test_versions)
 //' J = nrow(Q_matrix)
 //' K = ncol(Q_matrix)
-//' T = nrow(Test_order)
-//' Jt = J/T
+//' L = nrow(Test_order)
+//' Jt = J/L
 //' OddsRatio(N,J,Y_real_array[,,1])}
 //' @export
 // [[Rcpp::export]]

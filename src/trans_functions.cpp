@@ -17,16 +17,16 @@
 //' @param alpha0s An N-by-K \code{matrix} of subjects' initial attribute patterns.
 //' @param Q_examinee A length N \code{list} of Jt*K Q matrices across time for each examinee, items are in the order that they are
 //' administered to the examinee
-//' @param T An \code{int} of number of time points
+//' @param L An \code{int} of number of time points
 //' @param Jt An \code{int} of number of items in each block
-//' @return An N-by-K-by-T \code{array} of attribute patterns of subjects at each time point.
+//' @return An N-by-K-by-L \code{array} of attribute patterns of subjects at each time point.
 //' @examples
 //' N = length(Test_versions)
 //' J = nrow(Q_matrix)
 //' K = ncol(Q_matrix)
-//' T = nrow(Test_order)
-//' Jt = J/T
-//' class_0 <- sample(1:2^K, N, replace = T)
+//' L = nrow(Test_order)
+//' Jt = J/L
+//' class_0 <- sample(1:2^K, N, replace = L)
 //' Alphas_0 <- matrix(0,N,K)
 //' thetas_true = rnorm(N)
 //' for(i in 1:N){
@@ -34,14 +34,14 @@
 //' }
 //' lambdas_true = c(-1, 1.8, .277, .055)
 //' Q_examinee <- Q_list(Q_matrix, Test_order, Test_versions)
-//' Alphas <- simulate_alphas_HO_sep(lambdas_true,thetas_true,Alphas_0,Q_examinee,T,Jt)
+//' Alphas <- simulate_alphas_HO_sep(lambdas_true,thetas_true,Alphas_0,Q_examinee,L,Jt)
 //' @export
 // [[Rcpp::export]]
 arma::cube simulate_alphas_HO_sep(const arma::vec& lambdas, const arma::vec& thetas, const arma::mat& alpha0s,
-                                  const Rcpp::List& Q_examinee, const unsigned int T, const unsigned int Jt){
+                                  const Rcpp::List& Q_examinee, const unsigned int L, const unsigned int Jt){
   unsigned int K = alpha0s.n_cols;
   unsigned int N = alpha0s.n_rows;
-  arma::cube alphas_all(N,K,T);
+  arma::cube alphas_all(N,K,L);
   alphas_all.slice(0) = alpha0s;
   arma::vec alpha_i_prev;
   double theta_i;
@@ -54,7 +54,7 @@ arma::cube simulate_alphas_HO_sep(const arma::vec& lambdas, const arma::vec& the
   
   for(unsigned int i = 0; i<N; i++){
     arma::mat Q_i = Q_examinee[i];
-    for(unsigned int t = 1; t<T; t++){
+    for(unsigned int t = 1; t<L; t++){
       alpha_i_prev = alpha_i_new = alphas_all.slice(t-1).row(i).t();
       arma::uvec nonmastery = arma::find(alpha_i_prev == 0);
       if(nonmastery.n_elem>0){
@@ -114,16 +114,16 @@ double pTran_HO_sep(const arma::vec& alpha_prev, const arma::vec& alpha_post, co
 //' @param alpha0s An N-by-K \code{matrix} of subjects' initial attribute patterns.
 //' @param Q_examinee A length N \code{list} of Jt*K Q matrices across time for each examinee, items are in the order that they are
 //' administered to the examinee
-//' @param T An \code{int} of number of time points
+//' @param L An \code{int} of number of time points
 //' @param Jt An \code{int} of number of items in each block
-//' @return An N-by-K-by-T \code{array} of attribute patterns of subjects at each time point.
+//' @return An N-by-K-by-L \code{array} of attribute patterns of subjects at each time point.
 //' @examples
 //' N = length(Test_versions)
 //' J = nrow(Q_matrix)
 //' K = ncol(Q_matrix)
-//' T = nrow(Test_order)
-//' Jt = J/T
-//' class_0 <- sample(1:2^K, N, replace = T)
+//' L = nrow(Test_order)
+//' Jt = J/L
+//' class_0 <- sample(1:2^K, N, replace = L)
 //' Alphas_0 <- matrix(0,N,K)
 //' mu_thetatau = c(0,0)
 //' Sig_thetatau = rbind(c(1.8^2,.4*.5*1.8),c(.4*.5*1.8,.25))
@@ -135,14 +135,14 @@ double pTran_HO_sep(const arma::vec& alpha_prev, const arma::vec& alpha_post, co
 //' }
 //' lambdas_true <- c(-2, .4, .055)     
 //' Q_examinee <- Q_list(Q_matrix, Test_order, Test_versions)
-//' Alphas <- simulate_alphas_HO_joint(lambdas_true,thetas_true,Alphas_0,Q_examinee,T,Jt)
+//' Alphas <- simulate_alphas_HO_joint(lambdas_true,thetas_true,Alphas_0,Q_examinee,L,Jt)
 //' @export
 // [[Rcpp::export]]
 arma::cube simulate_alphas_HO_joint(const arma::vec& lambdas, const arma::vec& thetas, const arma::mat& alpha0s,
-                                    const Rcpp::List& Q_examinee, const unsigned int T, const unsigned int Jt){
+                                    const Rcpp::List& Q_examinee, const unsigned int L, const unsigned int Jt){
   unsigned int K = alpha0s.n_cols;
   unsigned int N = alpha0s.n_rows;
-  arma::cube alphas_all(N,K,T);
+  arma::cube alphas_all(N,K,L);
   alphas_all.slice(0) = alpha0s;
   arma::vec alpha_i_prev;
   double theta_i;
@@ -155,7 +155,7 @@ arma::cube simulate_alphas_HO_joint(const arma::vec& lambdas, const arma::vec& t
   
   for(unsigned int i = 0; i<N; i++){
     arma::mat Q_i = Q_examinee[i];
-    for(unsigned int t = 1; t<T; t++){
+    for(unsigned int t = 1; t<L; t++){
       alpha_i_prev = alpha_i_new = alphas_all.slice(t-1).row(i).t();
       arma::uvec nonmastery = arma::find(alpha_i_prev == 0);
       if(nonmastery.n_elem>0){
@@ -211,15 +211,15 @@ double pTran_HO_joint(const arma::vec& alpha_prev, const arma::vec& alpha_post, 
 //' create cube of attribute patterns of all subjects across time. Transitions on different skills are regarded as independent.
 //' @param taus A length K \code{vector} of transition probabilities from 0 to 1 on each skill
 //' @param alpha0s An N-by-K \code{matrix} of subjects' initial attribute patterns.
-//' @param T An \code{int} of number of time points
+//' @param L An \code{int} of number of time points
 //' @param R A K-by-K dichotomous reachability \code{matrix} indicating the attribute hierarchies. The k,k'th entry of R is 1 if k' is prereq to k.
-//' @return An N-by-K-by-T \code{array} of attribute patterns of subjects at each time point.
+//' @return An N-by-K-by-L \code{array} of attribute patterns of subjects at each time point.
 //' @examples
 //' N = length(Test_versions)
 //' J = nrow(Q_matrix)
 //' K = ncol(Q_matrix)
-//' T = nrow(Test_order)
-//' Jt = J/T
+//' L = nrow(Test_order)
+//' Jt = J/L
 //' tau <- numeric(K)
 //' for(k in 1:K){
 //'   tau[k] <- runif(1,.2,.6)
@@ -239,18 +239,18 @@ double pTran_HO_joint(const arma::vec& alpha_prev, const arma::vec& alpha_post, 
 //'     }
 //'   }
 //' }
-//' Alphas <- simulate_alphas_indept(tau,Alphas_0,T,R) 
+//' Alphas <- simulate_alphas_indept(tau,Alphas_0,L,R) 
 //' @export
 // [[Rcpp::export]]
-arma::cube simulate_alphas_indept(const arma::vec taus, const arma::mat& alpha0s, const unsigned int T, const arma::mat& R){
+arma::cube simulate_alphas_indept(const arma::vec taus, const arma::mat& alpha0s, const unsigned int L, const arma::mat& R){
   unsigned int K = alpha0s.n_cols;
   unsigned int N = alpha0s.n_rows;
-  arma::cube alphas_all(N,K,T);
+  arma::cube alphas_all(N,K,L);
   alphas_all.slice(0) = alpha0s;
   arma::vec alpha_i_prev;
   
   for(unsigned int i = 0; i<N; i++){
-    for(unsigned int t = 1; t<T; t++){
+    for(unsigned int t = 1; t<L; t++){
       alpha_i_prev = alphas_all.slice(t-1).row(i).t();
       for(unsigned int k = 0; k<K; k++){
         arma::uvec prereqs = arma::find(R.row(k)==1);
@@ -302,36 +302,36 @@ double pTran_indept(const arma::vec& alpha_prev, const arma::vec& alpha_post, co
 //' create cube of attribute patterns of all subjects across time. 
 //' @param Omega A 2^K-by-2^K \code{matrix} of transition probabilities from row pattern to column pattern
 //' @param alpha0s An N-by-K \code{matrix} of subjects' initial attribute patterns.
-//' @param T An \code{int} of number of time points
-//' @return An N-by-K-by-T \code{array} of attribute patterns of subjects at each time point. 
+//' @param L An \code{int} of number of time points
+//' @return An N-by-K-by-L \code{array} of attribute patterns of subjects at each time point. 
 //' @examples
 //' N = length(Test_versions)
 //' J = nrow(Q_matrix)
 //' K = ncol(Q_matrix)
-//' T = nrow(Test_order)
-//' Jt = J/T
+//' L = nrow(Test_order)
+//' Jt = J/L
 //' TP <- TPmat(K)
 //' Omega_true <- rOmega(TP)
-//' class_0 <- sample(1:2^K, N, replace = T)
+//' class_0 <- sample(1:2^K, N, replace = L)
 //' Alphas_0 <- matrix(0,N,K)
 //' for(i in 1:N){
 //'   Alphas_0[i,] <- inv_bijectionvector(K,(class_0[i]-1))
 //' }
-//' Alphas <- simulate_alphas_FOHM(Omega_true, Alphas_0,T)
+//' Alphas <- simulate_alphas_FOHM(Omega_true, Alphas_0,L)
 //' @export
 // [[Rcpp::export]]
-arma::cube simulate_alphas_FOHM(const arma::mat& Omega,const arma::mat& alpha0s,unsigned int T){
+arma::cube simulate_alphas_FOHM(const arma::mat& Omega,const arma::mat& alpha0s,unsigned int L){
   //unsigned int C = Omega.n_cols;
   //double u = R::runif(0,1);
   unsigned int N = alpha0s.n_rows;
   unsigned int K = alpha0s.n_cols;
-  arma::mat Alpha(N,T);
-  arma::cube Alphas(N,K,T);
+  arma::mat Alpha(N,L);
+  arma::cube Alphas(N,K,L);
   Alphas.slice(0) = alpha0s;
   arma::vec alpha1 = alpha0s * bijectionvector(K);
   Alpha.col(0) = alpha1;
   
-  for(unsigned int t=0;t<(T-1);t++){
+  for(unsigned int t=0;t<(L-1);t++){
     for(unsigned int i=0;i<N;i++){
       double cl = Alpha(i,t);
       arma::uvec trans_classes = find(Omega.row(cl) > 0.0);
@@ -349,14 +349,14 @@ arma::cube simulate_alphas_FOHM(const arma::mat& Omega,const arma::mat& alpha0s,
 
 
 // [[Rcpp::export]]
-arma::mat rAlpha(const arma::mat& Omega,unsigned int N,unsigned int T,
+arma::mat rAlpha(const arma::mat& Omega,unsigned int N,unsigned int L,
                  const arma::vec& alpha1){
   //unsigned int C = Omega.n_cols;
   //double u = R::runif(0,1);
-  arma::mat Alpha(N,T);
+  arma::mat Alpha(N,L);
   Alpha.col(0) = alpha1;
   
-  for(unsigned int t=0;t<T-1;t++){
+  for(unsigned int t=0;t<L-1;t++){
     for(unsigned int i=0;i<N;i++){
       double cl = Alpha(i,t);
       arma::uvec trans_classes = find(Omega.row(cl) > 0.0);
@@ -377,12 +377,9 @@ arma::mat rAlpha(const arma::mat& Omega,unsigned int N,unsigned int T,
 //' @description Generate a random transition matrix under nondecreasing learning trajectory assumption
 //' @param TP A 2^K-by-2^K dichotomous matrix of indicating possible transitions under the monotonicity assumption, created with
 //' the TPmat function 
+//' @return A 2^K-by-2^K transition matrix, the (i,j)th element indicating the transition probability of transitioning from i-th class to j-th class.
 //' @examples
-//' N = length(Test_versions)
-//' J = nrow(Q_matrix)
 //' K = ncol(Q_matrix)
-//' T = nrow(Test_order)
-//' Jt = J/T
 //' TP = TPmat(K)
 //' Omega_sim = rOmega(TP)
 //' @export

@@ -797,8 +797,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // simulate_alphas_HO_sep
-arma::cube simulate_alphas_HO_sep(const arma::vec& lambdas, const arma::vec& thetas, const arma::mat& alpha0s, const Rcpp::List& Q_examinee, const unsigned int T, const unsigned int Jt);
-RcppExport SEXP _hmcdm_simulate_alphas_HO_sep(SEXP lambdasSEXP, SEXP thetasSEXP, SEXP alpha0sSEXP, SEXP Q_examineeSEXP, SEXP TSEXP, SEXP JtSEXP) {
+arma::cube simulate_alphas_HO_sep(const arma::vec& lambdas, const arma::vec& thetas, const arma::mat& alpha0s, const Rcpp::List& Q_examinee, const unsigned int L, const unsigned int Jt);
+RcppExport SEXP _hmcdm_simulate_alphas_HO_sep(SEXP lambdasSEXP, SEXP thetasSEXP, SEXP alpha0sSEXP, SEXP Q_examineeSEXP, SEXP LSEXP, SEXP JtSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -806,9 +806,9 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const arma::vec& >::type thetas(thetasSEXP);
     Rcpp::traits::input_parameter< const arma::mat& >::type alpha0s(alpha0sSEXP);
     Rcpp::traits::input_parameter< const Rcpp::List& >::type Q_examinee(Q_examineeSEXP);
-    Rcpp::traits::input_parameter< const unsigned int >::type T(TSEXP);
+    Rcpp::traits::input_parameter< const unsigned int >::type L(LSEXP);
     Rcpp::traits::input_parameter< const unsigned int >::type Jt(JtSEXP);
-    rcpp_result_gen = Rcpp::wrap(simulate_alphas_HO_sep(lambdas, thetas, alpha0s, Q_examinee, T, Jt));
+    rcpp_result_gen = Rcpp::wrap(simulate_alphas_HO_sep(lambdas, thetas, alpha0s, Q_examinee, L, Jt));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -830,8 +830,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // simulate_alphas_HO_joint
-arma::cube simulate_alphas_HO_joint(const arma::vec& lambdas, const arma::vec& thetas, const arma::mat& alpha0s, const Rcpp::List& Q_examinee, const unsigned int T, const unsigned int Jt);
-RcppExport SEXP _hmcdm_simulate_alphas_HO_joint(SEXP lambdasSEXP, SEXP thetasSEXP, SEXP alpha0sSEXP, SEXP Q_examineeSEXP, SEXP TSEXP, SEXP JtSEXP) {
+arma::cube simulate_alphas_HO_joint(const arma::vec& lambdas, const arma::vec& thetas, const arma::mat& alpha0s, const Rcpp::List& Q_examinee, const unsigned int L, const unsigned int Jt);
+RcppExport SEXP _hmcdm_simulate_alphas_HO_joint(SEXP lambdasSEXP, SEXP thetasSEXP, SEXP alpha0sSEXP, SEXP Q_examineeSEXP, SEXP LSEXP, SEXP JtSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -839,9 +839,9 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const arma::vec& >::type thetas(thetasSEXP);
     Rcpp::traits::input_parameter< const arma::mat& >::type alpha0s(alpha0sSEXP);
     Rcpp::traits::input_parameter< const Rcpp::List& >::type Q_examinee(Q_examineeSEXP);
-    Rcpp::traits::input_parameter< const unsigned int >::type T(TSEXP);
+    Rcpp::traits::input_parameter< const unsigned int >::type L(LSEXP);
     Rcpp::traits::input_parameter< const unsigned int >::type Jt(JtSEXP);
-    rcpp_result_gen = Rcpp::wrap(simulate_alphas_HO_joint(lambdas, thetas, alpha0s, Q_examinee, T, Jt));
+    rcpp_result_gen = Rcpp::wrap(simulate_alphas_HO_joint(lambdas, thetas, alpha0s, Q_examinee, L, Jt));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -863,16 +863,16 @@ BEGIN_RCPP
 END_RCPP
 }
 // simulate_alphas_indept
-arma::cube simulate_alphas_indept(const arma::vec taus, const arma::mat& alpha0s, const unsigned int T, const arma::mat& R);
-RcppExport SEXP _hmcdm_simulate_alphas_indept(SEXP tausSEXP, SEXP alpha0sSEXP, SEXP TSEXP, SEXP RSEXP) {
+arma::cube simulate_alphas_indept(const arma::vec taus, const arma::mat& alpha0s, const unsigned int L, const arma::mat& R);
+RcppExport SEXP _hmcdm_simulate_alphas_indept(SEXP tausSEXP, SEXP alpha0sSEXP, SEXP LSEXP, SEXP RSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const arma::vec >::type taus(tausSEXP);
     Rcpp::traits::input_parameter< const arma::mat& >::type alpha0s(alpha0sSEXP);
-    Rcpp::traits::input_parameter< const unsigned int >::type T(TSEXP);
+    Rcpp::traits::input_parameter< const unsigned int >::type L(LSEXP);
     Rcpp::traits::input_parameter< const arma::mat& >::type R(RSEXP);
-    rcpp_result_gen = Rcpp::wrap(simulate_alphas_indept(taus, alpha0s, T, R));
+    rcpp_result_gen = Rcpp::wrap(simulate_alphas_indept(taus, alpha0s, L, R));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -891,29 +891,29 @@ BEGIN_RCPP
 END_RCPP
 }
 // simulate_alphas_FOHM
-arma::cube simulate_alphas_FOHM(const arma::mat& Omega, const arma::mat& alpha0s, unsigned int T);
-RcppExport SEXP _hmcdm_simulate_alphas_FOHM(SEXP OmegaSEXP, SEXP alpha0sSEXP, SEXP TSEXP) {
+arma::cube simulate_alphas_FOHM(const arma::mat& Omega, const arma::mat& alpha0s, unsigned int L);
+RcppExport SEXP _hmcdm_simulate_alphas_FOHM(SEXP OmegaSEXP, SEXP alpha0sSEXP, SEXP LSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const arma::mat& >::type Omega(OmegaSEXP);
     Rcpp::traits::input_parameter< const arma::mat& >::type alpha0s(alpha0sSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type T(TSEXP);
-    rcpp_result_gen = Rcpp::wrap(simulate_alphas_FOHM(Omega, alpha0s, T));
+    Rcpp::traits::input_parameter< unsigned int >::type L(LSEXP);
+    rcpp_result_gen = Rcpp::wrap(simulate_alphas_FOHM(Omega, alpha0s, L));
     return rcpp_result_gen;
 END_RCPP
 }
 // rAlpha
-arma::mat rAlpha(const arma::mat& Omega, unsigned int N, unsigned int T, const arma::vec& alpha1);
-RcppExport SEXP _hmcdm_rAlpha(SEXP OmegaSEXP, SEXP NSEXP, SEXP TSEXP, SEXP alpha1SEXP) {
+arma::mat rAlpha(const arma::mat& Omega, unsigned int N, unsigned int L, const arma::vec& alpha1);
+RcppExport SEXP _hmcdm_rAlpha(SEXP OmegaSEXP, SEXP NSEXP, SEXP LSEXP, SEXP alpha1SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const arma::mat& >::type Omega(OmegaSEXP);
     Rcpp::traits::input_parameter< unsigned int >::type N(NSEXP);
-    Rcpp::traits::input_parameter< unsigned int >::type T(TSEXP);
+    Rcpp::traits::input_parameter< unsigned int >::type L(LSEXP);
     Rcpp::traits::input_parameter< const arma::vec& >::type alpha1(alpha1SEXP);
-    rcpp_result_gen = Rcpp::wrap(rAlpha(Omega, N, T, alpha1));
+    rcpp_result_gen = Rcpp::wrap(rAlpha(Omega, N, L, alpha1));
     return rcpp_result_gen;
 END_RCPP
 }

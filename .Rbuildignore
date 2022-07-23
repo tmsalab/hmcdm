@@ -10,3 +10,4 @@
 ^data-raw$
 ^revdep$
 ^cran-comments\.md$
+^CRAN-SUBMISSION$

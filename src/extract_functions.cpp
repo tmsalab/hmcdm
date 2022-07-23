@@ -6,7 +6,7 @@
 #include "extract_functions.h"
 
 // ------------------ Output Extraction ----------------------------------------------------------
-//    Functions for computing point estimates, DIC, and posterior predictive probabilities      
+//    Computing point estimates, DIC, and posterior predictive probabilities      
 // -----------------------------------------------------------------------------------------------
 
 

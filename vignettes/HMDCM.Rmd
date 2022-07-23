@@ -24,8 +24,8 @@ library(hmcdm)
 N = length(Test_versions)
 J = nrow(Q_matrix)
 K = ncol(Q_matrix)
-T = nrow(Test_order)
-Jt = J/T
+L = nrow(Test_order)
+Jt = J/L
 ```
 
 
@@ -33,16 +33,16 @@ Jt = J/T
 
 ```{r}
 Q_examinee <- Q_list(Q_matrix, Test_order, Test_versions)
-class_0 <- sample(1:2^K, N, replace = T)
+class_0 <- sample(1:2^K, N, replace = L)
 Alphas_0 <- matrix(0,N,K)
 thetas_true = rnorm(N)
 for(i in 1:N){
   Alphas_0[i,] <- inv_bijectionvector(K,(class_0[i]-1))
 }
 lambdas_true = c(-1, 1.8, .277, .055)
-Alphas <- simulate_alphas_HO_sep(lambdas_true,thetas_true,Alphas_0,Q_examinee,T,Jt)
+Alphas <- simulate_alphas_HO_sep(lambdas_true,thetas_true,Alphas_0,Q_examinee,L,Jt)
 table(rowSums(Alphas[,,5]) - rowSums(Alphas[,,1])) # used to see how much transition has taken place
-itempars_true <- array(runif(Jt*2*T,.1,.2), dim = c(Jt,2,T))
+itempars_true <- array(runif(Jt*2*L,.1,.2), dim = c(Jt,2,L))
 ETAs <- ETAmat(K, J, Q_matrix)
 Y_sim <- simDINA(Alphas,itempars_true,ETAs,Test_order,Test_versions)
 ```
@@ -74,8 +74,8 @@ mean(a$PPP_item_means)
 ### Attribute-wise agreement rate between true and estimated alphas
 
 ```{r}
-AAR_vec <- numeric(T)
-for(t in 1:T){
+AAR_vec <- numeric(L)
+for(t in 1:L){
   AAR_vec[t] <- mean(Alphas[,,t]==a$Alphas_est[,,t])
 }
 AAR_vec
@@ -84,8 +84,8 @@ AAR_vec
 ### Pattern-wise agreement rate between true and estimated alphas
 
 ```{r}
-PAR_vec <- numeric(T)
-for(t in 1:T){
+PAR_vec <- numeric(L)
+for(t in 1:L){
   PAR_vec[t] <- mean(rowSums((Alphas[,,t]-a$Alphas_est[,,t])^2)==0)
 }
 PAR_vec

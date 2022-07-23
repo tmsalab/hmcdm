@@ -13,11 +13,14 @@
 plot functions include \code{"dens_overlay"}, \code{"hist"}, \code{"stat_2d"}, \code{"scatter_avg"}, \code{"error_scatter_avg"}.
 The default function is \code{"dens_overlay"}.}
 
-\item{type}{A character string naming the which statistic to use for checking posterior predictive distribution plot.
+\item{type}{A character string naming the statistic to be used for obtaining posterior predictive distribution plot.
 The list of available types include \code{"total_score"}, \code{"item_mean"}, \code{"item_OR"}, \code{"latency_mean"}, and \code{"latency_total"}. The default type is \code{"total_score"} which examines total scores of subjects.
 Type \code{"item_mean"} is related to the first order moment and examines mean scores of all the items included in the test.
 Type \code{"item_OR"} is related to the second order moment and examines odds ratios of all item pairs.
 Types \code{"latency_mean"} and \code{"total_latency"} are available only for \code{hmcdm} objects that include item response time information (i.e., \code{hmcdm} object fitted with "\code{DINA_HO_RT}" model).}
+}
+\value{
+Plots for checking the posterior predictive distributions. The default \code{Plotfun} \code{"dens_overlay"} plots density of each dataset are overlaid with the distribution of the observed values.
 }
 \description{
 \code{pp_check} method for class \code{hmcdm}.
@@ -31,7 +34,7 @@ pp_check(output_FOHM, plotfun="hist", type="item_mean")
 }
 }
 \references{
-Zhang, S., Douglas, J. A., Wang, S. & Culpepper, S. A., 2019, Handbook of Diagnostic Classification Models: Models and Model Extensions, Applications, Software Packages. von Davier, M. & Lee, Y-S. (eds.). Springer, p. 503-524
+Zhang, S., Douglas, J. A., Wang, S. & Culpepper, S. A. (2019) \url{doi:https://doi.org/10.1007/978-3-030-05584-4_24}
 }
 \seealso{
 \code{\link[bayesplot:PPC-distributions]{bayesplot::ppc_dens_overlay()}}

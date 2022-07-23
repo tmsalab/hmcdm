@@ -14,7 +14,7 @@ Spatial Rotation Learning Experiment at UIUC between Fall 2015 and Spring 2016.
 Q_matrix
 }
 \description{
-This data set contains the Q matrix of the items in the Spatial Rotation Learning Program.
+\code{Q_matrix} contains the Q matrix of the items in the Spatial Rotation Learning Program.
 }
 \author{
 Shiyu Wang, Yan Yang, Jeff Douglas, and Steve Culpepper
