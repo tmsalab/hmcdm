@@ -5,8 +5,7 @@
 
 <!-- badges: start -->
 
-[![R build
-status](https://github.com/tmsalab/hmcdm/workflows/R-CMD-check/badge.svg)](https://github.com/tmsalab/hmcdm/actions)
+[![R-CMD-check](https://github.com/tmsalab/hmcdm/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tmsalab/hmcdm/actions/workflows/R-CMD-check.yaml)
 [![Package-License](http://img.shields.io/badge/license-GPL%20(%3E=2)-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
 <!-- badges: end -->
 
