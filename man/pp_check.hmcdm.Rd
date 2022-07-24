@@ -34,7 +34,7 @@ pp_check(output_FOHM, plotfun="hist", type="item_mean")
 }
 }
 \references{
-Zhang, S., Douglas, J. A., Wang, S. & Culpepper, S. A. (2019) \url{doi:https://doi.org/10.1007/978-3-030-05584-4_24}
+Zhang, S., Douglas, J. A., Wang, S. & Culpepper, S. A. (2019) \url{doi:10.1007/978-3-030-05584-4_24}
 }
 \seealso{
 \code{\link[bayesplot:PPC-distributions]{bayesplot::ppc_dens_overlay()}}
