@@ -8,8 +8,8 @@ Authors@R: c(
      person("Yinghan", "Chen", email = "yinghanc@unr.edu ", role = c("aut")),
      person("Sunbeom", "Kwon", email = "sunbeom2@illinois.edu", role = c("aut", "cre"))
     )
-Description: Functions for fitting hidden Markov models of learning under the cognitive diagnosis framework.
-  This package enables the estimation of the hidden Markov diagnostic classification model,
+Description: Fitting hidden Markov models of learning under the cognitive diagnosis framework.
+  The estimation of the hidden Markov diagnostic classification model,
   the first order hidden Markov model, the reduced-reparameterized unified learning model,
   and the joint learning model for responses and response times.
 License: GPL (>= 2)
