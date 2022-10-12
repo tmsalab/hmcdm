@@ -50,16 +50,22 @@ usethis::use_data(Q_matrix, overwrite=TRUE)
 
 ## Design matrix (N*J*T)
 Design_array <- array(NA, dim=c(N, J, TT))
+
 for(i in 1:N){
   test_version <- Test_versions[[i]]
   for(t in 1:TT){
-    test_index <- test_order[test_version,t]
+    test_index <- Test_order[test_version,t]
     item_indices <- (10*(test_index-1)+1):(10*test_index)
     Design_array[i,item_indices,t] <- 1
   }
 }
+
+Design_array[,,1]
+
 usethis::use_data(Design_array, overwrite=TRUE)
 
+
+## Test_order
 Test_order <- test_order
 usethis::use_data(Test_order, overwrite=TRUE)
 

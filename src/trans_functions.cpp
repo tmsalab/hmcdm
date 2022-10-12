@@ -180,6 +180,84 @@ arma::cube simulate_alphas_HO_joint(const arma::vec& lambdas, const arma::vec& t
 }
 
 
+//' @title Generate attribute trajectories under the Higher-Order Hidden Markov DCM with latent learning ability as a random effect
+//' @description Based on the initial attribute patterns and learning model parameters, create cube of attribute patterns
+//' of all subjects across time. General learning ability is regarded as a random intercept.
+//' @param lambdas A length 3 \code{vector} of transition model coefficients. First entry is intercept of the logistic transition
+//' model, second entry is the slope for number of other mastered skills, third entry is the slope for amount of practice.
+//' @param thetas A length N \code{vector} of learning abilities of each subject.
+//' @param alpha0s An N-by-K \code{matrix} of subjects' initial attribute patterns.
+//' @param Q_examinee A length N \code{list} of Jt*K Q matrices across time for each examinee, items are in the order that they are
+//' administered to the examinee
+//' @param L An \code{int} of number of time points
+//' @param Jt An \code{int} of number of items in each block
+//' @return An N-by-K-by-L \code{array} of attribute patterns of subjects at each time point.
+//' @examples
+//' N = nrow(Design_array)
+//' J = nrow(Q_matrix)
+//' K = ncol(Q_matrix)
+//' L = dim(Design_array)[3]
+//' Jt <- matrix(NA, nrow=N, ncol=L) # N by L matrix: number of items administered to examinee n at l time point.
+//' for(i in 1:N){
+//'   Jt[i,] <- colSums(Design_array[i,,], na.rm=T)
+//' }
+//' class_0 <- sample(1:2^K, N, replace = L)
+//' Alphas_0 <- matrix(0,N,K)
+//' mu_thetatau = c(0,0)
+//' Sig_thetatau = rbind(c(1.8^2,.4*.5*1.8),c(.4*.5*1.8,.25))
+//' Z = matrix(rnorm(N*2),N,2)
+//' thetatau_true = Z%*%chol(Sig_thetatau)
+//' thetas_true = thetatau_true[,1]
+//' for(i in 1:N){
+//'   Alphas_0[i,] <- inv_bijectionvector(K,(class_0[i]-1))
+//' }
+//' lambdas_true <- c(-2, .4, .055)     
+//' Q_examinee <- Q_list(Q_matrix, Test_order, Test_versions)
+//' Alphas <- simulate_alphas_HO_joint(lambdas_true,thetas_true,Alphas_0,Q_examinee,L,Jt)
+//' @export
+// [[Rcpp::export]]
+arma::cube simulate_alphas_HO_joint_g(const arma::vec& lambdas, const arma::vec& thetas, const arma::mat& alpha0s,
+                                    const Rcpp::List& Q_examinee, const unsigned int L, const arma::mat& Jt){
+  unsigned int K = alpha0s.n_cols;
+  unsigned int N = alpha0s.n_rows;
+  arma::cube alphas_all(N,K,L);
+  alphas_all.slice(0) = alpha0s;
+  arma::vec alpha_i_prev;
+  double theta_i;
+  double sum_alpha_i;               // # mastered skills other than skill k
+  double practice;                  // amount of practice on skill k
+  double ex;
+  double prob;
+  unsigned int k;
+  arma::vec alpha_i_new(K);
+
+  for(unsigned int i = 0; i<N; i++){
+    arma::mat Q_i = Q_examinee[i];
+    arma::vec Jt_i = cumsum(Jt.row(i).t());
+    for(unsigned int t = 1; t<L; t++){
+      alpha_i_prev = alpha_i_new = alphas_all.slice(t-1).row(i).t();
+      arma::uvec nonmastery = arma::find(alpha_i_prev == 0);
+      if(nonmastery.n_elem>0){
+        for(unsigned int kk = 0; kk<nonmastery.n_elem; kk++){
+          k = nonmastery(kk);
+          theta_i = thetas(i);
+          sum_alpha_i = arma::sum(alpha_i_prev);
+          arma::mat subQ = Q_i.rows(0, (Jt_i(t-1) - 1));
+          practice = sum(subQ.col(kk));
+          ex = exp(lambdas(0) + theta_i + lambdas(1)*sum_alpha_i + lambdas(2)*practice);
+          prob = ex/(1+ex);
+          double u = R::runif(0,1);
+          if(u<prob){
+            alpha_i_new(k) = 1;
+          }
+        }
+      }
+      alphas_all.slice(t).row(i) = alpha_i_new.t();
+    }
+  }
+  return(alphas_all);
+}
+
 // Transition probability of the HMDCM, with joint response and response time modeling (i.e., no slope for theta)
 // [[Rcpp::export]]
 double pTran_HO_joint(const arma::vec& alpha_prev, const arma::vec& alpha_post, const arma::vec& lambdas, double theta_i,

@@ -252,6 +252,7 @@ arma::cube resp_miss(const arma::cube& Responses, const arma::mat& Test_order,
 }
 
 
+
 //' @title Compute item pairwise odds ratio
 //' @description Based on a response matrix, calculate the item pairwise odds-ratio according do (n11*n00)/(n10*n01), where nij is the
 //' number of people answering both item i and item j correctly
@@ -418,3 +419,35 @@ Rcpp::List Q_list(const arma::mat Q_matrix, const arma::mat Test_order, const ar
   return Q_examinee;
 }
 
+//' @title Generate a list of Q-matrices for each examinee.
+//' @description Generate a list of length N. Each element of the list is a JxK Q_matrix of all items
+//' administered across all time points to the examinee, in the order of administration.
+//' @param Q_matrix A J-by-K matrix, indicating the item-skill relationship.
+//' @param Design_array An N-by-J-by-L array indicating whether examinee n has taken item j at l time point.
+//' @return A list length of N. Each element of the list is a JxK Q_matrix for each examinee.
+//' @examples 
+//' \donttest{
+//' Q_examinee = Q_list_g(Q_matrix, Design_array)}
+//' @export
+// [[Rcpp::export]]
+Rcpp::List Q_list_g(const arma::mat Q_matrix, const arma::cube Design_array){
+  unsigned int N = Design_array.n_rows;
+  unsigned int J = Design_array.n_cols;
+  unsigned int K = Q_matrix.n_cols;
+  unsigned int T = Design_array.n_slices;
+  
+  Rcpp::List Q_examinee(N);
+  for(unsigned int i=0; i<N; i++){
+    arma::mat Q_mat(0, K);
+    for(unsigned int t=0; t<T; t++){
+      for(unsigned int j=0; j<J; j++){
+        if(Design_array.at(i,j,t)==1){
+          arma::rowvec Q_vec = Q_matrix.row(j);
+          Q_mat = arma::join_vert(Q_mat, Q_vec);
+        }
+      }
+    }
+    Q_examinee[i] = Q_mat;
+  }
+  return Q_examinee;
+}

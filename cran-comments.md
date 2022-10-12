@@ -1,3 +1,14 @@
+## Resubmission4
+In this version I have:
+
+* added `rstantools` dependency in the DESCRIPTION file.
+
+* added references in the DESCRIPTION file in the form 
+  authors (year) <doi:...>
+
+## Resubmission3
+In this version I have fixed the DESCRIPTION file starting with "Functions for", "This package".
+
 ## Resubmission2
 I have changed the DOI names in order to fix the following NOTEs:
 

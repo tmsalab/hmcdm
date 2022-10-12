@@ -42,7 +42,7 @@ arma::vec sim_resp_DINA(unsigned int J, unsigned int K, const arma::mat& ETA,
 //' itempars_true <- array(runif(Jt*2*L,.1,.2), dim = c(Jt,2,L))
 //' 
 //' ETAs <- ETAmat(K,J,Q_matrix)
-//' class_0 <- sample(1:2^K, N, replace = L)
+//' class_0 <- sample(1:2^K, N, replace = TRUE)
 //' Alphas_0 <- matrix(0,N,K)
 //' mu_thetatau = c(0,0)
 //' Sig_thetatau = rbind(c(1.8^2,.4*.5*1.8),c(.4*.5*1.8,.25))
@@ -92,6 +92,82 @@ arma::cube simDINA(const arma::cube& alphas, const arma::cube& itempars, const a
   return(Y_sim);
 }
 
+
+//' @title Simulate DINA model responses (entire cube)
+//' @description Simulate a cube of DINA responses for all persons on items across all time points
+//' @param alphas An N-by-K-by-L \code{array} of attribute patterns of all persons across L time points 
+//' @param itempars A J-by-2-by-L \code{cube} of item parameters (slipping: 1st col, guessing: 2nd col) across item blocks
+//' @param ETA A J-by-2^K-by-L \code{array} of ideal responses across all item blocks, with each slice generated with ETAmat function
+//' @param Test_order A N_versions-by-L \code{matrix} indicating which block of items were administered to examinees with specific test version.
+//' @param Test_versions A length N \code{vector} of the test version of each examinee
+//' @return An \code{array} of DINA item responses of examinees across all time points
+//' @examples
+//' N = nrow(Design_array)
+//' J = nrow(Q_matrix)
+//' K = ncol(Q_matrix)
+//' L = dim(Design_array)[3]
+//' Jt <- matrix(NA, nrow=N, ncol=L) # N by L matrix: number of items administered to examinee n at l time point.
+//' for(i in 1:N){
+//'   Jt[i,] <- colSums(Design_array[i,,], na.rm=T)
+//' }
+//' itempars_true <- matrix(runif(J*2,.1,.2), ncol=2)
+//' ETAs <- ETAmat(K,J,Q_matrix)
+//' class_0 <- sample(1:2^K, N, replace = TRUE)
+//' Alphas_0 <- matrix(0,N,K)
+//' mu_thetatau = c(0,0)
+//' Sig_thetatau = rbind(c(1.8^2,.4*.5*1.8),c(.4*.5*1.8,.25))
+//' Z = matrix(rnorm(N*2),N,2)
+//' thetatau_true = Z%*%chol(Sig_thetatau)
+//' thetas_true = thetatau_true[,1]
+//' taus_true = thetatau_true[,2]
+//' G_version = 3
+//' phi_true = 0.8
+//' for(i in 1:N){
+//'   Alphas_0[i,] <- inv_bijectionvector(K,(class_0[i]-1))
+//' }
+//' lambdas_true <- c(-2, .4, .055)
+//' Q_examinee <- Q_list_g(Q_matrix, Design_array)
+//' Alphas <- simulate_alphas_HO_joint_g(lambdas_true,thetas_true,Alphas_0,Q_examinee,L,Jt)
+//' Y_sim <- simDINA(Alphas,itempars_true,ETAs,Design_array)
+//' @export
+// [[Rcpp::export]]
+arma::cube simDINA_g(const arma::cube& alphas, const arma::mat& itempars, const arma::mat& ETAs,
+                   const arma::cube& Design_array){
+  unsigned int N = alphas.n_rows;
+  unsigned int J = itempars.n_rows;
+  unsigned int K = alphas.n_cols;
+  unsigned int T = alphas.n_slices;
+  
+  arma::cube Y(N,J,T, arma::fill::value(NA_REAL));
+  arma::vec svec,gvec;
+  arma::vec vv = bijectionvector(K);
+  arma::uvec test_block_it;
+
+  for(unsigned int i=0;i<N;i++){
+    for(unsigned int t=0;t<T;t++){
+      test_block_it = arma::find(Design_array.slice(t).row(i) == 1);
+      arma::vec svec_total = itempars.col(0);
+      arma::vec gvec_total = itempars.col(1);
+      svec = svec_total.elem(test_block_it);
+      gvec = gvec_total.elem(test_block_it);
+      double Jt = arma::sum(Design_array.slice(t).row(i) == 1);
+      arma::vec one_m_s = arma::ones<arma::vec>(Jt) - svec;
+      double class_it = arma::dot(alphas.slice(t).row(i),vv);
+      arma::vec eta_it_temp = ETAs.col(class_it);
+      arma::vec eta_it = eta_it_temp.elem(test_block_it);
+      arma::vec us = arma::randu<arma::vec>(Jt);
+      arma::vec one_m_eta = arma::ones<arma::vec>(Jt) - eta_it;
+      arma::vec ps = one_m_s%eta_it + gvec%one_m_eta;
+      arma::vec compare = arma::zeros<arma::vec>(Jt);
+      compare.elem(arma::find(ps-us > 0) ).fill(1.0);
+
+      arma::vec Y_it(J, arma::fill::value(NA_REAL));
+      Y_it.elem(test_block_it) = compare;
+      Y.slice(t).row(i) = Y_it.t();
+    }
+  }
+  return(Y);
+}
 
 // [[Rcpp::export]]
 double pYit_DINA(const arma::vec& ETA_it,const arma::vec& Y_it, const arma::mat& itempars){

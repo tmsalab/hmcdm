@@ -38,4 +38,7 @@ arma::mat Array2Mat(const arma::cube r_stars);
 
 Rcpp::List Q_list(const arma::mat Q_matrix, const arma::mat test_order, const arma::vec Test_versions);
 
+Rcpp::List Q_list_g(const arma::mat Q_matrix, const arma::cube Design_array);
+
+
 #endif

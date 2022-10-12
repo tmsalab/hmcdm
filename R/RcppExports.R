@@ -143,6 +143,20 @@ Q_list <- function(Q_matrix, Test_order, Test_versions) {
     .Call(`_hmcdm_Q_list`, Q_matrix, Test_order, Test_versions)
 }
 
+#' @title Generate a list of Q-matrices for each examinee.
+#' @description Generate a list of length N. Each element of the list is a JxK Q_matrix of all items
+#' administered across all time points to the examinee, in the order of administration.
+#' @param Q_matrix A J-by-K matrix, indicating the item-skill relationship.
+#' @param Design_array An N-by-J-by-L array indicating whether examinee n has taken item j at l time point.
+#' @return A list length of N. Each element of the list is a JxK Q_matrix for each examinee.
+#' @examples 
+#' \donttest{
+#' Q_examinee = Q_list_g(Q_matrix, Design_array)}
+#' @export
+Q_list_g <- function(Q_matrix, Design_array) {
+    .Call(`_hmcdm_Q_list_g`, Q_matrix, Design_array)
+}
+
 point_estimates_learning <- function(output, model, N, Jt, K, T, alpha_EAP = TRUE) {
     .Call(`_hmcdm_point_estimates_learning`, output, model, N, Jt, K, T, alpha_EAP)
 }
@@ -255,7 +269,7 @@ sim_resp_DINA <- function(J, K, ETA, Svec, Gvec, alpha) {
 #' itempars_true <- array(runif(Jt*2*L,.1,.2), dim = c(Jt,2,L))
 #' 
 #' ETAs <- ETAmat(K,J,Q_matrix)
-#' class_0 <- sample(1:2^K, N, replace = L)
+#' class_0 <- sample(1:2^K, N, replace = TRUE)
 #' Alphas_0 <- matrix(0,N,K)
 #' mu_thetatau = c(0,0)
 #' Sig_thetatau = rbind(c(1.8^2,.4*.5*1.8),c(.4*.5*1.8,.25))
@@ -517,6 +531,45 @@ pTran_HO_sep <- function(alpha_prev, alpha_post, lambdas, theta_i, Q_i, Jt, t) {
 #' @export
 simulate_alphas_HO_joint <- function(lambdas, thetas, alpha0s, Q_examinee, L, Jt) {
     .Call(`_hmcdm_simulate_alphas_HO_joint`, lambdas, thetas, alpha0s, Q_examinee, L, Jt)
+}
+
+#' @title Generate attribute trajectories under the Higher-Order Hidden Markov DCM with latent learning ability as a random effect
+#' @description Based on the initial attribute patterns and learning model parameters, create cube of attribute patterns
+#' of all subjects across time. General learning ability is regarded as a random intercept.
+#' @param lambdas A length 3 \code{vector} of transition model coefficients. First entry is intercept of the logistic transition
+#' model, second entry is the slope for number of other mastered skills, third entry is the slope for amount of practice.
+#' @param thetas A length N \code{vector} of learning abilities of each subject.
+#' @param alpha0s An N-by-K \code{matrix} of subjects' initial attribute patterns.
+#' @param Q_examinee A length N \code{list} of Jt*K Q matrices across time for each examinee, items are in the order that they are
+#' administered to the examinee
+#' @param L An \code{int} of number of time points
+#' @param Jt An \code{int} of number of items in each block
+#' @return An N-by-K-by-L \code{array} of attribute patterns of subjects at each time point.
+#' @examples
+#' N = nrow(Design_array)
+#' J = nrow(Q_matrix)
+#' K = ncol(Q_matrix)
+#' L = dim(Design_array)[3]
+#' Jt <- matrix(NA, nrow=N, ncol=L) # N by L matrix: number of items administered to examinee n at l time point.
+#' for(i in 1:N){
+#'   Jt[i,] <- colSums(Design_array[i,,], na.rm=T)
+#' }
+#' class_0 <- sample(1:2^K, N, replace = L)
+#' Alphas_0 <- matrix(0,N,K)
+#' mu_thetatau = c(0,0)
+#' Sig_thetatau = rbind(c(1.8^2,.4*.5*1.8),c(.4*.5*1.8,.25))
+#' Z = matrix(rnorm(N*2),N,2)
+#' thetatau_true = Z%*%chol(Sig_thetatau)
+#' thetas_true = thetatau_true[,1]
+#' for(i in 1:N){
+#'   Alphas_0[i,] <- inv_bijectionvector(K,(class_0[i]-1))
+#' }
+#' lambdas_true <- c(-2, .4, .055)     
+#' Q_examinee <- Q_list(Q_matrix, Test_order, Test_versions)
+#' Alphas <- simulate_alphas_HO_joint(lambdas_true,thetas_true,Alphas_0,Q_examinee,L,Jt)
+#' @export
+simulate_alphas_HO_joint_g <- function(lambdas, thetas, alpha0s, Q_examinee, L, Jt) {
+    .Call(`_hmcdm_simulate_alphas_HO_joint_g`, lambdas, thetas, alpha0s, Q_examinee, L, Jt)
 }
 
 pTran_HO_joint <- function(alpha_prev, alpha_post, lambdas, theta_i, Q_i, Jt, t) {

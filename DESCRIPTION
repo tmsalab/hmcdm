@@ -1,7 +1,7 @@
 Package: hmcdm
 Type: Package
 Title: Hidden Markov Cognitive Diagnosis Models for Learning
-Version: 2.0.0
+Version: 2.1.0.9000
 Authors@R: c(
      person("Susu", "Zhang", email = "szhan105@illinois.edu", role = c("aut")),
      person("Shiyu", "Wang", email = "swang44@uga.edu", role = c("aut")),
@@ -12,6 +12,10 @@ Description: Fitting hidden Markov models of learning under the cognitive diagno
   The estimation of the hidden Markov diagnostic classification model,
   the first order hidden Markov model, the reduced-reparameterized unified learning model,
   and the joint learning model for responses and response times.
+  Chen, Y., Culpepper, S. A., Wang, S., & Douglas, J. (2018) <doi:10.1177/0146621617721250>.
+  Wang, S., Yang, Y., Culpepper, S. A., & Douglas, J. A. (2018) <doi:10.3102/1076998617719727>.
+  Wang, S., Zhang, S., Douglas, J., & Culpepper, S. (2018) <doi:10.1080/15366367.2018.1435105>.
+  Zhang, S., Douglas, J. A., Wang, S. & Culpepper, S. A. (2019) <doi:10.1007/978-3-030-05584-4_24>.
 License: GPL (>= 2)
 URL: https://github.com/tmsalab/hmcdm
 BugReports: https://github.com/tmsalab/hmcdm/issues
@@ -19,12 +23,13 @@ Depends: R (>= 3.5.0)
 Imports: 
     Rcpp (>= 1.0.0),
     stats (>= 3.0.0),
-    bayesplot (>= 1.9.0)
+    bayesplot (>= 1.9.0),
+    rstantools (>= 1.0.0)
 LinkingTo: Rcpp, RcppArmadillo, progress
 SystemRequirements: C++11
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.1
 Roxygen: list(markdown = TRUE)
 Suggests: 
     knitr,

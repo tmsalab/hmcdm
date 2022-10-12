@@ -257,6 +257,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// Q_list_g
+Rcpp::List Q_list_g(const arma::mat Q_matrix, const arma::cube Design_array);
+RcppExport SEXP _hmcdm_Q_list_g(SEXP Q_matrixSEXP, SEXP Design_arraySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::mat >::type Q_matrix(Q_matrixSEXP);
+    Rcpp::traits::input_parameter< const arma::cube >::type Design_array(Design_arraySEXP);
+    rcpp_result_gen = Rcpp::wrap(Q_list_g(Q_matrix, Design_array));
+    return rcpp_result_gen;
+END_RCPP
+}
 // point_estimates_learning
 Rcpp::List point_estimates_learning(const Rcpp::List output, const std::string model, const unsigned int N, const unsigned int Jt, const unsigned int K, const unsigned int T, bool alpha_EAP);
 RcppExport SEXP _hmcdm_point_estimates_learning(SEXP outputSEXP, SEXP modelSEXP, SEXP NSEXP, SEXP JtSEXP, SEXP KSEXP, SEXP TSEXP, SEXP alpha_EAPSEXP) {
@@ -845,6 +857,22 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// simulate_alphas_HO_joint_g
+arma::cube simulate_alphas_HO_joint_g(const arma::vec& lambdas, const arma::vec& thetas, const arma::mat& alpha0s, const Rcpp::List& Q_examinee, const unsigned int L, const arma::mat& Jt);
+RcppExport SEXP _hmcdm_simulate_alphas_HO_joint_g(SEXP lambdasSEXP, SEXP thetasSEXP, SEXP alpha0sSEXP, SEXP Q_examineeSEXP, SEXP LSEXP, SEXP JtSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::vec& >::type lambdas(lambdasSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type thetas(thetasSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type alpha0s(alpha0sSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::List& >::type Q_examinee(Q_examineeSEXP);
+    Rcpp::traits::input_parameter< const unsigned int >::type L(LSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type Jt(JtSEXP);
+    rcpp_result_gen = Rcpp::wrap(simulate_alphas_HO_joint_g(lambdas, thetas, alpha0s, Q_examinee, L, Jt));
+    return rcpp_result_gen;
+END_RCPP
+}
 // pTran_HO_joint
 double pTran_HO_joint(const arma::vec& alpha_prev, const arma::vec& alpha_post, const arma::vec& lambdas, double theta_i, const arma::mat& Q_i, unsigned int Jt, unsigned int t);
 RcppExport SEXP _hmcdm_pTran_HO_joint(SEXP alpha_prevSEXP, SEXP alpha_postSEXP, SEXP lambdasSEXP, SEXP theta_iSEXP, SEXP Q_iSEXP, SEXP JtSEXP, SEXP tSEXP) {
@@ -950,6 +978,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_hmcdm_Mat2Array", (DL_FUNC) &_hmcdm_Mat2Array, 2},
     {"_hmcdm_Array2Mat", (DL_FUNC) &_hmcdm_Array2Mat, 1},
     {"_hmcdm_Q_list", (DL_FUNC) &_hmcdm_Q_list, 3},
+    {"_hmcdm_Q_list_g", (DL_FUNC) &_hmcdm_Q_list_g, 2},
     {"_hmcdm_point_estimates_learning", (DL_FUNC) &_hmcdm_point_estimates_learning, 7},
     {"_hmcdm_Learning_fit", (DL_FUNC) &_hmcdm_Learning_fit, 10},
     {"_hmcdm_parm_update_HO", (DL_FUNC) &_hmcdm_parm_update_HO, 16},
@@ -981,6 +1010,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_hmcdm_simulate_alphas_HO_sep", (DL_FUNC) &_hmcdm_simulate_alphas_HO_sep, 6},
     {"_hmcdm_pTran_HO_sep", (DL_FUNC) &_hmcdm_pTran_HO_sep, 7},
     {"_hmcdm_simulate_alphas_HO_joint", (DL_FUNC) &_hmcdm_simulate_alphas_HO_joint, 6},
+    {"_hmcdm_simulate_alphas_HO_joint_g", (DL_FUNC) &_hmcdm_simulate_alphas_HO_joint_g, 6},
     {"_hmcdm_pTran_HO_joint", (DL_FUNC) &_hmcdm_pTran_HO_joint, 7},
     {"_hmcdm_simulate_alphas_indept", (DL_FUNC) &_hmcdm_simulate_alphas_indept, 4},
     {"_hmcdm_pTran_indept", (DL_FUNC) &_hmcdm_pTran_indept, 4},
