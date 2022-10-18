@@ -291,6 +291,47 @@ simDINA <- function(alphas, itempars, ETA, Test_order, Test_versions) {
     .Call(`_hmcdm_simDINA`, alphas, itempars, ETA, Test_order, Test_versions)
 }
 
+#' @title Simulate DINA model responses (entire cube)
+#' @description Simulate a cube of DINA responses for all persons on items across all time points
+#' @param alphas An N-by-K-by-L \code{array} of attribute patterns of all persons across L time points 
+#' @param itempars A J-by-2-by-L \code{cube} of item parameters (slipping: 1st col, guessing: 2nd col) across item blocks
+#' @param ETA A J-by-2^K-by-L \code{array} of ideal responses across all item blocks, with each slice generated with ETAmat function
+#' @param Test_order A N_versions-by-L \code{matrix} indicating which block of items were administered to examinees with specific test version.
+#' @param Test_versions A length N \code{vector} of the test version of each examinee
+#' @return An \code{array} of DINA item responses of examinees across all time points
+#' @examples
+#' N = nrow(Design_array)
+#' J = nrow(Q_matrix)
+#' K = ncol(Q_matrix)
+#' L = dim(Design_array)[3]
+#' Jt <- matrix(NA, nrow=N, ncol=L) # N by L matrix: number of items administered to examinee n at l time point.
+#' for(i in 1:N){
+#'   Jt[i,] <- colSums(Design_array[i,,], na.rm=T)
+#' }
+#' itempars_true <- matrix(runif(J*2,.1,.2), ncol=2)
+#' ETAs <- ETAmat(K,J,Q_matrix)
+#' class_0 <- sample(1:2^K, N, replace = TRUE)
+#' Alphas_0 <- matrix(0,N,K)
+#' mu_thetatau = c(0,0)
+#' Sig_thetatau = rbind(c(1.8^2,.4*.5*1.8),c(.4*.5*1.8,.25))
+#' Z = matrix(rnorm(N*2),N,2)
+#' thetatau_true = Z%*%chol(Sig_thetatau)
+#' thetas_true = thetatau_true[,1]
+#' taus_true = thetatau_true[,2]
+#' G_version = 3
+#' phi_true = 0.8
+#' for(i in 1:N){
+#'   Alphas_0[i,] <- inv_bijectionvector(K,(class_0[i]-1))
+#' }
+#' lambdas_true <- c(-2, .4, .055)
+#' Q_examinee <- Q_list_g(Q_matrix, Design_array)
+#' Alphas <- simulate_alphas_HO_joint_g(lambdas_true,thetas_true,Alphas_0,Q_examinee,L,Jt)
+#' Y_sim <- simDINA(Alphas,itempars_true,ETAs,Design_array)
+#' @export
+simDINA_g <- function(alphas, itempars, ETAs, Design_array) {
+    .Call(`_hmcdm_simDINA_g`, alphas, itempars, ETAs, Design_array)
+}
+
 pYit_DINA <- function(ETA_it, Y_it, itempars) {
     .Call(`_hmcdm_pYit_DINA`, ETA_it, Y_it, itempars)
 }

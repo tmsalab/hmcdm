@@ -639,6 +639,20 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// simDINA_g
+arma::cube simDINA_g(const arma::cube& alphas, const arma::mat& itempars, const arma::mat& ETAs, const arma::cube& Design_array);
+RcppExport SEXP _hmcdm_simDINA_g(SEXP alphasSEXP, SEXP itemparsSEXP, SEXP ETAsSEXP, SEXP Design_arraySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::cube& >::type alphas(alphasSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type itempars(itemparsSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type ETAs(ETAsSEXP);
+    Rcpp::traits::input_parameter< const arma::cube& >::type Design_array(Design_arraySEXP);
+    rcpp_result_gen = Rcpp::wrap(simDINA_g(alphas, itempars, ETAs, Design_array));
+    return rcpp_result_gen;
+END_RCPP
+}
 // pYit_DINA
 double pYit_DINA(const arma::vec& ETA_it, const arma::vec& Y_it, const arma::mat& itempars);
 RcppExport SEXP _hmcdm_pYit_DINA(SEXP ETA_itSEXP, SEXP Y_itSEXP, SEXP itemparsSEXP) {
@@ -996,6 +1010,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_hmcdm_hmcdm", (DL_FUNC) &_hmcdm_hmcdm, 12},
     {"_hmcdm_sim_resp_DINA", (DL_FUNC) &_hmcdm_sim_resp_DINA, 6},
     {"_hmcdm_simDINA", (DL_FUNC) &_hmcdm_simDINA, 5},
+    {"_hmcdm_simDINA_g", (DL_FUNC) &_hmcdm_simDINA_g, 4},
     {"_hmcdm_pYit_DINA", (DL_FUNC) &_hmcdm_pYit_DINA, 3},
     {"_hmcdm_sim_resp_rRUM", (DL_FUNC) &_hmcdm_sim_resp_rRUM, 6},
     {"_hmcdm_simrRUM", (DL_FUNC) &_hmcdm_simrRUM, 6},
