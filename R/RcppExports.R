@@ -248,6 +248,18 @@ hmcdm <- function(Y_real_array, Q_matrix, model, Test_order, Test_versions, chai
     .Call(`_hmcdm_hmcdm`, Y_real_array, Q_matrix, model, Test_order, Test_versions, chain_length, burn_in, G_version, theta_propose, Latency_array, deltas_propose, R)
 }
 
+#' @title Simulate rRUM model responses (entire cube)
+#' @description Simulate a cube of rRUM responses for all persons on items across all time points
+#' @param alphas An N-by-K-by-L \code{array} of attribute patterns of all persons across L time points 
+#' @param r_stars_mat A J-by-K \code{cube} of item penalty parameters for missing skills across all item blocks
+#' @param pi_stars A Jt-by-L \code{matrix} of item correct response probability with all requisite skills across blocks
+#' @param Q_matrix A J-by-K of Q-matrix
+#' @param Test_order A N_versions-by-L \code{matrix} indicating which block of items were administered to examinees with specific test version.
+#' @param Test_versions A length N \code{vector} of the test version of each examinee
+#' @return An \code{array} of rRUM item responses of examinees across all time points
+#' @examples
+NULL
+
 sim_resp_DINA <- function(J, K, ETA, Svec, Gvec, alpha) {
     .Call(`_hmcdm_sim_resp_DINA`, J, K, ETA, Svec, Gvec, alpha)
 }
@@ -340,47 +352,6 @@ sim_resp_rRUM <- function(J, K, Q, rstar, pistar, alpha) {
     .Call(`_hmcdm_sim_resp_rRUM`, J, K, Q, rstar, pistar, alpha)
 }
 
-#' @title Simulate rRUM model responses (entire cube)
-#' @description Simulate a cube of rRUM responses for all persons on items across all time points
-#' @param alphas An N-by-K-by-L \code{array} of attribute patterns of all persons across L time points 
-#' @param r_stars_mat A J-by-K \code{cube} of item penalty parameters for missing skills across all item blocks
-#' @param pi_stars A Jt-by-L \code{matrix} of item correct response probability with all requisite skills across blocks
-#' @param Q_matrix A J-by-K of Q-matrix
-#' @param Test_order A N_versions-by-L \code{matrix} indicating which block of items were administered to examinees with specific test version.
-#' @param Test_versions A length N \code{vector} of the test version of each examinee
-#' @return An \code{array} of rRUM item responses of examinees across all time points
-#' @examples
-#' N = length(Test_versions)
-#' J = nrow(Q_matrix)
-#' K = ncol(Q_matrix)
-#' L = nrow(Test_order)
-#' Jt = J/L
-#' Smats <- matrix(runif(J*K,.1,.3),c(J,K))
-#' Gmats <- matrix(runif(J*K,.1,.3),c(J,K))
-#' r_stars <- Gmats / (1-Smats)
-#' pi_stars <- matrix(apply((1-Smats)^Q_matrix, 1, prod), nrow=Jt, ncol=L, byrow=L)
-#' Test_versions_sim <- sample(1:5,N,replace = L)
-#' tau <- numeric(K)
-#'   for(k in 1:K){
-#'     tau[k] <- runif(1,.2,.6)
-#'   }
-#'   R = matrix(0,K,K)
-#' # Initial alphas
-#' p_mastery <- c(.5,.5,.4,.4)
-#' Alphas_0 <- matrix(0,N,K)
-#' for(i in 1:N){
-#'   for(k in 1:K){
-#'     prereqs <- which(R[k,]==1)
-#'     if(length(prereqs)==0){
-#'       Alphas_0[i,k] <- rbinom(1,1,p_mastery[k])
-#'     }
-#'     if(length(prereqs)>0){
-#'       Alphas_0[i,k] <- prod(Alphas_0[i,prereqs])*rbinom(1,1,p_mastery)
-#'     }
-#'   }
-#' }
-#' Alphas <- simulate_alphas_indept(tau,Alphas_0,L,R) 
-#' Y_sim = simrRUM(Alphas,r_stars,pi_stars,Q_matrix,Test_order,Test_versions_sim)
 #' @export
 simrRUM <- function(alphas, r_stars_mat, pi_stars, Q_matrix, Test_order, Test_versions) {
     .Call(`_hmcdm_simrRUM`, alphas, r_stars_mat, pi_stars, Q_matrix, Test_order, Test_versions)

@@ -222,37 +222,37 @@ arma::vec sim_resp_rRUM(unsigned int J, unsigned int K, const arma::mat& Q,
 //' @param Test_versions A length N \code{vector} of the test version of each examinee
 //' @return An \code{array} of rRUM item responses of examinees across all time points
 //' @examples
-//' N = length(Test_versions)
-//' J = nrow(Q_matrix)
-//' K = ncol(Q_matrix)
-//' L = nrow(Test_order)
-//' Jt = J/L
-//' Smats <- matrix(runif(J*K,.1,.3),c(J,K))
-//' Gmats <- matrix(runif(J*K,.1,.3),c(J,K))
-//' r_stars <- Gmats / (1-Smats)
-//' pi_stars <- matrix(apply((1-Smats)^Q_matrix, 1, prod), nrow=Jt, ncol=L, byrow=L)
-//' Test_versions_sim <- sample(1:5,N,replace = L)
-//' tau <- numeric(K)
-//'   for(k in 1:K){
-//'     tau[k] <- runif(1,.2,.6)
-//'   }
-//'   R = matrix(0,K,K)
-//' # Initial alphas
-//' p_mastery <- c(.5,.5,.4,.4)
-//' Alphas_0 <- matrix(0,N,K)
-//' for(i in 1:N){
-//'   for(k in 1:K){
-//'     prereqs <- which(R[k,]==1)
-//'     if(length(prereqs)==0){
-//'       Alphas_0[i,k] <- rbinom(1,1,p_mastery[k])
-//'     }
-//'     if(length(prereqs)>0){
-//'       Alphas_0[i,k] <- prod(Alphas_0[i,prereqs])*rbinom(1,1,p_mastery)
-//'     }
-//'   }
-//' }
-//' Alphas <- simulate_alphas_indept(tau,Alphas_0,L,R) 
-//' Y_sim = simrRUM(Alphas,r_stars,pi_stars,Q_matrix,Test_order,Test_versions_sim)
+// ' N = length(Test_versions)
+// ' J = nrow(Q_matrix)
+// ' K = ncol(Q_matrix)
+// ' L = nrow(Test_order)
+// ' Jt = J/L
+// ' Smats <- matrix(runif(J*K,.1,.3),c(J,K))
+// ' Gmats <- matrix(runif(J*K,.1,.3),c(J,K))
+// ' r_stars <- Gmats / (1-Smats)
+// ' pi_stars <- matrix(apply((1-Smats)^Q_matrix, 1, prod), nrow=Jt, ncol=L, byrow=T)
+// ' Test_versions_sim <- sample(1:5,N,replace = T)
+// ' tau <- numeric(K)
+// '   for(k in 1:K){
+// '     tau[k] <- runif(1,.2,.6)
+// '   }
+// '   R = matrix(0,K,K)
+// ' # Initial alphas
+// ' p_mastery <- c(.5,.5,.4,.4)
+// ' Alphas_0 <- matrix(0,N,K)
+// ' for(i in 1:N){
+// '   for(k in 1:K){
+// '     prereqs <- which(R[k,]==1)
+// '     if(length(prereqs)==0){
+// '       Alphas_0[i,k] <- rbinom(1,1,p_mastery[k])
+// '     }
+// '     if(length(prereqs)>0){
+// '       Alphas_0[i,k] <- prod(Alphas_0[i,prereqs])*rbinom(1,1,p_mastery)
+// '     }
+// '   }
+// ' }
+// ' Alphas <- simulate_alphas_indept(tau,Alphas_0,L,R)
+// ' Y_sim = simrRUM(Alphas,r_stars,pi_stars,Q_matrix,Test_order,Test_versions_sim)
 //' @export
 // [[Rcpp::export]]
 arma::cube simrRUM(const arma::cube& alphas, const arma::mat& r_stars_mat, const arma::mat& pi_stars, 
@@ -280,6 +280,84 @@ arma::cube simrRUM(const arma::cube& alphas, const arma::mat& r_stars_mat, const
   return(Y_sim);
 }
 
+//' @title Generalized Simulate rRUM model responses (entire cube)
+//' @description Simulate a cube of rRUM responses for all persons on items across all time points
+//' @param alphas An N-by-K-by-L \code{array} of attribute patterns of all persons across L time points 
+//' @param r_stars_mat A J-by-K \code{cube} of item penalty parameters for missing skills across all item blocks
+//' @param pi_stars A Jt-by-L \code{matrix} of item correct response probability with all requisite skills across blocks
+//' @param Q_matrix A J-by-K of Q-matrix
+//' @param Design_array A N-by-J-by-L array indicating whether item j is administered to examinee i at l time point.
+//' @param Test_order A N_versions-by-L \code{matrix} indicating which block of items were administered to examinees with specific test version.
+//' @param Test_versions A length N \code{vector} of the test version of each examinee
+//' @return An \code{array} of rRUM item responses of examinees across all time points
+//' @examples
+//' N = dim(Design_array)[1]
+//' J = nrow(Q_matrix)
+//' K = ncol(Q_matrix)
+//' L = dim(Design_array)[3]
+//' Jt <- matrix(NA, nrow=N, ncol=L) # N by L matrix: number of items administered to examinee n at l time point.
+//' for(i in 1:N){
+//'   Jt[i,] <- colSums(Design_array[i,,], na.rm=T)
+//' }
+//'   
+//' Smats <- matrix(runif(J*K,.1,.3),c(J,K))
+//' Gmats <- matrix(runif(J*K,.1,.3),c(J,K))
+//' r_stars <- Gmats / (1-Smats)
+//' pi_stars <- apply((1-Smats)^Q_matrix, 1, prod)
+//' Test_versions_sim <- sample(1:5,N,replace = T)
+//' tau <- numeric(K)
+//' for(k in 1:K){
+//'   tau[k] <- runif(1,.2,.6)
+//' }
+//' R = matrix(0,K,K)
+//' # Initial alphas
+//' p_mastery <- c(.5,.5,.4,.4)
+//' Alphas_0 <- matrix(0,N,K)
+//' for(i in 1:N){
+//'   for(k in 1:K){
+//'     prereqs <- which(R[k,]==1)
+//'     if(length(prereqs)==0){
+//'       Alphas_0[i,k] <- rbinom(1,1,p_mastery[k])
+//'     }
+//'     if(length(prereqs)>0){
+//'       Alphas_0[i,k] <- prod(Alphas_0[i,prereqs])*rbinom(1,1,p_mastery)
+//'     }
+//'   }
+//' }
+//' Alphas <- simulate_alphas_indept(tau,Alphas_0,L,R)
+//' Y_sim = simrRUM(Alphas,r_stars,pi_stars,Q_matrix,Test_order,Test_versions_sim)
+//' Y_sim = simrRUM_g(Alphas,r_stars,pi_stars,Q_matrix,Design_array)
+//' @export
+// [[Rcpp::export]]
+arma::cube simrRUM_g(const arma::cube& alphas, const arma::mat& r_stars_mat, const arma::vec& pi_stars, 
+                   const arma::mat Q_matrix, const arma::mat& Test_order, const arma::vec& Test_versions,
+                   const arma::cube& Design_array){
+  unsigned int N = alphas.n_rows;
+  unsigned int J = pi_stars.n_elem;
+  unsigned int K = alphas.n_cols;
+  unsigned int T = alphas.n_slices;
+  // arma::cube Qs = Mat2Array(Q_matrix, T);
+  // arma::cube r_stars = Mat2Array(r_stars_mat, T);
+  arma::uvec test_block_it;
+  
+  arma::cube Y(N,J,T, arma::fill::value(NA_REAL));
+  
+  for(unsigned int i=0;i<N;i++){
+    for(unsigned int t=0;t<T;t++){
+      test_block_it = arma::find(Design_array.slice(t).row(i) == 1);
+      double Jt = arma::sum(Design_array.slice(t).row(i) == 1);
+      arma::mat Q_it = Q_matrix.rows(test_block_it);
+      arma::mat rstar_it = r_stars_mat.rows(test_block_it);
+      arma::vec pistar_it = pi_stars.elem(test_block_it);
+      arma::vec alpha_it = alphas.slice(t).row(i).t();
+      
+      arma::vec Y_it(J, arma::fill::value(NA_REAL));
+      Y_it.elem(test_block_it) = sim_resp_rRUM(Jt,K,Q_it,rstar_it,pistar_it,alpha_it).t();
+      Y.slice(t).row(i) = Y_it.t();
+    }
+  }
+  return(Y);
+}
 
 // [[Rcpp::export]]
 double pYit_rRUM(const arma::vec& alpha_it, const arma::vec& Y_it, const arma::vec& pi_star_it, 
