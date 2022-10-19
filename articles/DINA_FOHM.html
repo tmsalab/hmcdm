@@ -158,43 +158,43 @@
 <span><span class="co">#&gt; Model: DINA_FOHM </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Item Parameters:</span></span>
-<span><span class="co">#&gt;  ss_EAP  gs_EAP</span></span>
-<span><span class="co">#&gt;  0.1219 0.19694</span></span>
-<span><span class="co">#&gt;  0.1101 0.16397</span></span>
-<span><span class="co">#&gt;  0.1692 0.03569</span></span>
-<span><span class="co">#&gt;  0.1091 0.21049</span></span>
-<span><span class="co">#&gt;  0.1831 0.10377</span></span>
+<span><span class="co">#&gt;  ss_EAP gs_EAP</span></span>
+<span><span class="co">#&gt;  0.1847 0.1415</span></span>
+<span><span class="co">#&gt;  0.1833 0.1868</span></span>
+<span><span class="co">#&gt;  0.1630 0.2707</span></span>
+<span><span class="co">#&gt;  0.1730 0.1580</span></span>
+<span><span class="co">#&gt;  0.1060 0.1190</span></span>
 <span><span class="co">#&gt;    ... 45 more items</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Transition Parameters:</span></span>
-<span><span class="co">#&gt;  [1] 0.05902 0.03998 0.05596 0.10537 0.05144 0.06507 0.06174 0.10712 0.07649</span></span>
-<span><span class="co">#&gt; [10] 0.03651 0.06063 0.05367 0.05734 0.04493 0.06378 0.06096</span></span>
+<span><span class="co">#&gt;  [1] 0.02471 0.04818 0.03778 0.09316 0.05222 0.03345 0.07562 0.05514 0.04575</span></span>
+<span><span class="co">#&gt; [10] 0.16879 0.03746 0.07448 0.03541 0.03159 0.11646 0.06979</span></span>
 <span><span class="co">#&gt;    ... 15 more rows</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Class Probabilities:</span></span>
 <span><span class="co">#&gt;      pis_EAP</span></span>
-<span><span class="co">#&gt; 0000 0.05498</span></span>
-<span><span class="co">#&gt; 0001 0.06934</span></span>
-<span><span class="co">#&gt; 0010 0.07914</span></span>
-<span><span class="co">#&gt; 0011 0.05916</span></span>
-<span><span class="co">#&gt; 0100 0.09517</span></span>
+<span><span class="co">#&gt; 0000 0.06901</span></span>
+<span><span class="co">#&gt; 0001 0.06715</span></span>
+<span><span class="co">#&gt; 0010 0.06109</span></span>
+<span><span class="co">#&gt; 0011 0.04322</span></span>
+<span><span class="co">#&gt; 0100 0.04932</span></span>
 <span><span class="co">#&gt;    ... 11 more classes</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Deviance Information Criterion (DIC): 18332.34 </span></span>
+<span><span class="co">#&gt; Deviance Information Criterion (DIC): 18953.1 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Posterior Predictive P-value (PPP):</span></span>
-<span><span class="co">#&gt; M1: 0.522</span></span>
+<span><span class="co">#&gt; M1: 0.5154</span></span>
 <span><span class="co">#&gt; M2:  0.49</span></span>
-<span><span class="co">#&gt; total scores:  0.6287</span></span>
+<span><span class="co">#&gt; total scores:  0.6241</span></span>
 <span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">output_FOHM</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">a</span><span class="op">$</span><span class="va">ss_EAP</span><span class="op">)</span></span>
 <span><span class="co">#&gt;           [,1]</span></span>
-<span><span class="co">#&gt; [1,] 0.1219015</span></span>
-<span><span class="co">#&gt; [2,] 0.1100715</span></span>
-<span><span class="co">#&gt; [3,] 0.1691685</span></span>
-<span><span class="co">#&gt; [4,] 0.1090647</span></span>
-<span><span class="co">#&gt; [5,] 0.1831435</span></span>
-<span><span class="co">#&gt; [6,] 0.1090880</span></span></code></pre></div>
+<span><span class="co">#&gt; [1,] 0.1847240</span></span>
+<span><span class="co">#&gt; [2,] 0.1833036</span></span>
+<span><span class="co">#&gt; [3,] 0.1630114</span></span>
+<span><span class="co">#&gt; [4,] 0.1730380</span></span>
+<span><span class="co">#&gt; [5,] 0.1060040</span></span>
+<span><span class="co">#&gt; [6,] 0.1703810</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="check-for-parameter-estimation-accuracy">(3) Check for parameter estimation accuracy<a class="anchor" aria-label="anchor" href="#check-for-parameter-estimation-accuracy"></a>
@@ -205,14 +205,14 @@
 <span>  <span class="va">AAR_vec</span><span class="op">[</span><span class="va">t</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">Alphas</span><span class="op">[</span>,,<span class="va">t</span><span class="op">]</span><span class="op">==</span><span class="va">a</span><span class="op">$</span><span class="va">Alphas_est</span><span class="op">[</span>,,<span class="va">t</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="va">AAR_vec</span></span>
-<span><span class="co">#&gt; [1] 0.9150000 0.9600000 0.9750000 0.9935714 0.9964286</span></span>
+<span><span class="co">#&gt; [1] 0.9085714 0.9535714 0.9778571 0.9892857 0.9885714</span></span>
 <span></span>
 <span><span class="va">PAR_vec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="va">L</span><span class="op">)</span></span>
 <span><span class="kw">for</span><span class="op">(</span><span class="va">t</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">L</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">PAR_vec</span><span class="op">[</span><span class="va">t</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="op">(</span><span class="va">Alphas</span><span class="op">[</span>,,<span class="va">t</span><span class="op">]</span><span class="op">-</span><span class="va">a</span><span class="op">$</span><span class="va">Alphas_est</span><span class="op">[</span>,,<span class="va">t</span><span class="op">]</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">==</span><span class="fl">0</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="va">PAR_vec</span></span>
-<span><span class="co">#&gt; [1] 0.7171429 0.8600000 0.9057143 0.9742857 0.9857143</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 0.7057143 0.8428571 0.9171429 0.9571429 0.9542857</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="evaluate-the-fit-of-the-model-to-the-observed-response">(4) Evaluate the fit of the model to the observed response<a class="anchor" aria-label="anchor" href="#evaluate-the-fit-of-the-model-to-the-observed-response"></a>
@@ -220,69 +220,76 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a</span><span class="op">$</span><span class="va">DIC</span></span>
 <span><span class="co">#&gt;              Transition Response_Time Response    Joint    Total</span></span>
-<span><span class="co">#&gt; D_bar          1450.283            NA 14457.20 1907.279 17814.76</span></span>
-<span><span class="co">#&gt; D(theta_bar)   1387.304            NA 14003.36 1906.516 17297.18</span></span>
-<span><span class="co">#&gt; DIC            1513.261            NA 14911.04 1908.041 18332.34</span></span>
+<span><span class="co">#&gt; D_bar          1467.931            NA 15043.73 1911.022 18422.68</span></span>
+<span><span class="co">#&gt; D(theta_bar)   1405.210            NA 14592.68 1894.372 17892.26</span></span>
+<span><span class="co">#&gt; DIC            1530.653            NA 15494.78 1927.671 18953.10</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">a</span><span class="op">$</span><span class="va">PPP_total_scores</span><span class="op">)</span></span>
-<span><span class="co">#&gt;           [,1]      [,2]      [,3]      [,4]      [,5]</span></span>
-<span><span class="co">#&gt; [1,] 0.3857143 0.3571429 0.3571429 0.2285714 1.0000000</span></span>
-<span><span class="co">#&gt; [2,] 0.4142857 0.3714286 0.2857143 0.3000000 0.5000000</span></span>
-<span><span class="co">#&gt; [3,] 0.2714286 0.9142857 0.5000000 0.7285714 0.7285714</span></span>
-<span><span class="co">#&gt; [4,] 0.8000000 0.3571429 0.6142857 1.0000000 0.5000000</span></span>
-<span><span class="co">#&gt; [5,] 0.9571429 0.7000000 0.2714286 0.9000000 0.8428571</span></span>
-<span><span class="co">#&gt; [6,] 0.8285714 0.4142857 0.8428571 1.0000000 0.7428571</span></span>
+<span><span class="co">#&gt;           [,1]      [,2]       [,3]      [,4]       [,5]</span></span>
+<span><span class="co">#&gt; [1,] 0.5571429 0.9857143 0.45714286 0.8285714 0.44285714</span></span>
+<span><span class="co">#&gt; [2,] 0.8142857 0.4000000 0.35714286 1.0000000 0.47142857</span></span>
+<span><span class="co">#&gt; [3,] 0.3285714 0.4857143 0.04285714 0.8000000 1.00000000</span></span>
+<span><span class="co">#&gt; [4,] 0.6142857 0.4142857 0.64285714 0.9285714 0.48571429</span></span>
+<span><span class="co">#&gt; [5,] 0.6857143 1.0000000 0.50000000 1.0000000 0.04285714</span></span>
+<span><span class="co">#&gt; [6,] 0.5571429 0.7857143 0.47142857 0.1857143 0.08571429</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">a</span><span class="op">$</span><span class="va">PPP_item_means</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.5571429 0.6142857 0.4857143 0.5285714 0.5142857 0.4857143</span></span>
+<span><span class="co">#&gt; [1] 0.5571429 0.5285714 0.6142857 0.5142857 0.5571429 0.4714286</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">a</span><span class="op">$</span><span class="va">PPP_item_ORs</span><span class="op">)</span></span>
-<span><span class="co">#&gt;      [,1]      [,2]      [,3]      [,4]      [,5]      [,6]      [,7]      [,8]</span></span>
-<span><span class="co">#&gt; [1,]   NA 0.4428571 0.8714286 0.8142857 0.6428571 0.9000000 0.7857143 0.7714286</span></span>
-<span><span class="co">#&gt; [2,]   NA        NA 0.8285714 0.5142857 0.7428571 0.5857143 0.3428571 0.2285714</span></span>
-<span><span class="co">#&gt; [3,]   NA        NA        NA 0.6571429 0.2142857 0.7142857 0.6285714 0.7285714</span></span>
-<span><span class="co">#&gt; [4,]   NA        NA        NA        NA 0.7857143 0.6714286 0.8857143 0.6428571</span></span>
-<span><span class="co">#&gt; [5,]   NA        NA        NA        NA        NA 0.5428571 0.5000000 0.2000000</span></span>
-<span><span class="co">#&gt; [6,]   NA        NA        NA        NA        NA        NA 0.8142857 0.4142857</span></span>
-<span><span class="co">#&gt;           [,9]     [,10]      [,11]     [,12]      [,13]     [,14]      [,15]</span></span>
-<span><span class="co">#&gt; [1,] 0.7285714 0.7571429 0.88571429 0.7142857 0.01428571 0.8428571 0.41428571</span></span>
-<span><span class="co">#&gt; [2,] 0.5571429 0.6571429 0.30000000 0.3571429 0.21428571 0.8571429 0.05714286</span></span>
-<span><span class="co">#&gt; [3,] 0.7000000 0.4714286 0.25714286 0.5857143 0.55714286 0.3857143 0.91428571</span></span>
-<span><span class="co">#&gt; [4,] 0.7000000 0.9142857 0.05714286 0.8714286 0.42857143 0.9714286 0.55714286</span></span>
-<span><span class="co">#&gt; [5,] 0.1571429 0.4571429 0.82857143 0.1571429 0.57142857 0.8285714 0.40000000</span></span>
-<span><span class="co">#&gt; [6,] 0.3571429 0.6857143 0.52857143 0.4714286 0.10000000 0.9428571 0.71428571</span></span>
-<span><span class="co">#&gt;          [,16]      [,17]     [,18]     [,19]     [,20]      [,21]     [,22]</span></span>
-<span><span class="co">#&gt; [1,] 0.6142857 0.82857143 0.9571429 0.9285714 0.3571429 0.61428571 0.7714286</span></span>
-<span><span class="co">#&gt; [2,] 0.1714286 0.08571429 0.4285714 0.4857143 0.1571429 0.20000000 0.5714286</span></span>
-<span><span class="co">#&gt; [3,] 0.5428571 0.91428571 0.4857143 0.4714286 0.6857143 0.74285714 0.2428571</span></span>
-<span><span class="co">#&gt; [4,] 0.7857143 0.70000000 0.3285714 0.6571429 0.3428571 0.51428571 0.5714286</span></span>
-<span><span class="co">#&gt; [5,] 0.6571429 0.51428571 0.9000000 0.7857143 0.1571429 0.07142857 0.7285714</span></span>
-<span><span class="co">#&gt; [6,] 0.8142857 0.54285714 0.6428571 0.8428571 0.5428571 0.05714286 0.6000000</span></span>
-<span><span class="co">#&gt;           [,23]      [,24]     [,25]      [,26]     [,27]      [,28]      [,29]</span></span>
-<span><span class="co">#&gt; [1,] 0.42857143 0.41428571 0.3142857 0.90000000 0.3571429 0.32857143 0.35714286</span></span>
-<span><span class="co">#&gt; [2,] 0.00000000 0.07142857 0.2857143 0.17142857 0.3142857 0.35714286 0.04285714</span></span>
-<span><span class="co">#&gt; [3,] 0.77142857 0.01428571 0.5000000 0.75714286 0.4142857 0.60000000 0.05714286</span></span>
-<span><span class="co">#&gt; [4,] 0.50000000 0.04285714 0.2714286 0.15714286 0.3428571 0.02857143 0.61428571</span></span>
-<span><span class="co">#&gt; [5,] 0.10000000 0.05714286 0.5428571 0.41428571 0.4285714 0.17142857 0.20000000</span></span>
-<span><span class="co">#&gt; [6,] 0.08571429 0.22857143 0.9428571 0.08571429 0.4142857 0.50000000 0.28571429</span></span>
-<span><span class="co">#&gt;          [,30]      [,31]     [,32]     [,33]      [,34]      [,35]      [,36]</span></span>
-<span><span class="co">#&gt; [1,] 0.2571429 0.11428571 0.6714286 0.4428571 0.78571429 0.22857143 0.24285714</span></span>
-<span><span class="co">#&gt; [2,] 0.2428571 0.10000000 0.6428571 0.8285714 0.32857143 0.21428571 0.52857143</span></span>
-<span><span class="co">#&gt; [3,] 0.2714286 0.04285714 0.3857143 0.9142857 0.64285714 0.02857143 0.04285714</span></span>
-<span><span class="co">#&gt; [4,] 0.4000000 0.08571429 0.3571429 0.6285714 0.02857143 0.07142857 0.12857143</span></span>
-<span><span class="co">#&gt; [5,] 0.6571429 0.35714286 0.8000000 0.2285714 0.31428571 0.41428571 0.72857143</span></span>
-<span><span class="co">#&gt; [6,] 0.7142857 0.00000000 0.6142857 0.5857143 0.28571429 0.01428571 0.34285714</span></span>
-<span><span class="co">#&gt;           [,37]     [,38]     [,39]      [,40]     [,41]      [,42]      [,43]</span></span>
-<span><span class="co">#&gt; [1,] 0.04285714 0.3285714 0.6142857 0.08571429 0.4428571 0.85714286 0.94285714</span></span>
-<span><span class="co">#&gt; [2,] 0.25714286 0.2142857 0.8428571 0.21428571 0.5285714 0.07142857 0.02857143</span></span>
-<span><span class="co">#&gt; [3,] 0.05714286 0.3428571 0.7000000 0.37142857 0.8285714 0.60000000 0.80000000</span></span>
-<span><span class="co">#&gt; [4,] 0.08571429 0.4857143 0.1428571 0.17142857 0.3857143 0.35714286 0.47142857</span></span>
-<span><span class="co">#&gt; [5,] 0.22857143 0.5857143 0.5571429 0.55714286 0.4857143 0.58571429 0.41428571</span></span>
-<span><span class="co">#&gt; [6,] 0.52857143 0.3571429 0.6285714 0.22857143 0.1142857 0.44285714 0.52857143</span></span>
-<span><span class="co">#&gt;           [,44]     [,45]     [,46]      [,47]     [,48]      [,49]     [,50]</span></span>
-<span><span class="co">#&gt; [1,] 0.98571429 0.3571429 0.5142857 0.47142857 0.4142857 0.07142857 0.7714286</span></span>
-<span><span class="co">#&gt; [2,] 0.30000000 0.4714286 0.1428571 0.01428571 0.4571429 0.37142857 0.6285714</span></span>
-<span><span class="co">#&gt; [3,] 0.04285714 0.2285714 0.1571429 0.40000000 0.5571429 0.12857143 0.8428571</span></span>
-<span><span class="co">#&gt; [4,] 0.55714286 0.5285714 0.8285714 0.20000000 0.9857143 0.87142857 0.7000000</span></span>
-<span><span class="co">#&gt; [5,] 0.74285714 0.3142857 0.2714286 0.27142857 0.4857143 0.02857143 0.7142857</span></span>
-<span><span class="co">#&gt; [6,] 0.51428571 0.2000000 0.5142857 0.28571429 0.9285714 0.37142857 0.6142857</span></span></code></pre></div>
+<span><span class="co">#&gt;      [,1]      [,2]      [,3]       [,4]      [,5]      [,6]      [,7]</span></span>
+<span><span class="co">#&gt; [1,]   NA 0.9428571 0.9571429 0.44285714 0.8714286 0.6714286 0.6428571</span></span>
+<span><span class="co">#&gt; [2,]   NA        NA 0.8000000 0.34285714 0.7428571 0.2857143 0.7285714</span></span>
+<span><span class="co">#&gt; [3,]   NA        NA        NA 0.01428571 0.1857143 0.1285714 0.6714286</span></span>
+<span><span class="co">#&gt; [4,]   NA        NA        NA         NA 0.1000000 0.3857143 0.3428571</span></span>
+<span><span class="co">#&gt; [5,]   NA        NA        NA         NA        NA 0.7428571 0.6428571</span></span>
+<span><span class="co">#&gt; [6,]   NA        NA        NA         NA        NA        NA 0.7428571</span></span>
+<span><span class="co">#&gt;           [,8]       [,9]     [,10]     [,11]     [,12]      [,13]     [,14]</span></span>
+<span><span class="co">#&gt; [1,] 0.8000000 0.25714286 0.5857143 0.7428571 0.3285714 0.14285714 0.7142857</span></span>
+<span><span class="co">#&gt; [2,] 0.5285714 0.02857143 0.2142857 0.1000000 0.9285714 0.05714286 0.4571429</span></span>
+<span><span class="co">#&gt; [3,] 0.8714286 0.04285714 0.7857143 0.7571429 0.4857143 0.71428571 0.7571429</span></span>
+<span><span class="co">#&gt; [4,] 0.5285714 0.81428571 0.8142857 0.9571429 0.8714286 0.18571429 0.3142857</span></span>
+<span><span class="co">#&gt; [5,] 0.6857143 0.01428571 0.1428571 0.1714286 0.9571429 0.62857143 0.8857143</span></span>
+<span><span class="co">#&gt; [6,] 0.8857143 0.48571429 0.4857143 0.5285714 0.8285714 0.12857143 0.8000000</span></span>
+<span><span class="co">#&gt;          [,15]     [,16]     [,17]     [,18]     [,19]     [,20]     [,21]</span></span>
+<span><span class="co">#&gt; [1,] 0.3571429 0.4142857 0.3000000 0.2285714 0.9142857 0.4285714 0.6714286</span></span>
+<span><span class="co">#&gt; [2,] 0.0000000 0.9000000 0.7285714 0.2000000 0.1857143 0.7142857 0.9571429</span></span>
+<span><span class="co">#&gt; [3,] 0.9571429 0.8714286 0.6571429 0.2428571 0.6142857 0.5142857 0.4714286</span></span>
+<span><span class="co">#&gt; [4,] 0.2142857 0.8428571 0.7285714 0.8285714 0.7142857 0.2285714 0.7428571</span></span>
+<span><span class="co">#&gt; [5,] 0.2857143 0.8000000 0.8857143 0.2142857 0.6714286 0.2428571 0.9857143</span></span>
+<span><span class="co">#&gt; [6,] 0.1571429 0.9571429 0.6285714 0.1142857 0.9285714 0.5285714 0.7714286</span></span>
+<span><span class="co">#&gt;          [,22]     [,23]     [,24]     [,25]     [,26]     [,27]     [,28]</span></span>
+<span><span class="co">#&gt; [1,] 0.4142857 0.8000000 0.3857143 0.3285714 0.8714286 0.8142857 0.4714286</span></span>
+<span><span class="co">#&gt; [2,] 0.1142857 0.2142857 0.5857143 0.2571429 0.2285714 0.1571429 0.5714286</span></span>
+<span><span class="co">#&gt; [3,] 0.7857143 0.8142857 0.3285714 0.6000000 0.7428571 0.5571429 0.4857143</span></span>
+<span><span class="co">#&gt; [4,] 0.2000000 0.7857143 0.6571429 0.7142857 0.8142857 0.9571429 0.2285714</span></span>
+<span><span class="co">#&gt; [5,] 0.4428571 0.6142857 0.7000000 0.3142857 0.7428571 0.8428571 0.9714286</span></span>
+<span><span class="co">#&gt; [6,] 0.7571429 0.7000000 0.8571429 0.3857143 0.8714286 0.9714286 0.9285714</span></span>
+<span><span class="co">#&gt;          [,29]     [,30]      [,31]     [,32]     [,33]      [,34]     [,35]</span></span>
+<span><span class="co">#&gt; [1,] 0.4285714 0.9142857 0.65714286 0.7142857 0.4142857 0.11428571 0.8142857</span></span>
+<span><span class="co">#&gt; [2,] 0.2571429 0.5285714 0.81428571 0.5857143 0.1142857 0.85714286 1.0000000</span></span>
+<span><span class="co">#&gt; [3,] 0.3571429 0.5142857 0.62857143 0.5714286 0.9000000 0.02857143 0.4857143</span></span>
+<span><span class="co">#&gt; [4,] 0.4000000 0.4857143 0.08571429 0.5142857 0.8571429 0.47142857 0.4428571</span></span>
+<span><span class="co">#&gt; [5,] 0.5000000 1.0000000 0.72857143 0.8285714 0.1714286 0.72857143 0.9714286</span></span>
+<span><span class="co">#&gt; [6,] 0.5142857 0.9857143 0.65714286 0.3428571 0.4571429 0.47142857 0.8714286</span></span>
+<span><span class="co">#&gt;          [,36]     [,37]     [,38]      [,39]     [,40]     [,41]      [,42]</span></span>
+<span><span class="co">#&gt; [1,] 0.7571429 0.7571429 0.8285714 0.30000000 0.7285714 0.2000000 0.04285714</span></span>
+<span><span class="co">#&gt; [2,] 0.2000000 0.9285714 0.1285714 0.57142857 0.8571429 0.2000000 0.10000000</span></span>
+<span><span class="co">#&gt; [3,] 0.4000000 0.1285714 0.2142857 0.54285714 0.4428571 0.9714286 0.94285714</span></span>
+<span><span class="co">#&gt; [4,] 0.4428571 0.9285714 0.1142857 0.51428571 0.3000000 0.1000000 0.32857143</span></span>
+<span><span class="co">#&gt; [5,] 0.9285714 0.9142857 0.9571429 0.50000000 0.9714286 0.4285714 0.21428571</span></span>
+<span><span class="co">#&gt; [6,] 0.5571429 0.6000000 0.4285714 0.07142857 0.8142857 0.2857143 0.58571429</span></span>
+<span><span class="co">#&gt;          [,43]     [,44]     [,45]     [,46]     [,47]     [,48]     [,49]</span></span>
+<span><span class="co">#&gt; [1,] 0.9714286 0.8428571 0.3428571 0.4714286 0.7000000 0.9142857 0.9428571</span></span>
+<span><span class="co">#&gt; [2,] 0.9714286 0.5000000 0.3857143 0.9142857 0.1285714 1.0000000 0.5857143</span></span>
+<span><span class="co">#&gt; [3,] 0.8714286 0.2285714 0.5714286 0.6142857 0.6571429 0.8285714 0.9142857</span></span>
+<span><span class="co">#&gt; [4,] 0.4571429 0.7714286 0.3428571 0.3714286 0.6428571 0.2142857 0.1857143</span></span>
+<span><span class="co">#&gt; [5,] 0.6571429 0.5428571 0.1428571 0.7285714 0.2714286 0.9857143 0.9142857</span></span>
+<span><span class="co">#&gt; [6,] 0.4142857 0.7285714 0.3428571 0.9000000 0.9571429 0.8428571 0.9000000</span></span>
+<span><span class="co">#&gt;           [,50]</span></span>
+<span><span class="co">#&gt; [1,] 0.52857143</span></span>
+<span><span class="co">#&gt; [2,] 0.81428571</span></span>
+<span><span class="co">#&gt; [3,] 0.05714286</span></span>
+<span><span class="co">#&gt; [4,] 0.45714286</span></span>
+<span><span class="co">#&gt; [5,] 0.88571429</span></span>
+<span><span class="co">#&gt; [6,] 0.97142857</span></span></code></pre></div>
 </div>
   </div>
 
