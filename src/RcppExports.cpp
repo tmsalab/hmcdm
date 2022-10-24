@@ -698,6 +698,21 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// simrRUM_g
+arma::cube simrRUM_g(const arma::cube& alphas, const arma::mat& r_stars_mat, const arma::vec& pi_stars, const arma::mat Q_matrix, const arma::cube& Design_array);
+RcppExport SEXP _hmcdm_simrRUM_g(SEXP alphasSEXP, SEXP r_stars_matSEXP, SEXP pi_starsSEXP, SEXP Q_matrixSEXP, SEXP Design_arraySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::cube& >::type alphas(alphasSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type r_stars_mat(r_stars_matSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type pi_stars(pi_starsSEXP);
+    Rcpp::traits::input_parameter< const arma::mat >::type Q_matrix(Q_matrixSEXP);
+    Rcpp::traits::input_parameter< const arma::cube& >::type Design_array(Design_arraySEXP);
+    rcpp_result_gen = Rcpp::wrap(simrRUM_g(alphas, r_stars_mat, pi_stars, Q_matrix, Design_array));
+    return rcpp_result_gen;
+END_RCPP
+}
 // pYit_rRUM
 double pYit_rRUM(const arma::vec& alpha_it, const arma::vec& Y_it, const arma::vec& pi_star_it, const arma::mat& r_star_it, const arma::mat& Q_it);
 RcppExport SEXP _hmcdm_pYit_rRUM(SEXP alpha_itSEXP, SEXP Y_itSEXP, SEXP pi_star_itSEXP, SEXP r_star_itSEXP, SEXP Q_itSEXP) {
@@ -742,6 +757,21 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const arma::mat& >::type Test_order(Test_orderSEXP);
     Rcpp::traits::input_parameter< const arma::vec& >::type Test_versions(Test_versionsSEXP);
     rcpp_result_gen = Rcpp::wrap(simNIDA(alphas, Svec, Gvec, Q_matrix, Test_order, Test_versions));
+    return rcpp_result_gen;
+END_RCPP
+}
+// simNIDA_g
+arma::cube simNIDA_g(const arma::cube& alphas, const arma::vec& Svec, const arma::vec& Gvec, const arma::mat Q_matrix, const arma::cube& Design_array);
+RcppExport SEXP _hmcdm_simNIDA_g(SEXP alphasSEXP, SEXP SvecSEXP, SEXP GvecSEXP, SEXP Q_matrixSEXP, SEXP Design_arraySEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::cube& >::type alphas(alphasSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type Svec(SvecSEXP);
+    Rcpp::traits::input_parameter< const arma::vec& >::type Gvec(GvecSEXP);
+    Rcpp::traits::input_parameter< const arma::mat >::type Q_matrix(Q_matrixSEXP);
+    Rcpp::traits::input_parameter< const arma::cube& >::type Design_array(Design_arraySEXP);
+    rcpp_result_gen = Rcpp::wrap(simNIDA_g(alphas, Svec, Gvec, Q_matrix, Design_array));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -1014,9 +1044,11 @@ static const R_CallMethodDef CallEntries[] = {
     {"_hmcdm_pYit_DINA", (DL_FUNC) &_hmcdm_pYit_DINA, 3},
     {"_hmcdm_sim_resp_rRUM", (DL_FUNC) &_hmcdm_sim_resp_rRUM, 6},
     {"_hmcdm_simrRUM", (DL_FUNC) &_hmcdm_simrRUM, 6},
+    {"_hmcdm_simrRUM_g", (DL_FUNC) &_hmcdm_simrRUM_g, 5},
     {"_hmcdm_pYit_rRUM", (DL_FUNC) &_hmcdm_pYit_rRUM, 5},
     {"_hmcdm_sim_resp_NIDA", (DL_FUNC) &_hmcdm_sim_resp_NIDA, 6},
     {"_hmcdm_simNIDA", (DL_FUNC) &_hmcdm_simNIDA, 6},
+    {"_hmcdm_simNIDA_g", (DL_FUNC) &_hmcdm_simNIDA_g, 5},
     {"_hmcdm_pYit_NIDA", (DL_FUNC) &_hmcdm_pYit_NIDA, 5},
     {"_hmcdm_J_incidence_cube", (DL_FUNC) &_hmcdm_J_incidence_cube, 2},
     {"_hmcdm_G2vec_efficient", (DL_FUNC) &_hmcdm_G2vec_efficient, 6},

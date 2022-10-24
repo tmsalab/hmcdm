@@ -131,14 +131,15 @@ arma::cube simDINA(const arma::cube& alphas, const arma::cube& itempars, const a
 //' Y_sim <- simDINA(Alphas,itempars_true,ETAs,Design_array)
 //' @export
 // [[Rcpp::export]]
-arma::cube simDINA_g(const arma::cube& alphas, const arma::mat& itempars, const arma::mat& ETAs,
+arma::cube simDINA_g(const arma::cube& alphas, const arma::mat& itempars, const arma::mat& Q_matrix,
                    const arma::cube& Design_array){
   unsigned int N = alphas.n_rows;
   unsigned int J = itempars.n_rows;
   unsigned int K = alphas.n_cols;
   unsigned int T = alphas.n_slices;
-  
   arma::cube Y(N,J,T, arma::fill::value(NA_REAL));
+  arma::mat ETAs = ETAmat(K,J,Q_matrix);
+
   arma::vec svec,gvec;
   arma::vec vv = bijectionvector(K);
   arma::uvec test_block_it;

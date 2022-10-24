@@ -217,9 +217,18 @@ arma::cube simulate_alphas_HO_joint(const arma::vec& lambdas, const arma::vec& t
 //' @export
 // [[Rcpp::export]]
 arma::cube simulate_alphas_HO_joint_g(const arma::vec& lambdas, const arma::vec& thetas, const arma::mat& alpha0s,
-                                    const Rcpp::List& Q_examinee, const unsigned int L, const arma::mat& Jt){
-  unsigned int K = alpha0s.n_cols;
-  unsigned int N = alpha0s.n_rows;
+                                      const arma::mat& Q_matrix, const arma::cube& Design_array){
+  unsigned int K = Q_matrix.n_cols;
+  unsigned int N = Design_array.n_rows;
+  unsigned int L = Design_array.n_slices;
+  arma::mat Jt(N,L);
+  for(unsigned int i = 0; i<N; i++){
+    for(unsigned int t = 0; t<L; t++){
+      double Jt_it = arma::sum(Design_array.slice(t).row(i) == 1);
+      Jt(i,t) = Jt_it;
+    }
+  }
+  Rcpp::List Q_examinee = Q_list_g(Q_matrix, Design_array);
   arma::cube alphas_all(N,K,L);
   alphas_all.slice(0) = alpha0s;
   arma::vec alpha_i_prev;
@@ -230,7 +239,6 @@ arma::cube simulate_alphas_HO_joint_g(const arma::vec& lambdas, const arma::vec&
   double prob;
   unsigned int k;
   arma::vec alpha_i_new(K);
-
   for(unsigned int i = 0; i<N; i++){
     arma::mat Q_i = Q_examinee[i];
     arma::vec Jt_i = cumsum(Jt.row(i).t());
