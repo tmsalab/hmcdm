@@ -24,7 +24,7 @@ number of people answering both item i and item j correctly"><!-- mathjax --><sc
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hmcdm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.0</span>
       </span>
     </div>
 
@@ -113,11 +113,8 @@ number of people answering both item i and item j correctly</p>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
-<span class="r-in"><span><span class="va">N</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">Test_versions</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">N</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">Y_real_array</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="va">J</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">Q_matrix</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">K</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">Q_matrix</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">L</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">Test_order</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">Jt</span> <span class="op">=</span> <span class="va">J</span><span class="op">/</span><span class="va">L</span></span></span>
 <span class="r-in"><span><span class="fu">OddsRatio</span><span class="op">(</span><span class="va">N</span>,<span class="va">J</span>,<span class="va">Y_real_array</span><span class="op">[</span>,,<span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="co"># }</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]    0   NA   NA   NA   NA   NA   NA   NA   NA    NA    NA    NA    NA</span>
@@ -388,7 +385,7 @@ number of people answering both item i and item j correctly</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

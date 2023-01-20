@@ -34,6 +34,9 @@
     <loc>/news/index.html</loc>
   </url>
   <url>
+    <loc>/reference/Design_array.html</loc>
+  </url>
+  <url>
     <loc>/reference/ETAmat.html</loc>
   </url>
   <url>
@@ -41,9 +44,6 @@
   </url>
   <url>
     <loc>/reference/OddsRatio.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Q_list.html</loc>
   </url>
   <url>
     <loc>/reference/Q_list_g.html</loc>
@@ -82,28 +82,13 @@
     <loc>/reference/random_Q.html</loc>
   </url>
   <url>
-    <loc>/reference/simDINA.html</loc>
-  </url>
-  <url>
-    <loc>/reference/simNIDA.html</loc>
-  </url>
-  <url>
     <loc>/reference/sim_RT.html</loc>
   </url>
   <url>
-    <loc>/reference/simrRUM.html</loc>
+    <loc>/reference/sim_alphas.html</loc>
   </url>
   <url>
-    <loc>/reference/simulate_alphas_FOHM.html</loc>
-  </url>
-  <url>
-    <loc>/reference/simulate_alphas_HO_joint.html</loc>
-  </url>
-  <url>
-    <loc>/reference/simulate_alphas_HO_sep.html</loc>
-  </url>
-  <url>
-    <loc>/reference/simulate_alphas_indept.html</loc>
+    <loc>/reference/sim_hmcdm.html</loc>
   </url>
   <url>
     <loc>/reference/summary.hmcdm.html</loc>

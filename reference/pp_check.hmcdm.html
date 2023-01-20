@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hmcdm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.0</span>
       </span>
     </div>
 
@@ -132,19 +132,10 @@ Types <code>"latency_mean"</code> and <code>"total_latency"</code> are available
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
-<span class="r-in"><span><span class="va">output_FOHM</span> <span class="op">=</span> <span class="fu"><a href="hmcdm.html">hmcdm</a></span><span class="op">(</span><span class="va">Y_real_array</span>,<span class="va">Q_matrix</span>,<span class="st">"DINA_FOHM"</span>,<span class="va">Test_order</span>,<span class="va">Test_versions</span>,<span class="fl">10000</span>,<span class="fl">5000</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">output_FOHM</span> <span class="op">=</span> <span class="fu"><a href="hmcdm.html">hmcdm</a></span><span class="op">(</span><span class="va">Y_real_array</span>,<span class="va">Q_matrix</span>,<span class="st">"DINA_FOHM"</span>,<span class="va">Design_array</span>,<span class="fl">1000</span>,<span class="fl">500</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9000</span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mc-stan.org/bayesplot/" class="external-link">bayesplot</a></span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> This is bayesplot version 1.9.0</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> This is bayesplot version 1.10.0</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> - Online documentation and vignettes at mc-stan.org/bayesplot</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> - bayesplot theme set to bayesplot::theme_default()</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>    * Does _not_ affect other ggplot2 plots</span>
@@ -169,7 +160,7 @@ Types <code>"latency_mean"</code> and <code>"total_latency"</code> are available
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

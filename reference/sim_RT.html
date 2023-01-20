@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hmcdm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.0</span>
       </span>
     </div>
 
@@ -84,17 +84,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">sim_RT</span><span class="op">(</span></span>
-<span>  <span class="va">alphas</span>,</span>
-<span>  <span class="va">RT_itempars</span>,</span>
-<span>  <span class="va">Q_matrix</span>,</span>
-<span>  <span class="va">taus</span>,</span>
-<span>  <span class="va">phi</span>,</span>
-<span>  <span class="va">ETAs</span>,</span>
-<span>  <span class="va">G_version</span>,</span>
-<span>  <span class="va">Test_order</span>,</span>
-<span>  <span class="va">Test_versions</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">sim_RT</span><span class="op">(</span><span class="va">alphas</span>, <span class="va">Q_matrix</span>, <span class="va">Design_array</span>, <span class="va">RT_itempars</span>, <span class="va">taus</span>, <span class="va">phi</span>, <span class="va">G_version</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -103,12 +93,16 @@
 <dd><p>An N-by-K-by-T <code>array</code> of attribute patterns of all persons across T time points</p></dd>
 
 
-<dt>RT_itempars</dt>
-<dd><p>A J-by-2-by-T <code>array</code> of item time discrimination and time intensity parameters across item blocks</p></dd>
-
-
 <dt>Q_matrix</dt>
 <dd><p>A J-by-K  Q-matrix for the test</p></dd>
+
+
+<dt>Design_array</dt>
+<dd><p>A N-by-J-by-L array indicating whether item j is administered to examinee i at l time point.</p></dd>
+
+
+<dt>RT_itempars</dt>
+<dd><p>A J-by-2 <code>matrix</code> of item time discrimination and time intensity parameters</p></dd>
 
 
 <dt>taus</dt>
@@ -119,22 +113,10 @@
 <dd><p>A <code>scalar</code> of slope of increase in fluency over time due to covariates (G)</p></dd>
 
 
-<dt>ETAs</dt>
-<dd><p>A J-by-2^K <code>matrix</code> of ideal responses across all item blocks generated with ETAmat function</p></dd>
-
-
 <dt>G_version</dt>
 <dd><p>An <code>int</code> of the type of covariate for increased fluency (1: G is dichotomous depending on whether all skills required for
 current item are mastered; 2: G cumulates practice effect on previous items using mastered skills; 3: G is a time block effect invariant across
 subjects with different attribute trajectories)</p></dd>
-
-
-<dt>Test_order</dt>
-<dd><p>A N_versions-by-T <code>matrix</code> indicating which block of items were administered to examinees with specific test version.</p></dd>
-
-
-<dt>Test_versions</dt>
-<dd><p>A length N <code>vector</code> of the test version of each examinee</p></dd>
 
 </dl></div>
     <div id="value">
@@ -146,12 +128,11 @@ subjects with different attribute trajectories)</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">N</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">Test_versions</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">N</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">Design_array</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span></span>
 <span class="r-in"><span><span class="va">J</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">Q_matrix</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">K</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">Q_matrix</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="cn">T</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">Test_order</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">Jt</span> <span class="op">=</span> <span class="va">J</span><span class="op">/</span><span class="cn">T</span></span></span>
-<span class="r-in"><span><span class="va">class_0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">^</span><span class="va">K</span>, <span class="va">N</span>, replace <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">L</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">Design_array</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span></span>
+<span class="r-in"><span><span class="va">class_0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">^</span><span class="va">K</span>, <span class="va">N</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">Alphas_0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0</span>,<span class="va">N</span>,<span class="va">K</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">mu_thetatau</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">Sig_thetatau</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.8</span><span class="op">^</span><span class="fl">2</span>,<span class="fl">.4</span><span class="op">*</span><span class="fl">.5</span><span class="op">*</span><span class="fl">1.8</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.4</span><span class="op">*</span><span class="fl">.5</span><span class="op">*</span><span class="fl">1.8</span>,<span class="fl">.25</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -165,14 +146,16 @@ subjects with different attribute trajectories)</p></dd>
 <span class="r-in"><span>  <span class="va">Alphas_0</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="inv_bijectionvector.html">inv_bijectionvector</a></span><span class="op">(</span><span class="va">K</span>,<span class="op">(</span><span class="va">class_0</span><span class="op">[</span><span class="va">i</span><span class="op">]</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span><span class="va">lambdas_true</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">.4</span>, <span class="fl">.055</span><span class="op">)</span>     </span></span>
-<span class="r-in"><span><span class="va">Q_examinee</span> <span class="op">&lt;-</span> <span class="fu"><a href="Q_list.html">Q_list</a></span><span class="op">(</span><span class="va">Q_matrix</span>, <span class="va">Test_order</span>, <span class="va">Test_versions</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">Alphas</span> <span class="op">&lt;-</span> <span class="fu"><a href="simulate_alphas_HO_joint.html">simulate_alphas_HO_joint</a></span><span class="op">(</span><span class="va">lambdas_true</span>,<span class="va">thetas_true</span>,<span class="va">Alphas_0</span>,<span class="va">Q_examinee</span>,<span class="cn">T</span>,<span class="va">Jt</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">RT_itempars_true</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="cn">NA</span>, dim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">Jt</span>,<span class="fl">2</span>,<span class="cn">T</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">RT_itempars_true</span><span class="op">[</span>,<span class="fl">2</span>,<span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">Jt</span><span class="op">*</span><span class="cn">T</span>,<span class="fl">3.45</span>,<span class="fl">.5</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">RT_itempars_true</span><span class="op">[</span>,<span class="fl">1</span>,<span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">Jt</span><span class="op">*</span><span class="cn">T</span>,<span class="fl">1.5</span>,<span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">Alphas</span> <span class="op">&lt;-</span> <span class="fu"><a href="sim_alphas.html">sim_alphas</a></span><span class="op">(</span>model<span class="op">=</span><span class="st">"HO_joint"</span>, </span></span>
+<span class="r-in"><span>                     lambdas<span class="op">=</span><span class="va">lambdas_true</span>, </span></span>
+<span class="r-in"><span>                     thetas<span class="op">=</span><span class="va">thetas_true</span>, </span></span>
+<span class="r-in"><span>                     Q_matrix<span class="op">=</span><span class="va">Q_matrix</span>, </span></span>
+<span class="r-in"><span>                     Design_array<span class="op">=</span><span class="va">Design_array</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">RT_itempars_true</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="cn">NA</span>, nrow<span class="op">=</span><span class="va">J</span>, ncol<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">RT_itempars_true</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">J</span>,<span class="fl">3.45</span>,<span class="fl">.5</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">RT_itempars_true</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">J</span>,<span class="fl">1.5</span>,<span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">ETAs</span> <span class="op">&lt;-</span> <span class="fu"><a href="ETAmat.html">ETAmat</a></span><span class="op">(</span><span class="va">K</span>,<span class="va">J</span>,<span class="va">Q_matrix</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">L_sim</span> <span class="op">&lt;-</span> <span class="fu">sim_RT</span><span class="op">(</span><span class="va">Alphas</span>,<span class="va">RT_itempars_true</span>,<span class="va">Q_matrix</span>,<span class="va">taus_true</span>,<span class="va">phi_true</span>,<span class="va">ETAs</span>,</span></span>
-<span class="r-in"><span><span class="va">G_version</span>,<span class="va">Test_order</span>,<span class="va">Test_versions</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">L_sim</span> <span class="op">&lt;-</span> <span class="fu">sim_RT</span><span class="op">(</span><span class="va">Alphas</span>,<span class="va">Q_matrix</span>,<span class="va">Design_array</span>,<span class="va">RT_itempars_true</span>,<span class="va">taus_true</span>,<span class="va">phi_true</span>,<span class="va">G_version</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -187,7 +170,7 @@ subjects with different attribute trajectories)</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
