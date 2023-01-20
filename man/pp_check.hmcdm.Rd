@@ -27,7 +27,7 @@ Plots for checking the posterior predictive distributions. The default \code{Plo
 }
 \examples{
 \donttest{
-output_FOHM = hmcdm(Y_real_array,Q_matrix,"DINA_FOHM",Test_order,Test_versions,10000,5000)
+output_FOHM = hmcdm(Y_real_array,Q_matrix,"DINA_FOHM",Design_array,1000,500)
 library(bayesplot)
 pp_check(output_FOHM)
 pp_check(output_FOHM, plotfun="hist", type="item_mean")

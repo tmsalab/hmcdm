@@ -1,3 +1,7 @@
+# hmcdm 2.1.0
+
+- Release of `hmcdm` package version 2.1.0.
+
 # hmcdm 2.0.0
 
 - Release of `hmcdm` package version 2.0.0.

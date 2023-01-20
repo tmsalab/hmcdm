@@ -4,38 +4,24 @@
 \alias{sim_RT}
 \title{Simulate item response times based on Wang et al.'s (2018) joint model of response times and accuracy in learning}
 \usage{
-sim_RT(
-  alphas,
-  RT_itempars,
-  Q_matrix,
-  taus,
-  phi,
-  ETAs,
-  G_version,
-  Test_order,
-  Test_versions
-)
+sim_RT(alphas, Q_matrix, Design_array, RT_itempars, taus, phi, G_version)
 }
 \arguments{
 \item{alphas}{An N-by-K-by-T \code{array} of attribute patterns of all persons across T time points}
 
-\item{RT_itempars}{A J-by-2-by-T \code{array} of item time discrimination and time intensity parameters across item blocks}
-
 \item{Q_matrix}{A J-by-K  Q-matrix for the test}
+
+\item{Design_array}{A N-by-J-by-L array indicating whether item j is administered to examinee i at l time point.}
+
+\item{RT_itempars}{A J-by-2 \code{matrix} of item time discrimination and time intensity parameters}
 
 \item{taus}{A length N \code{vector} of latent speed of each person}
 
 \item{phi}{A \code{scalar} of slope of increase in fluency over time due to covariates (G)}
 
-\item{ETAs}{A J-by-2^K \code{matrix} of ideal responses across all item blocks generated with ETAmat function}
-
 \item{G_version}{An \code{int} of the type of covariate for increased fluency (1: G is dichotomous depending on whether all skills required for
 current item are mastered; 2: G cumulates practice effect on previous items using mastered skills; 3: G is a time block effect invariant across
 subjects with different attribute trajectories)}
-
-\item{Test_order}{A N_versions-by-T \code{matrix} indicating which block of items were administered to examinees with specific test version.}
-
-\item{Test_versions}{A length N \code{vector} of the test version of each examinee}
 }
 \value{
 A \code{cube} of response times of subjects on each item across time
@@ -44,12 +30,11 @@ A \code{cube} of response times of subjects on each item across time
 Simulate a cube of subjects' response times across time points according to a variant of the logNormal model
 }
 \examples{
-N = length(Test_versions)
+N = dim(Design_array)[1]
 J = nrow(Q_matrix)
 K = ncol(Q_matrix)
-T = nrow(Test_order)
-Jt = J/T
-class_0 <- sample(1:2^K, N, replace = T)
+L = dim(Design_array)[3]
+class_0 <- sample(1:2^K, N, replace = TRUE)
 Alphas_0 <- matrix(0,N,K)
 mu_thetatau = c(0,0)
 Sig_thetatau = rbind(c(1.8^2,.4*.5*1.8),c(.4*.5*1.8,.25))
@@ -63,12 +48,14 @@ for(i in 1:N){
   Alphas_0[i,] <- inv_bijectionvector(K,(class_0[i]-1))
 }
 lambdas_true <- c(-2, .4, .055)     
-Q_examinee <- Q_list(Q_matrix, Test_order, Test_versions)
-Alphas <- simulate_alphas_HO_joint(lambdas_true,thetas_true,Alphas_0,Q_examinee,T,Jt)
-RT_itempars_true <- array(NA, dim = c(Jt,2,T))
-RT_itempars_true[,2,] <- rnorm(Jt*T,3.45,.5)
-RT_itempars_true[,1,] <- runif(Jt*T,1.5,2)
+Alphas <- sim_alphas(model="HO_joint", 
+                     lambdas=lambdas_true, 
+                     thetas=thetas_true, 
+                     Q_matrix=Q_matrix, 
+                     Design_array=Design_array)
+RT_itempars_true <- matrix(NA, nrow=J, ncol=2)
+RT_itempars_true[,2] <- rnorm(J,3.45,.5)
+RT_itempars_true[,1] <- runif(J,1.5,2)
 ETAs <- ETAmat(K,J,Q_matrix)
-L_sim <- sim_RT(Alphas,RT_itempars_true,Q_matrix,taus_true,phi_true,ETAs,
-G_version,Test_order,Test_versions)
+L_sim <- sim_RT(Alphas,Q_matrix,Design_array,RT_itempars_true,taus_true,phi_true,G_version)
 }

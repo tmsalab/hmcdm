@@ -54,3 +54,17 @@
 #' @author Shiyu Wang, Yan Yang, Jeff Douglas, and Steve Culpepper
 'Test_order'
 
+
+#' Design array
+#' 
+#' `Design_array` contains item administration information at all time points in the Spatial 
+#' Rotation Learning Program.
+#' @format An array of dimension N-by-J-by-L, containing each subject's item administration.
+#' @details The data object `"Design_array"` contains an array of dimension N-by-J-by-L 
+#' indicating the items assigned (1/0) to each subject at each time point. 
+#' @source Spatial Rotation Learning Experiment at UIUC between Fall 2015 and Spring 2016.
+#' @author Shiyu Wang, Yan Yang, Jeff Douglas, and Steve Culpepper
+"Design_array"
+
+
+

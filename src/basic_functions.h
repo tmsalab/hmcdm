@@ -36,9 +36,8 @@ arma::cube Dense2Sparse(const arma::cube Y_sim,const arma::mat& test_order,const
 arma::cube Mat2Array(const arma::mat Q_matrix, unsigned int T);
 arma::mat Array2Mat(const arma::cube r_stars);
 
-Rcpp::List Q_list(const arma::mat Q_matrix, const arma::mat test_order, const arma::vec Test_versions);
-
 Rcpp::List Q_list_g(const arma::mat Q_matrix, const arma::cube Design_array);
 
+arma::cube design_array(const arma::mat Test_order, const arma::vec Test_versions, const double Jt);
 
 #endif

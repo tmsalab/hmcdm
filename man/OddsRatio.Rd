@@ -22,10 +22,7 @@ number of people answering both item i and item j correctly
 }
 \examples{
 \donttest{
-N = length(Test_versions)
+N = dim(Y_real_array)[1]
 J = nrow(Q_matrix)
-K = ncol(Q_matrix)
-L = nrow(Test_order)
-Jt = J/L
 OddsRatio(N,J,Y_real_array[,,1])}
 }

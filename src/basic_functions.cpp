@@ -262,11 +262,8 @@ arma::cube resp_miss(const arma::cube& Responses, const arma::mat& Test_order,
 //' @return A J-by-J upper-triangular \code{matrix} of the item pairwise odds ratios
 //' @examples 
 //' \donttest{
-//' N = length(Test_versions)
+//' N = dim(Y_real_array)[1]
 //' J = nrow(Q_matrix)
-//' K = ncol(Q_matrix)
-//' L = nrow(Test_order)
-//' Jt = J/L
 //' OddsRatio(N,J,Y_real_array[,,1])}
 //' @export
 // [[Rcpp::export]]
@@ -392,37 +389,6 @@ arma::mat Array2Mat(const arma::cube r_stars){
 //' @description Generate a list of length N. Each element of the list is a JxK Q_matrix of all items
 //' administered across all time points to the examinee, in the order of administration.
 //' @param Q_matrix A J-by-K matrix, indicating the item-skill relationship.
-//' @param Test_order A TxT matrix, each row is the order of item blocks for that test version.
-//' @param Test_versions A vector of length N, containing each subject's test version.
-//' @return A list of length N. Each element of the list is a JxK matrix.
-//' @examples 
-//' \donttest{
-//' Q_examinee = Q_list(Q_matrix, Test_order, Test_versions)}
-//' @export
-// [[Rcpp::export]]
-Rcpp::List Q_list(const arma::mat Q_matrix, const arma::mat Test_order, const arma::vec Test_versions){
-  unsigned int N = Test_versions.n_elem;
-  unsigned int J = Q_matrix.n_rows;
-  unsigned int K = Q_matrix.n_cols;
-  unsigned int T = Test_order.n_cols;
-  unsigned int Jt = J/T;
-  
-  Rcpp::List Q_examinee(N);
-  for(unsigned int i=0; i<N; i++){
-    arma::mat Q_mat(J, K);
-    arma::vec Test_order_i = Test_order.col(Test_versions(i)-1);
-    for(unsigned int t=0; t<T; t++){
-      Q_mat.submat(t*Jt,0,(t+1)*Jt-1,K-1) = Q_matrix.submat((Test_order_i(t)-1)*Jt,0,Test_order_i(t)*Jt-1,K-1);
-    }
-    Q_examinee[i] = Q_mat;
-  }
-  return Q_examinee;
-}
-
-//' @title Generate a list of Q-matrices for each examinee.
-//' @description Generate a list of length N. Each element of the list is a JxK Q_matrix of all items
-//' administered across all time points to the examinee, in the order of administration.
-//' @param Q_matrix A J-by-K matrix, indicating the item-skill relationship.
 //' @param Design_array An N-by-J-by-L array indicating whether examinee n has taken item j at l time point.
 //' @return A list length of N. Each element of the list is a JxK Q_matrix for each examinee.
 //' @examples 
@@ -450,4 +416,32 @@ Rcpp::List Q_list_g(const arma::mat Q_matrix, const arma::cube Design_array){
     Q_examinee[i] = Q_mat;
   }
   return Q_examinee;
+}
+
+
+// [[Rcpp::export]]
+arma::cube design_array(const arma::mat Test_order, const arma::vec Test_versions, const double Jt){
+  double N = Test_versions.n_elem;
+  double T = Test_order.n_cols;
+  double test_version;
+  double J = Jt*T;
+  
+  arma::cube Design_array(N,J,T);
+  Design_array.fill(NA_REAL);
+  
+  for(unsigned int i=0; i<N; i++){
+    test_version = Test_versions(i);
+    
+    for(unsigned int t=0; t<T; t++){
+      unsigned int test_index = Test_order(test_version-1,t);
+      
+      for(unsigned int j=0; j<Jt; j++){
+        unsigned int item_index = (test_index-1)*Jt+j;
+        Design_array(i,item_index,t) = 1;
+      }
+      
+    }
+  }
+  
+  return(Design_array);
 }

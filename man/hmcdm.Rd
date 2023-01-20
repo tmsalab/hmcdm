@@ -5,13 +5,14 @@
 \title{Gibbs sampler for learning models}
 \usage{
 hmcdm(
-  Y_real_array,
+  Response,
   Q_matrix,
   model,
-  Test_order,
-  Test_versions,
-  chain_length,
-  burn_in,
+  Design_array = NULL,
+  Test_order = NULL,
+  Test_versions = NULL,
+  chain_length = 100L,
+  burn_in = 50L,
   G_version = NA_integer_,
   theta_propose = 0,
   Latency_array = NULL,
@@ -20,7 +21,7 @@ hmcdm(
 )
 }
 \arguments{
-\item{Y_real_array}{An \code{array} of dichotomous item responses. t-th slice is an N-by-J matrix of responses at time t.}
+\item{Response}{An \code{array} of dichotomous item responses. t-th slice is an N-by-J matrix of responses at time t.}
 
 \item{Q_matrix}{A J-by-K Q-matrix.}
 
@@ -34,9 +35,12 @@ speed and learning ability;
 "NIDA_indept": Simple independent transition probability model with NIDA responses
 "DINA_FOHM": First Order Hidden Markov model with DINA responses}
 
-\item{Test_order}{A \code{matrix} of the order of item blocks for each test version.}
+\item{Design_array}{An \code{array} of dimension N-by-J-by-L indicating the items assigned (1/0) to each subject at each time point.
+Either 'Design_array' or both 'Test_order' & 'Test_versions' need to be provided to run HMCDM.}
 
-\item{Test_versions}{A \code{vector} of the test version of each learner.}
+\item{Test_order}{Optional. A \code{matrix} of the order of item blocks for each test version.}
+
+\item{Test_versions}{Optional. A \code{vector} of the test version of each learner.}
 
 \item{chain_length}{An \code{int} of the MCMC chain length.}
 
@@ -62,7 +66,7 @@ Runs MCMC to estimate parameters of any of the listed learning models.
 }
 \examples{
 \donttest{
-output_FOHM = hmcdm(Y_real_array,Q_matrix,"DINA_FOHM",Test_order,Test_versions,100,30)
+output_FOHM = hmcdm(Y_real_array, Q_matrix, "DINA_FOHM", Design_array, 100, 30)
 }
 }
 \author{

@@ -1,7 +1,7 @@
 Package: hmcdm
 Type: Package
 Title: Hidden Markov Cognitive Diagnosis Models for Learning
-Version: 2.1.0.9000
+Version: 2.1.0
 Authors@R: c(
      person("Susu", "Zhang", email = "szhan105@illinois.edu", role = c("aut")),
      person("Shiyu", "Wang", email = "swang44@uga.edu", role = c("aut")),
