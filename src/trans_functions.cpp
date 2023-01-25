@@ -474,7 +474,13 @@ arma::cube sim_alphas(const std::string model,
                      const Rcpp::Nullable<arma::mat&> R = R_NilValue,
                      const Rcpp::Nullable<arma::mat> alpha0 = R_NilValue){
   
-  if((model == "HO_joint") | (model == "HO_sep")){
+  if(model == "HO_joint"){
+    if(lambdas.isNull()){Rcpp::stop("Error: argument 'lambdas' is missing");}
+    if(thetas.isNull()){Rcpp::stop("Error: argument 'thetas' is missing");}
+    if(Q_matrix.isNull()){Rcpp::stop("Error: argument 'Q_matrix' is missing");}
+    if(Design_array.isNull()){Rcpp::stop("Error: argument 'Design_array' is missing");}
+  }
+  if(model == "HO_sep"){
     if(lambdas.isNull()){Rcpp::stop("Error: argument 'lambdas' is missing");}
     if(thetas.isNull()){Rcpp::stop("Error: argument 'thetas' is missing");}
     if(Q_matrix.isNull()){Rcpp::stop("Error: argument 'Q_matrix' is missing");}
