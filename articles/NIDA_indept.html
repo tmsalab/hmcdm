@@ -148,7 +148,7 @@ model<a class="anchor" aria-label="anchor" href="#simulate-responses-and-respons
 <span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">Alphas</span><span class="op">[</span>,,<span class="fl">5</span><span class="op">]</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">Alphas</span><span class="op">[</span>,,<span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="co"># used to see how much transition has taken place</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   0   1   2   3   4 </span></span>
-<span><span class="co">#&gt;  22 106 130  72  20</span></span>
+<span><span class="co">#&gt;  46  97 134  62  11</span></span>
 <span><span class="va">Svec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">K</span>,<span class="fl">.1</span>,<span class="fl">.3</span><span class="op">)</span></span>
 <span><span class="va">Gvec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">K</span>,<span class="fl">.1</span>,<span class="fl">.3</span><span class="op">)</span></span>
 <span></span>
@@ -177,41 +177,41 @@ distribution<a class="anchor" aria-label="anchor" href="#run-the-mcmc-to-sample-
 <span><span class="co">#&gt; Model: NIDA_indept </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Item Parameters:</span></span>
-<span><span class="co">#&gt;  ss_EAP  gs_EAP</span></span>
-<span><span class="co">#&gt;  0.1249 0.36858</span></span>
-<span><span class="co">#&gt;  0.2927 0.08589</span></span>
-<span><span class="co">#&gt;  0.1464 0.25376</span></span>
-<span><span class="co">#&gt;  0.2256 0.21478</span></span>
+<span><span class="co">#&gt;  ss_EAP gs_EAP</span></span>
+<span><span class="co">#&gt;  0.2857 0.3262</span></span>
+<span><span class="co">#&gt;  0.1525 0.3102</span></span>
+<span><span class="co">#&gt;  0.1471 0.1759</span></span>
+<span><span class="co">#&gt;  0.1292 0.1502</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Transition Parameters:</span></span>
 <span><span class="co">#&gt;    taus_EAP</span></span>
-<span><span class="co">#&gt; τ1   0.5124</span></span>
-<span><span class="co">#&gt; τ2   0.5506</span></span>
-<span><span class="co">#&gt; τ3   0.3388</span></span>
-<span><span class="co">#&gt; τ4   0.2335</span></span>
+<span><span class="co">#&gt; τ1   0.4903</span></span>
+<span><span class="co">#&gt; τ2   0.4881</span></span>
+<span><span class="co">#&gt; τ3   0.2664</span></span>
+<span><span class="co">#&gt; τ4   0.2026</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Class Probabilities:</span></span>
 <span><span class="co">#&gt;      pis_EAP</span></span>
-<span><span class="co">#&gt; 0000 0.10588</span></span>
-<span><span class="co">#&gt; 0001 0.08577</span></span>
-<span><span class="co">#&gt; 0010 0.04665</span></span>
-<span><span class="co">#&gt; 0011 0.05402</span></span>
-<span><span class="co">#&gt; 0100 0.11197</span></span>
+<span><span class="co">#&gt; 0000 0.10243</span></span>
+<span><span class="co">#&gt; 0001 0.09851</span></span>
+<span><span class="co">#&gt; 0010 0.04686</span></span>
+<span><span class="co">#&gt; 0011 0.03772</span></span>
+<span><span class="co">#&gt; 0100 0.11034</span></span>
 <span><span class="co">#&gt;    ... 11 more classes</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Deviance Information Criterion (DIC): 22970.07 </span></span>
+<span><span class="co">#&gt; Deviance Information Criterion (DIC): 22274.43 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Posterior Predictive P-value (PPP):</span></span>
-<span><span class="co">#&gt; M1: 0.5096</span></span>
+<span><span class="co">#&gt; M1: 0.522</span></span>
 <span><span class="co">#&gt; M2:  0.49</span></span>
-<span><span class="co">#&gt; total scores:  0.6052</span></span>
+<span><span class="co">#&gt; total scores:  0.6104</span></span>
 <span><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">output_NIDA_indept</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">a</span><span class="op">$</span><span class="va">ss_EAP</span><span class="op">)</span></span>
 <span><span class="co">#&gt;           [,1]</span></span>
-<span><span class="co">#&gt; [1,] 0.1249292</span></span>
-<span><span class="co">#&gt; [2,] 0.2926915</span></span>
-<span><span class="co">#&gt; [3,] 0.1463664</span></span>
-<span><span class="co">#&gt; [4,] 0.2255833</span></span></code></pre></div>
+<span><span class="co">#&gt; [1,] 0.2856875</span></span>
+<span><span class="co">#&gt; [2,] 0.1524797</span></span>
+<span><span class="co">#&gt; [3,] 0.1471054</span></span>
+<span><span class="co">#&gt; [4,] 0.1292335</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="check-for-parameter-estimation-accuracy">(3) Check for parameter estimation accuracy<a class="anchor" aria-label="anchor" href="#check-for-parameter-estimation-accuracy"></a>
@@ -222,14 +222,14 @@ distribution<a class="anchor" aria-label="anchor" href="#run-the-mcmc-to-sample-
 <span>  <span class="va">AAR_vec</span><span class="op">[</span><span class="va">t</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">Alphas</span><span class="op">[</span>,,<span class="va">t</span><span class="op">]</span><span class="op">==</span><span class="va">a</span><span class="op">$</span><span class="va">Alphas_est</span><span class="op">[</span>,,<span class="va">t</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="va">AAR_vec</span></span>
-<span><span class="co">#&gt; [1] 0.8457143 0.8950000 0.9342857 0.9528571 0.9585714</span></span>
+<span><span class="co">#&gt; [1] 0.8357143 0.8935714 0.9385714 0.9535714 0.9542857</span></span>
 <span></span>
 <span><span class="va">PAR_vec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="va">L</span><span class="op">)</span></span>
 <span><span class="kw">for</span><span class="op">(</span><span class="va">t</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">L</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="va">PAR_vec</span><span class="op">[</span><span class="va">t</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="op">(</span><span class="va">Alphas</span><span class="op">[</span>,,<span class="va">t</span><span class="op">]</span><span class="op">-</span><span class="va">a</span><span class="op">$</span><span class="va">Alphas_est</span><span class="op">[</span>,,<span class="va">t</span><span class="op">]</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">==</span><span class="fl">0</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="va">PAR_vec</span></span>
-<span><span class="co">#&gt; [1] 0.5142857 0.6485714 0.7657143 0.8285714 0.8457143</span></span></code></pre></div>
+<span><span class="co">#&gt; [1] 0.5028571 0.6457143 0.7828571 0.8314286 0.8400000</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="evaluate-the-fit-of-the-model-to-the-observed-response">(4) Evaluate the fit of the model to the observed response<a class="anchor" aria-label="anchor" href="#evaluate-the-fit-of-the-model-to-the-observed-response"></a>
@@ -237,48 +237,48 @@ distribution<a class="anchor" aria-label="anchor" href="#run-the-mcmc-to-sample-
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a</span><span class="op">$</span><span class="va">DIC</span></span>
 <span><span class="co">#&gt;              Transition Response_Time Response    Joint    Total</span></span>
-<span><span class="co">#&gt; D_bar          2153.597            NA 18192.70 1886.611 22232.91</span></span>
-<span><span class="co">#&gt; D(theta_bar)   2008.746            NA 17588.79 1898.215 21495.75</span></span>
-<span><span class="co">#&gt; DIC            2298.447            NA 18796.61 1875.007 22970.07</span></span>
+<span><span class="co">#&gt; D_bar          2288.380            NA 17444.65 1830.068 21563.10</span></span>
+<span><span class="co">#&gt; D(theta_bar)   2157.726            NA 16859.68 1834.360 20851.77</span></span>
+<span><span class="co">#&gt; DIC            2419.034            NA 18029.62 1825.776 22274.43</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">a</span><span class="op">$</span><span class="va">PPP_total_scores</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5]</span></span>
-<span><span class="co">#&gt; [1,] 0.08 0.26 0.02 0.46 0.78</span></span>
-<span><span class="co">#&gt; [2,] 0.50 0.34 0.56 0.84 0.72</span></span>
-<span><span class="co">#&gt; [3,] 0.28 0.26 0.90 0.84 0.32</span></span>
-<span><span class="co">#&gt; [4,] 0.98 0.92 0.78 0.24 0.96</span></span>
-<span><span class="co">#&gt; [5,] 0.98 0.80 0.82 0.12 0.22</span></span>
-<span><span class="co">#&gt; [6,] 0.52 0.50 0.80 1.00 0.54</span></span>
+<span><span class="co">#&gt; [1,] 1.00 1.00 0.14 0.70 0.78</span></span>
+<span><span class="co">#&gt; [2,] 0.92 0.66 0.94 0.74 0.18</span></span>
+<span><span class="co">#&gt; [3,] 1.00 0.54 0.54 0.68 0.72</span></span>
+<span><span class="co">#&gt; [4,] 0.20 0.78 0.76 1.00 0.94</span></span>
+<span><span class="co">#&gt; [5,] 0.72 1.00 0.06 0.90 0.78</span></span>
+<span><span class="co">#&gt; [6,] 0.86 0.20 1.00 0.84 0.58</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">a</span><span class="op">$</span><span class="va">PPP_item_means</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] 0.62 0.94 0.92 0.46 0.66 0.32</span></span>
+<span><span class="co">#&gt; [1] 0.94 0.26 0.50 0.72 0.24 0.60</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">a</span><span class="op">$</span><span class="va">PPP_item_ORs</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13] [,14]</span></span>
-<span><span class="co">#&gt; [1,]   NA 0.32 0.58  0.5  0.6 0.56 0.54 0.32 0.32  0.68  0.12  0.06  0.14  0.54</span></span>
-<span><span class="co">#&gt; [2,]   NA   NA 0.20  0.9  0.4 0.78 0.66 0.14 0.70  0.74  0.76  0.30  0.16  0.82</span></span>
-<span><span class="co">#&gt; [3,]   NA   NA   NA  0.1  0.8 0.44 0.52 0.94 0.02  0.42  0.32  0.16  0.98  0.80</span></span>
-<span><span class="co">#&gt; [4,]   NA   NA   NA   NA  0.7 0.34 0.18 0.42 0.44  0.60  0.72  0.06  0.04  0.56</span></span>
-<span><span class="co">#&gt; [5,]   NA   NA   NA   NA   NA 0.94 0.14 0.88 0.74  0.24  0.20  0.98  0.62  0.64</span></span>
-<span><span class="co">#&gt; [6,]   NA   NA   NA   NA   NA   NA 0.22 0.66 0.34  0.76  0.22  0.62  0.52  0.28</span></span>
+<span><span class="co">#&gt; [1,]   NA 0.52 0.48 0.88 0.26 0.92 0.94 0.30 0.36  0.84  0.98  0.38  0.32  0.34</span></span>
+<span><span class="co">#&gt; [2,]   NA   NA 0.52 0.80 0.24 0.54 0.40 0.30 0.76  0.78  0.30  0.38  0.68  0.04</span></span>
+<span><span class="co">#&gt; [3,]   NA   NA   NA 0.22 0.30 0.88 0.72 0.86 0.00  0.14  0.76  0.76  0.60  0.20</span></span>
+<span><span class="co">#&gt; [4,]   NA   NA   NA   NA 0.90 0.80 0.92 0.96 0.76  0.60  0.24  0.38  0.36  0.18</span></span>
+<span><span class="co">#&gt; [5,]   NA   NA   NA   NA   NA 0.76 0.42 0.56 0.34  0.74  0.28  0.00  0.14  0.48</span></span>
+<span><span class="co">#&gt; [6,]   NA   NA   NA   NA   NA   NA 0.62 1.00 0.24  0.54  0.30  0.04  1.00  0.18</span></span>
 <span><span class="co">#&gt;      [,15] [,16] [,17] [,18] [,19] [,20] [,21] [,22] [,23] [,24] [,25] [,26]</span></span>
-<span><span class="co">#&gt; [1,]  0.66  0.56  0.56  0.70  0.32  0.80  0.56  0.62  0.70  0.34  0.90  0.24</span></span>
-<span><span class="co">#&gt; [2,]  0.10  0.34  0.44  0.40  0.70  0.40  0.00  0.10  0.52  0.08  0.84  0.42</span></span>
-<span><span class="co">#&gt; [3,]  0.84  0.24  0.60  0.66  0.34  1.00  0.74  1.00  0.16  0.26  0.84  0.62</span></span>
-<span><span class="co">#&gt; [4,]  0.18  0.66  0.28  0.70  0.70  0.00  0.66  0.68  0.86  0.46  0.54  0.78</span></span>
-<span><span class="co">#&gt; [5,]  1.00  0.34  0.50  0.64  0.06  0.56  0.08  0.16  0.22  0.18  0.94  0.12</span></span>
-<span><span class="co">#&gt; [6,]  0.20  0.06  0.94  0.40  0.26  0.30  0.02  0.66  0.56  0.30  0.74  0.62</span></span>
+<span><span class="co">#&gt; [1,]  0.46  1.00  1.00  0.14  0.78  0.50  0.22  0.38  0.16  0.60  0.22  0.22</span></span>
+<span><span class="co">#&gt; [2,]  0.36  0.32  0.20  0.58  0.80  0.30  0.34  0.72  0.62  0.60  0.16  0.82</span></span>
+<span><span class="co">#&gt; [3,]  0.04  0.50  0.10  0.10  0.46  0.12  0.52  0.90  0.38  0.86  0.06  0.68</span></span>
+<span><span class="co">#&gt; [4,]  0.98  0.44  0.24  0.80  0.52  0.70  0.78  0.20  0.70  0.92  0.70  0.80</span></span>
+<span><span class="co">#&gt; [5,]  0.60  0.82  0.22  0.66  0.22  0.60  0.74  0.58  0.24  0.72  0.76  0.16</span></span>
+<span><span class="co">#&gt; [6,]  0.72  0.86  0.26  0.34  0.74  0.98  0.82  0.82  0.40  0.44  0.02  0.96</span></span>
 <span><span class="co">#&gt;      [,27] [,28] [,29] [,30] [,31] [,32] [,33] [,34] [,35] [,36] [,37] [,38]</span></span>
-<span><span class="co">#&gt; [1,]  0.56  0.56  0.48  0.72  0.80  0.80  0.26  0.38  0.56  0.60  0.74  0.86</span></span>
-<span><span class="co">#&gt; [2,]  0.06  0.36  0.06  0.14  0.08  0.40  0.90  0.48  0.40  0.88  0.12  0.04</span></span>
-<span><span class="co">#&gt; [3,]  0.58  0.96  0.58  0.68  0.26  0.36  0.26  0.66  0.36  0.58  0.56  0.02</span></span>
-<span><span class="co">#&gt; [4,]  0.32  0.88  0.78  0.24  0.18  0.22  0.50  0.38  0.14  0.34  0.58  0.94</span></span>
-<span><span class="co">#&gt; [5,]  0.24  0.76  0.20  0.00  0.06  0.08  0.46  0.80  0.20  0.60  0.28  0.50</span></span>
-<span><span class="co">#&gt; [6,]  0.08  0.74  0.16  0.50  0.14  0.54  0.64  0.84  0.60  0.32  0.90  0.18</span></span>
+<span><span class="co">#&gt; [1,]  0.62  0.36  0.46  0.04  0.40  0.42  0.46  0.72  0.64  0.40  0.88  0.66</span></span>
+<span><span class="co">#&gt; [2,]  0.40  0.74  0.44  0.92  0.84  0.26  0.42  0.98  0.32  0.78  0.56  0.96</span></span>
+<span><span class="co">#&gt; [3,]  0.50  0.08  0.52  0.62  0.34  0.14  0.50  0.48  0.92  0.24  0.86  0.26</span></span>
+<span><span class="co">#&gt; [4,]  0.34  0.12  0.44  0.72  0.90  0.66  0.62  0.80  0.36  0.56  0.18  0.94</span></span>
+<span><span class="co">#&gt; [5,]  0.26  1.00  0.28  0.12  0.08  0.66  0.16  0.38  0.10  0.04  0.32  0.76</span></span>
+<span><span class="co">#&gt; [6,]  0.78  0.38  0.14  0.94  0.26  0.38  0.48  0.64  0.46  0.00  0.58  0.90</span></span>
 <span><span class="co">#&gt;      [,39] [,40] [,41] [,42] [,43] [,44] [,45] [,46] [,47] [,48] [,49] [,50]</span></span>
-<span><span class="co">#&gt; [1,]  0.86  0.48  0.60  0.32  0.58  0.56  0.62  0.80  0.80  0.70  0.52  0.18</span></span>
-<span><span class="co">#&gt; [2,]  0.70  0.50  0.18  0.12  0.16  0.68  0.16  0.68  0.24  0.08  0.02  0.00</span></span>
-<span><span class="co">#&gt; [3,]  0.80  0.84  0.94  0.28  0.02  0.52  0.92  0.14  0.44  0.42  0.24  0.72</span></span>
-<span><span class="co">#&gt; [4,]  0.74  0.60  0.18  0.02  0.20  0.20  0.02  0.56  0.50  0.84  0.22  0.00</span></span>
-<span><span class="co">#&gt; [5,]  0.04  0.30  0.70  0.46  0.84  0.76  0.56  0.80  0.44  0.32  0.10  0.60</span></span>
-<span><span class="co">#&gt; [6,]  0.76  0.28  0.56  0.12  0.54  0.62  0.20  0.32  0.54  0.52  0.72  0.14</span></span></code></pre></div>
+<span><span class="co">#&gt; [1,]  0.84  0.72  0.20  0.88  0.68  0.82  0.70  0.12  0.96  0.46  0.14  0.68</span></span>
+<span><span class="co">#&gt; [2,]  0.80  0.96  0.72  0.70  0.62  0.88  0.82  0.00  0.10  0.98  0.66  0.52</span></span>
+<span><span class="co">#&gt; [3,]  0.96  0.34  0.58  0.74  0.10  0.66  0.66  0.96  0.98  0.50  0.82  1.00</span></span>
+<span><span class="co">#&gt; [4,]  0.88  0.98  0.40  0.82  1.00  0.24  0.16  0.20  0.66  0.86  0.58  0.60</span></span>
+<span><span class="co">#&gt; [5,]  0.20  0.70  0.80  0.26  0.42  0.60  0.56  0.30  0.62  1.00  0.70  0.34</span></span>
+<span><span class="co">#&gt; [6,]  0.86  0.68  0.96  0.80  0.78  0.20  0.64  0.38  0.88  0.84  0.70  0.82</span></span></code></pre></div>
 </div>
   </div>
 
