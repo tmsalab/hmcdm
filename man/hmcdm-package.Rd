@@ -6,14 +6,16 @@
 \alias{_PACKAGE}
 \title{hmcdm: Hidden Markov Cognitive Diagnosis Models for Learning}
 \description{
-Fitting hidden Markov models of learning under the cognitive diagnosis framework. The estimation of the hidden Markov diagnostic classification model, the first order hidden Markov model, the reduced-reparameterized unified learning model, and the joint learning model for responses and response times. Chen, Y., Culpepper, S. A., Wang, S., & Douglas, J. (2018) \doi{10.1177/0146621617721250}. Wang, S., Yang, Y., Culpepper, S. A., & Douglas, J. A. (2018) \doi{10.3102/1076998617719727}. Wang, S., Zhang, S., Douglas, J., & Culpepper, S. (2018) \doi{10.1080/15366367.2018.1435105}. Zhang, S., Douglas, J. A., Wang, S. & Culpepper, S. A. (2019) \doi{10.1007/978-3-030-05584-4_24}.
+Fitting hidden Markov models of learning under the cognitive diagnosis framework. The estimation of the hidden Markov diagnostic classification model, the first order hidden Markov model, the reduced-reparameterized unified learning model, and the joint learning model for responses and response times.
 }
 \references{
-Wang, S., Yang, Y., Culpepper, S. A., & Douglas, J. A. (2018) \url{doi:10.3102/1076998617719727} "Tracking Skill Acquisition With Cognitive Diagnosis Models: A Higher-Order, Hidden Markov Model With Covariates."
+Wang, S., Yang, Y., Culpepper, S. A., & Douglas, J. A. (2018) \doi{10.3102/1076998617719727} "Tracking Skill Acquisition With Cognitive Diagnosis Models: A Higher-Order, Hidden Markov Model With Covariates."
 
-Chen, Y., Culpepper, S. A., Wang, S., & Douglas, J. (2018) \url{doi:10.1177/0146621617721250} "A hidden Markov model for learning trajectories in cognitive diagnosis with application to spatial rotation skills."
+Chen, Y., Culpepper, S. A., Wang, S., & Douglas, J. (2018) \doi{10.1177/0146621617721250} "A hidden Markov model for learning trajectories in cognitive diagnosis with application to spatial rotation skills."
 
-Wang, S., Zhang, S., Douglas, J., & Culpepper, S. (2018) \url{doi:10.1080/15366367.2018.1435105} "Using Response Times to Assess Learning Progress: A Joint Model for Responses and Response Times."
+Wang, S., Zhang, S., Douglas, J., & Culpepper, S. (2018) \doi{10.1080/15366367.2018.1435105} "Using Response Times to Assess Learning Progress: A Joint Model for Responses and Response Times."
+
+Zhang, S., Douglas, J. A., Wang, S. & Culpepper, S. A. (2019) \doi{10.1007/978-3-030-05584-4_24} "Reduced Reparameterized Unified Model Applied to Learning Spatial Rotation Skills."
 }
 \seealso{
 Useful links:

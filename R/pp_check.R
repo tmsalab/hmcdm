@@ -9,6 +9,7 @@
 #' Type `"item_mean"` is related to the first order moment and examines mean scores of all the items included in the test. 
 #' Type `"item_OR"` is related to the second order moment and examines odds ratios of all item pairs.
 #' Types `"latency_mean"` and `"total_latency"` are available only for `hmcdm` objects that include item response time information (i.e., `hmcdm` object fitted with "`DINA_HO_RT`" model).
+#' @param ... Additional arguments 
 #' @return Plots for checking the posterior predictive distributions. The default `Plotfun` `"dens_overlay"` plots density of each dataset are overlaid with the distribution of the observed values.
 #' @seealso 
 #' [bayesplot::ppc_dens_overlay()]
@@ -17,7 +18,7 @@
 #' [bayesplot::ppc_scatter_avg()]
 #' [bayesplot::ppc_error_scatter_avg()]
 #' @references 
-#' Zhang, S., Douglas, J. A., Wang, S. & Culpepper, S. A. (2019) <doi:10.1007/978-3-030-05584-4_24>
+#' Zhang, S., Douglas, J. A., Wang, S. & Culpepper, S. A. (2019) <\doi{10.1007/978-3-030-05584-4_24}>
 #' @examples
 #' \donttest{
 #' output_FOHM = hmcdm(Y_real_array,Q_matrix,"DINA_FOHM",Design_array,1000,500)
@@ -26,7 +27,7 @@
 #' pp_check(output_FOHM, plotfun="hist", type="item_mean")
 #' }
 #' @export
-pp_check.hmcdm <- function(object,plotfun="dens_overlay",type="total_score"){
+pp_check.hmcdm <- function(object, plotfun = "dens_overlay", type = "total_score", ...){
   N <- dim(object$input_data$Response)[1]
   L <- dim(object$input_data$Response)[3]
   J <- dim(object$input_data$Response)[2]
@@ -142,6 +143,10 @@ pp_check.hmcdm <- function(object,plotfun="dens_overlay",type="total_score"){
   
   return(result)
 }
+
+
+
+
 
 
 

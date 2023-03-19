@@ -1,5 +1,6 @@
 ## R CMD check results
-There were no ERRORs, WARNINGs or NOTEs.
+
+0 errors | 0 warnings | 0 notes
 
 ## Downstream dependencies
 There are currently no downstream dependencies for this package.

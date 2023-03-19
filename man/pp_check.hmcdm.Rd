@@ -4,7 +4,7 @@
 \alias{pp_check.hmcdm}
 \title{Graphical posterior predictive checks for hidden Markov cognitive diagnosis model}
 \usage{
-\method{pp_check}{hmcdm}(object, plotfun = "dens_overlay", type = "total_score")
+\method{pp_check}{hmcdm}(object, plotfun = "dens_overlay", type = "total_score", ...)
 }
 \arguments{
 \item{object}{a fitted model object of class "\code{hmcdm}".}
@@ -18,6 +18,8 @@ The list of available types include \code{"total_score"}, \code{"item_mean"}, \c
 Type \code{"item_mean"} is related to the first order moment and examines mean scores of all the items included in the test.
 Type \code{"item_OR"} is related to the second order moment and examines odds ratios of all item pairs.
 Types \code{"latency_mean"} and \code{"total_latency"} are available only for \code{hmcdm} objects that include item response time information (i.e., \code{hmcdm} object fitted with "\code{DINA_HO_RT}" model).}
+
+\item{...}{Additional arguments}
 }
 \value{
 Plots for checking the posterior predictive distributions. The default \code{Plotfun} \code{"dens_overlay"} plots density of each dataset are overlaid with the distribution of the observed values.
@@ -34,7 +36,7 @@ pp_check(output_FOHM, plotfun="hist", type="item_mean")
 }
 }
 \references{
-Zhang, S., Douglas, J. A., Wang, S. & Culpepper, S. A. (2019) \url{doi:10.1007/978-3-030-05584-4_24}
+Zhang, S., Douglas, J. A., Wang, S. & Culpepper, S. A. (2019) <\doi{10.1007/978-3-030-05584-4_24}>
 }
 \seealso{
 \code{\link[bayesplot:PPC-distributions]{bayesplot::ppc_dens_overlay()}}
