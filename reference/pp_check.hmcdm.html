@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hmcdm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.1</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for hmcdm</span></span>
-<span><span class="fu">pp_check</span><span class="op">(</span><span class="va">object</span>, plotfun <span class="op">=</span> <span class="st">"dens_overlay"</span>, type <span class="op">=</span> <span class="st">"total_score"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">pp_check</span><span class="op">(</span><span class="va">object</span>, plotfun <span class="op">=</span> <span class="st">"dens_overlay"</span>, type <span class="op">=</span> <span class="st">"total_score"</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -107,6 +107,10 @@ Type <code>"item_mean"</code> is related to the first order moment and examines 
 Type <code>"item_OR"</code> is related to the second order moment and examines odds ratios of all item pairs.
 Types <code>"latency_mean"</code> and <code>"total_latency"</code> are available only for <code>hmcdm</code> objects that include item response time information (i.e., <code>hmcdm</code> object fitted with "<code>DINA_HO_RT</code>" model).</p></dd>
 
+
+<dt>...</dt>
+<dd><p>Additional arguments</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -118,7 +122,8 @@ Types <code>"latency_mean"</code> and <code>"total_latency"</code> are available
     </div>
     <div id="references">
     <h2>References</h2>
-    <p>Zhang, S., Douglas, J. A., Wang, S. &amp; Culpepper, S. A. (2019) <a href="doi:10.1007/978-3-030-05584-4_24">doi:10.1007/978-3-030-05584-4_24</a></p>
+    <p>Zhang, S., Douglas, J. A., Wang, S. &amp; Culpepper, S. A. (2019) &lt;<a href="https://doi.org/10.1007/978-3-030-05584-4_24" class="external-link">doi:10.1007/978-3-030-05584-4_24</a>
+&gt;</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
