@@ -1,3 +1,9 @@
+# hmcdm 2.1.2
+
+- Release of `hmcdm` package version 2.1.2.
+
+- Resolved compilation warnings on CRAN by replacing the deprecated `arma::conv_to<double>::from()` with `arma::as_scalar()`. This addresses an issue introduced by a recent `RcppArmadillo` update and ensures forward compatibility with the latest version of Armadillo.
+
 # hmcdm 2.1.0
 
 - Release of `hmcdm` package version 2.1.0.

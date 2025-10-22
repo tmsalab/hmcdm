@@ -1456,10 +1456,10 @@ void parm_update_rRUM_g(const arma::cube& Design_array,
       for(unsigned int k=0;k<K;k++){
         arma::vec alpha_i_1 = alpha_i;
         alpha_i_1(k) = 1.0;
-        c_aik_1 = (arma::conv_to< double >::from( alpha_i_1.t()*bijectionvector(K) ));
+        c_aik_1 = (arma::as_scalar( alpha_i_1.t()*bijectionvector(K) ));
         arma::vec alpha_i_0 = alpha_i;
         alpha_i_0(k) = 0.0;
-        c_aik_0 = (arma::conv_to< double >::from( alpha_i_0.t()*bijectionvector(K) ));
+        c_aik_0 = (arma::as_scalar( alpha_i_0.t()*bijectionvector(K) ));
         // Rcpp::Rcout<<alpha_i_1<<std::endl;
         // Rcpp::Rcout<<alpha_i_0<<std::endl;
         
@@ -1546,9 +1546,9 @@ void parm_update_rRUM_g(const arma::cube& Design_array,
       arma::vec Xjk = Xj.col(kj);
       arma::vec ak = alpha.col(kj);
 
-      double Sumalphak =  (arma::conv_to< double >::from(ak.t() * ak));
-      double SumXjk = (arma::conv_to< double >::from(Xjk.t() * Xjk));
-      double SumXjkalphak = (arma::conv_to< double >::from(Xjk.t() * ak));
+      double Sumalphak =  (arma::as_scalar(ak.t() * ak));
+      double SumXjk = (arma::as_scalar(Xjk.t() * Xjk));
+      double SumXjkalphak = (arma::as_scalar(Xjk.t() * ak));
       double bsk = SumXjkalphak ;
       double ask = Sumalphak - SumXjkalphak ;
       double agk = SumXjk - SumXjkalphak ;
@@ -1765,10 +1765,10 @@ void parm_update_NIDA_indept_g(const arma::cube& Design_array,
       for(unsigned int k=0;k<K;k++){
         arma::vec alpha_i_1 = alpha_i;
         alpha_i_1(k) = 1.0;
-        c_aik_1 = (arma::conv_to< double >::from( alpha_i_1.t()*bijectionvector(K) ));
+        c_aik_1 = (arma::as_scalar( alpha_i_1.t()*bijectionvector(K) ));
         arma::vec alpha_i_0 = alpha_i;
         alpha_i_0(k) = 0.0;
-        c_aik_0 = (arma::conv_to< double >::from( alpha_i_0.t()*bijectionvector(K) ));
+        c_aik_0 = (arma::as_scalar( alpha_i_0.t()*bijectionvector(K) ));
         // Rcpp::Rcout<<alpha_i_1<<std::endl;
         // Rcpp::Rcout<<alpha_i_0<<std::endl;
         

@@ -175,7 +175,7 @@ arma::mat ETAmat(unsigned int K,unsigned int J,const arma::mat& Q) {
     arma::vec alpha_c = inv_bijectionvector(K,cc);
     for(unsigned int j=0;j<J;j++){                  //*
       arma::rowvec qj = Q.row(j);
-      double compare = arma::conv_to<double>::from(qj*alpha_c - qj*qj.t());
+      double compare = arma::as_scalar(qj*alpha_c - qj*qj.t());
       ETA(j,cc) = (compare>=0);
     }
   }
