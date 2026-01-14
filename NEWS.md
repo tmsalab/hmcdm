@@ -1,3 +1,11 @@
+# hmcdm 2.1.3
+
+- Release of `hmcdm` package version 2.1.3.
+
+- Resolved the following warning by setting C++ standard specification to CXX_STD = CXX17.
+
+	- Warning: src/Makevars: Unknown C++ standard ‘’ was ignored
+
 # hmcdm 2.1.2
 
 - Release of `hmcdm` package version 2.1.2.
